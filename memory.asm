@@ -204,9 +204,10 @@
 	;#Code l Rng
 	;#Data l sinusoid
 	
-	;#Data l background // Dummy
-	;#Data l character  // Dummy
-	;#Data l palette    // Dummy
+	;#Data l character
+	;#Data l palette
+	;#Data l level
+	;#Data l sea
 	
 	;#Data l rom_header
 	;#Data l vector_table
