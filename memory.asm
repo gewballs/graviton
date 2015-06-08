@@ -141,6 +141,9 @@
 	;#Name $05      Draw_Sprite.y        b
 	;#Name $06      Draw_Sprite.char_i   w
 	;#Name $08      Draw_Sprite.obj_p_override b
+
+	;#Name $0A      AnimateSprite.base   w
+	;#Name $0C      AnimateSprite.script w
 	
 	;#Name $0100    oam                  b[0x0200]
 	;#Name $0100    oam.x                b
@@ -154,7 +157,12 @@
 	;#Name $0520    Nmi.VRAM_Write.tablei b[0xE0]
 	;#Name $0520    Nmi.VRAM_Write.addr  w
 	;#Name $0522    Nmi.VRAM_Write.data  w
-	
+
+	;#Name $0524    vrtan.state
+	;#Name $0526    vrtan.body.script
+	;#Name $0528    vrtan.body.frame
+	;#Name $052A    vrtan.body.timer
+
 	
 	;# WRAM $7E:2000-$7E:FFFF
 	
@@ -192,7 +200,24 @@
 	;#Code w Engine.Run
 	;#Code w Test_Joy
 	;#Code w Pause
-	
+
+
+
+
+
+
+	;#Code w DrawSea
+	;#Code w DrawVrtan 
+	;#Code w AnimateSprite
+
+
+
+
+
+
+
+
+
 	;#Code l Immediate_DMA
 	
 	;#Code l Ready_Oam
@@ -203,12 +228,43 @@
 	;#Code l Divide
 	;#Code l Rng
 	;#Data l sinusoid
-	
+
+
+
+
+	;# Backgrounds
 	;#Data l character
 	;#Data l palette
 	;#Data l level
 	;#Data l sea
+	;#Data l vrtan
 	
+	;# Sprite Scripts
+	;#Data w vrtan.body.idle.r.script
+	;#Data w vrtan.body.jump.r.script
+	;#Data w vrtan.body.walk.r.script
+
+	;# Body Sprite
+	;#Data w vrtan.body.idle.r.0
+	;#Data w vrtan.body.idle.r.1
+	;#Data w vrtan.body.idle.r.2
+
+	;# Legs Sprite
+	;#Data w vrtan.legs.idle.r.0
+	;#Data w vrtan.legs.jump.r.0
+	;#Data w vrtan.legs.walk.r.0
+	;#Data w vrtan.legs.walk.r.1
+	;#Data w vrtan.legs.walk.r.2
+	;#Data w vrtan.legs.walk.r.3
+	;#Data w vrtan.legs.walk.r.4
+	;#Data w vrtan.legs.walk.r.5
+
+
+
+
+
+
+
 	;#Data l rom_header
 	;#Data l vector_table
 	

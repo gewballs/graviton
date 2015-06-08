@@ -184,7 +184,7 @@
 	;JSL Immediate_DMA
 	;#Data {$02 $22 $7E:0320 $0200}
 	;REP #$20
-	;LDA #$8000
+	;LDA #$0000
 	;STA OAMADD
 	;JSL Immediate_DMA
 	;#Data {$02 $04 $7E:0100 $0220}

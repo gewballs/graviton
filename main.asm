@@ -69,7 +69,11 @@
 	;LDA #$1000
 	;STA VMADD
 	;JSL Immediate_DMA
-	;#Data {$01 $18 character $0800} // Character set
+	;#Data {$01 $18 character $0800} // Bg character set
+	;LDA #$6000
+	;STA VMADD
+	;JSL Immediate_DMA
+	;#Data {$01 $18 vrtan $0A00} // Vrtan character set
 	;LDA #$7E03
 	;STA WMADD.h
 	;LDA #$0320
@@ -81,6 +85,8 @@
 	;STA Rng.number
 	;
 	;SEP #$20 // Initiate registers
+	;LDA #03  // OBJ=8x8,NameSelect=+0x2000,Base=0xC000
+	;STA objsel
 	;LDA #$01 // BG4=8x8,BG3=8x8,BG2=8x8,BG1=8x8,BG3Priority-0,Mode 1
 	;STA bgmode
 	;LDA #$00 // VRAM Base=0x0000,SC=1x1
@@ -105,8 +111,15 @@
 	;STA INIDISP
 	;CLI
 	;
-	;REP #$20 // Engine.Fadein
-	;INC Main.program
+	;# Initiate Engine
+	;REP #$30
+	;LDA #vrtan.body.idle.r.script
+	;STA vrtan.body.script
+	;STZ vrtan.body.frame
+	;LDA #$0001
+	;STA vrtan.body.timer
+	;
+	;INC Main.program // Engine Fade In
 	;
 	;PLB
 	;PLP
@@ -149,14 +162,12 @@
 	;JSL Ready_Oam
 	;JSL Rng
 	;
-	;REP #$20
-	;LDA #$0001
-	;CLC
-	;ADC bg2hofs
-	;STA bg2hofs
-	;SEP #$20
+	;JSR DrawSea
+	;JSR DrawVrtan
 	;
-	;# GAME LOGIC GOES HERE ~~~(|=======8
+	;
+	;
+	;
 	;JSL Hide_Unused_Oam
 	;
 	;LDA #$FF
@@ -170,12 +181,49 @@
 	;RTS
 	
 
+	;#Code w {DrawSea}
+	;PHP
+	;REP #$20 // Animate Sea
+	;LDA #$0001
+	;CLC
+	;ADC bg2hofs
+	;STA bg2hofs
+	;SEP #$20
+	;PLP
+	;RTS
+
+
+	;#Code w {DrawVrtan}
+	;PHP
+	;
+	;SEP #$20
+	;STZ Draw_Sprite.data_bank
+	;STZ Draw_Sprite.obj_p_override
+	;LDA #$78
+	;STA Draw_Sprite.x
+	;LDA #$A8
+	;STA Draw_Sprite.y
+	;REP #$30
+	;LDA #vrtan.body.script
+	;STA AnimateSprite.base
+	;JSR AnimateSprite
+	;
+	;REP #$20
+	;LDA #vrtan.legs.idle.r.0
+	;STA Draw_Sprite.data_i
+	;JSR Draw_Sprite
+	;
+	;PLP
+	;RTS
+
+	
+	;#File vrtan.spr
 
 	;#Data l character  {#graviton.chr}
+	;#Data l vrtan      {#vrtan.chr}
 	;#Data l palette    {#graviton.pal}
 	;#Data l level      {#level.nmt}
 	;#Data l sea        {#sea.nmt}
-
 
 
 	# ROM Registration =================================================
