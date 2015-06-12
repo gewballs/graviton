@@ -144,6 +144,7 @@
 
 	;#Name $0A      AnimateSprite.base   w
 	;#Name $0C      AnimateSprite.script w
+	;#Name $0E      AnimateSprite.timer  w
 	
 	;#Name $0100    oam                  b[0x0200]
 	;#Name $0100    oam.x                b
@@ -158,10 +159,13 @@
 	;#Name $0520    Nmi.VRAM_Write.addr  w
 	;#Name $0522    Nmi.VRAM_Write.data  w
 
-	;#Name $0524    vrtan.state
-	;#Name $0526    vrtan.body.script
-	;#Name $0528    vrtan.body.frame
-	;#Name $052A    vrtan.body.timer
+	;#Name $0600    vrtan.body.script
+	;#Name $0602    vrtan.body.frame
+	;#Name $0604    vrtan.body.timer
+	
+	;#Name $0606    vrtan.legs.script
+	;#Name $0608    vrtan.legs.frame
+	;#Name $060A    vrtan.legs.timer
 
 	
 	;# WRAM $7E:2000-$7E:FFFF
@@ -238,20 +242,44 @@
 	;#Data l level
 	;#Data l sea
 	;#Data l vrtan
-	
+
 	;# Sprite Scripts
+	;#Data w vrtan.body.debug.r.script
+	;#Data w vrtan.legs.debug.r.script
+	
 	;#Data w vrtan.body.idle.r.script
-	;#Data w vrtan.body.jump.r.script
 	;#Data w vrtan.body.walk.r.script
+	;#Data w vrtan.body.jump.r.script
+	;#Data w vrtan.body.punch.r.script
+	;#Data w vrtan.body.uppercut.r.script
+
+	;#Data w vrtan.legs.idle.r.script
+	;#Data w vrtan.legs.walk.r.script
+	;#Data w vrtan.legs.jump.r.script
+	;#Data w vrtan.legs.punch.r.script
+
 
 	;# Body Sprite
 	;#Data w vrtan.body.idle.r.0
 	;#Data w vrtan.body.idle.r.1
 	;#Data w vrtan.body.idle.r.2
+	
+	;#Data w vrtan.body.walk.r.0
+	;#Data w vrtan.body.walk.r.1
+	;#Data w vrtan.body.walk.r.2
+
+	;#Data w vrtan.body.jump.r.0
+	
+	;#Data w vrtan.body.punch.r.0
+	;#Data w vrtan.body.punch.r.1
+	
+	;#Data w vrtan.body.uppercut.r.0
+	;#Data w vrtan.body.uppercut.r.1
+	;#Data w vrtan.body.uppercut.r.2
 
 	;# Legs Sprite
 	;#Data w vrtan.legs.idle.r.0
-	;#Data w vrtan.legs.jump.r.0
+	
 	;#Data w vrtan.legs.walk.r.0
 	;#Data w vrtan.legs.walk.r.1
 	;#Data w vrtan.legs.walk.r.2
@@ -259,6 +287,7 @@
 	;#Data w vrtan.legs.walk.r.4
 	;#Data w vrtan.legs.walk.r.5
 
+	;#Data w vrtan.legs.jump.r.0
 
 
 

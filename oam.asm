@@ -269,8 +269,6 @@
 	;#Code w {AnimateSprite}
 	;PHP
 	;
-	;LDA $FFFF
-	;
 	;REP #$30
 	;LDA (AnimateSprite.base) // Get script pointer
 	;STA AnimateSprite.script
@@ -283,30 +281,30 @@
 	;TAY
 	;LDA (AnimateSprite.script),Y // Get sprite pointer
 	;STA Draw_Sprite.data_i
+	;INY
+	;INY
+	;LDA (AnimateSprite.script),Y // Get timer max
+	;STA AnimateSprite.timer
 	;JSR Draw_Sprite
 	;
 	;LDY #$0004
 	;LDA (AnimateSprite.base),Y // Get timer
-	;DEC A
-	;BNE {+Same}
+	;INC A
+	;CMP AnimateSprite.timer
+	;BNE {+Stay}
 	;
-	;LDY #$0002
-	;LDA (AnimateSprite.base),Y // Get frame
+	;LDY #$0002 // Increment or loop frame
+	;LDA (AnimateSprite.base),Y
 	;INC A
 	;CMP (AnimateSprite.script) // Compare with number of frames
 	;BNE {+NoLoop}
 	;LDA #$0000
 ;{+NoLoop}	;STA (AnimateSprite.base),Y
 	;
-	;ASL A
-	;ASL A
-	;CLC
-	;ADC #$0004
-	;TAY
-	;LDA (AnimateSprite.script),Y
+	;LDA #$0000
 	;LDY #$0004
 	;
-;{+Same}	;STA (AnimateSprite.base),Y
+;{+Stay}	;STA (AnimateSprite.base),Y
 	;
 	;PLP
 	;RTS

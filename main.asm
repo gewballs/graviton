@@ -113,11 +113,15 @@
 	;
 	;# Initiate Engine
 	;REP #$30
-	;LDA #vrtan.body.idle.r.script
+	;LDA #vrtan.body.debug.r.script
 	;STA vrtan.body.script
 	;STZ vrtan.body.frame
-	;LDA #$0001
-	;STA vrtan.body.timer
+	;STZ vrtan.body.timer
+	;
+	;LDA #vrtan.legs.debug.r.script
+	;STA vrtan.legs.script
+	;STZ vrtan.legs.frame
+	;STZ vrtan.legs.timer
 	;
 	;INC Main.program // Engine Fade In
 	;
@@ -165,8 +169,36 @@
 	;JSR DrawSea
 	;JSR DrawVrtan
 	;
-	;
-	;
+	;REP #$30 // !!! DEBUG FRAME !!!
+	;LDX Nmi.VRAM_Write.table_i
+	;LDA #$026F
+	;STA Nmi.VRAM_Write.addr,X
+	;LDA vrtan.legs.frame
+	;LSR A
+	;LSR A
+	;LSR A
+	;LSR A
+	;AND #$000F
+	;CLC
+	;ADC #$2410
+	;STA Nmi.VRAM_Write.data,X
+	;INX
+	;INX
+	;INX
+	;INX
+	;LDA #$0270
+	;STA Nmi.VRAM_Write.addr,X
+	;LDA vrtan.legs.frame
+	;AND #$000F
+	;CLC
+	;ADC #$2410
+	;STA Nmi.VRAM_Write.data,X
+	;INX
+	;INX
+	;INX
+	;INX
+	;STX Nmi.VRAM_Write.table_i
+	;SEP #$20 // !!! END DEBUG !!!
 	;
 	;JSL Hide_Unused_Oam
 	;
@@ -208,10 +240,9 @@
 	;STA AnimateSprite.base
 	;JSR AnimateSprite
 	;
-	;REP #$20
-	;LDA #vrtan.legs.idle.r.0
-	;STA Draw_Sprite.data_i
-	;JSR Draw_Sprite
+	;LDA #vrtan.legs.script
+	;STA AnimateSprite.base
+	;JSR AnimateSprite
 	;
 	;PLP
 	;RTS
