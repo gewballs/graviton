@@ -145,7 +145,28 @@
 	;#Name $0A      AnimateSprite.base   w
 	;#Name $0C      AnimateSprite.script w
 	;#Name $0E      AnimateSprite.timer  w
-	
+
+
+
+	;#Name $00      Grounded.x
+	;#Name $02      Grounded.y
+	;#Name $04      Grounded.width
+	;#Name $06      Grounded.height
+	;#Name $08      Grounded.dx
+	;#Name $0A      Grounded.row
+
+	;#Name $00      Move.x0.ptr
+	;#Name $03      Move.x1.ptr
+	;#Name $06      Move.dx
+	;#Name $08      Move.dy
+	;#Name $0A      Move.hit.dx
+	;#Name $0C      Move.hit.dy
+
+
+
+
+	;# Graphic Buffer ==================================================
+
 	;#Name $0100    oam                  b[0x0200]
 	;#Name $0100    oam.x                b
 	;#Name $0101    oam.y                b
@@ -159,21 +180,48 @@
 	;#Name $0520    Nmi.VRAM_Write.addr  w
 	;#Name $0522    Nmi.VRAM_Write.data  w
 
-	;#Name $0600    vrtan.body.script
-	;#Name $0602    vrtan.body.frame
-	;#Name $0604    vrtan.body.timer
-	
-	;#Name $0606    vrtan.legs.script
-	;#Name $0608    vrtan.legs.frame
-	;#Name $060A    vrtan.legs.timer
+	;# Player Structure ================================================
+	;#Name $0600    vrtan.state
 
+	;#Name $0602    vrtan.x0
+	;#Name $0606    vrtan.y0
 	
+	;#Name $0604    vrtan.x1
+	;#Name $0608    vrtan.y1
+
+	;#Name $060A    vrtan.vx
+	;#Name $060C    vrtan.vy
+
+	;#Name $060E    vrtan.left
+	;#Name $0610    vrtan.flip
+	
+	;#Name $0612    vrtan.ghost
+	;#Name $0614    vrtan.jump
+	;#Name $0616    vrtan.width
+	;#Name $0618    vrtan.height
+
+	;#Name $0620    vrtan.body.script
+	;#Name $0622    vrtan.body.frame
+	;#Name $0624    vrtan.body.timer
+	
+	;#Name $0626    vrtan.legs.script
+	;#Name $0628    vrtan.legs.frame
+	;#Name $062A    vrtan.legs.timer
+
+	;# Environment =====================================================
+	;#Name $0700  gravity
+
 	;# WRAM $7E:2000-$7E:FFFF
+	;#Name $2000  level // w[0x0400]
 	
 	
 	;# WRAM $7F:0000-$7F:FFFF
 	
-	
+	;# VRAM
+	;#Name $0000  vram.bg1.name
+	;#Name $0400  vram.bg2.name
+	;#Name $1000  vram.bg.char
+	;#Name $6000  vram.obj.char
 	
 	
 	;# ROM =============================================================
@@ -214,8 +262,24 @@
 	;#Code w DrawVrtan 
 	;#Code w AnimateSprite
 
+	
+	
+	;#Code w Vrtan
+	;#Code w Vrtan.Player
+	;#Code w Vrtan.Idle
+	;#Code w Vrtan.Walk
+	;#Code w Vrtan.Jump
+	;#Code w Vrtan.Fall
+	;#Code w Vrtan.Punch
+	;#Code w Vrtan.JumpPunch
+	;#Code w Vrtan.FallPunch
+	;#Code w Vrtan.Uppercut
+	;#Code w Vrtan.Crush
+	;#Code w Vrtan.JumpSpike
+	;#Code w Vrtan.FallSpike
+	;#Code w Vrtan.Respawn
 
-
+	;#Code w Grounded
 
 
 
@@ -237,36 +301,46 @@
 
 
 	;# Backgrounds
-	;#Data l character
+	;#Data l bg.char
 	;#Data l palette
-	;#Data l level
-	;#Data l sea
-	;#Data l vrtan
+	;#Data l level.name
+	;#Data l sea.name
+	;#Data l vrtan.char
 
 	;# Sprite Scripts
 	;#Data w vrtan.body.debug.r.script
 	;#Data w vrtan.legs.debug.r.script
 	
 	;#Data w vrtan.body.idle.r.script
+	;#Data w vrtan.body.idle.l.script
+	;#Data w vrtan.body.walk.l.script
 	;#Data w vrtan.body.walk.r.script
 	;#Data w vrtan.body.jump.r.script
 	;#Data w vrtan.body.punch.r.script
 	;#Data w vrtan.body.uppercut.r.script
 
 	;#Data w vrtan.legs.idle.r.script
+	;#Data w vrtan.legs.idle.l.script
 	;#Data w vrtan.legs.walk.r.script
+	;#Data w vrtan.legs.walk.l.script
 	;#Data w vrtan.legs.jump.r.script
 	;#Data w vrtan.legs.punch.r.script
 
 
 	;# Body Sprite
 	;#Data w vrtan.body.idle.r.0
+	;#Data w vrtan.body.idle.l.0
 	;#Data w vrtan.body.idle.r.1
+	;#Data w vrtan.body.idle.l.1
 	;#Data w vrtan.body.idle.r.2
+	;#Data w vrtan.body.idle.l.2
 	
 	;#Data w vrtan.body.walk.r.0
+	;#Data w vrtan.body.walk.l.0
 	;#Data w vrtan.body.walk.r.1
+	;#Data w vrtan.body.walk.l.1
 	;#Data w vrtan.body.walk.r.2
+	;#Data w vrtan.body.walk.l.2
 
 	;#Data w vrtan.body.jump.r.0
 	

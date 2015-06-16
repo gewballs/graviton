@@ -1,49 +1,3 @@
-	;#Data w vrtan.body.debug.r.script {
-		$000F
-		vrtan.body.idle.r.0 $0040
-		vrtan.body.idle.r.1 $0040
-		vrtan.body.idle.r.2 $0040
-		
-		vrtan.body.walk.r.0 $0040
-		vrtan.body.walk.r.0 $0040
-		vrtan.body.walk.r.1 $0040
-		vrtan.body.walk.r.2 $0040
-		vrtan.body.walk.r.2 $0040
-		vrtan.body.walk.r.1 $0040
-		
-		vrtan.body.jump.r.0 $0040
-
-		vrtan.body.punch.r.0 $0040
-		vrtan.body.punch.r.1 $0040
-		
-		vrtan.body.uppercut.r.0 $0040
-		vrtan.body.uppercut.r.1 $0040
-		vrtan.body.uppercut.r.2 $0040
-	}
-
-	;#Data w vrtan.legs.debug.r.script {
-		$000F
-		vrtan.legs.idle.r.0 $0040
-		vrtan.legs.idle.r.0 $0040
-		vrtan.legs.idle.r.0 $0040
-		
-		vrtan.legs.walk.r.0 $0040
-		vrtan.legs.walk.r.1 $0040
-		vrtan.legs.walk.r.2 $0040
-		vrtan.legs.walk.r.3 $0040
-		vrtan.legs.walk.r.4 $0040
-		vrtan.legs.walk.r.5 $0040
-
-		vrtan.legs.jump.r.0 $0040
-		
-		vrtan.legs.walk.r.1 $0040
-		vrtan.legs.walk.r.1 $0040
-		
-		vrtan.legs.walk.r.1 $0040
-		vrtan.legs.walk.r.1 $0040
-		vrtan.legs.walk.r.1 $0040
-	}
-
 	;# Body Scripts ====================================================
 	;#Data w vrtan.body.idle.r.script {
 		$0004
@@ -52,6 +6,14 @@
 		vrtan.body.idle.r.2 $001C
 		vrtan.body.idle.r.1 $0004
 	}
+	;#Data w vrtan.body.idle.l.script {
+		$0004
+		vrtan.body.idle.l.0 $0008
+		vrtan.body.idle.l.1 $0004
+		vrtan.body.idle.l.2 $001C
+		vrtan.body.idle.l.1 $0004
+	}
+	
 	
 	;#Data w vrtan.body.walk.r.script {
 		$0004
@@ -60,6 +22,14 @@
 		vrtan.body.walk.r.2 $0008
 		vrtan.body.walk.r.1 $0004
 	}
+	;#Data w vrtan.body.walk.l.script {
+		$0004
+		vrtan.body.walk.l.0 $0008
+		vrtan.body.walk.l.1 $0004
+		vrtan.body.walk.l.2 $0008
+		vrtan.body.walk.l.1 $0004
+	}
+	
 	
 	;#Data w vrtan.body.jump.r.script {
 		$0001
@@ -124,6 +94,21 @@
 		$00 $10 $2012 $00
 		$08 $10 $2013 $00
 	}
+	;#Data w vrtan.body.idle.l.0 {
+		$09
+		$08 $08 $E026 $00
+		$00 $08 $E027 $00
+		$08 $10 $E028 $00
+		$00 $10 $E029 $00
+		
+		$08 $00 $E002 $00
+		$00 $00 $E003 $00
+		$08 $08 $E00A $00
+		$00 $08 $E00B $00
+		$08 $10 $E012 $00
+		$00 $10 $E013 $00
+	}
+		
 	;#Data w vrtan.body.idle.r.1 {
 		$09
 		$00 $09 $2026 $00
@@ -137,8 +122,22 @@
 		$08 $08 $200B $00
 		$00 $10 $2012 $00
 		$08 $10 $2013 $00
-
 	}
+	;#Data w vrtan.body.idle.l.1 {
+		$09
+		$00 $09 $2026 $00
+		$08 $09 $2027 $00
+		$00 $11 $2028 $00
+		$08 $11 $2029 $00
+		
+		$00 $00 $2002 $00
+		$08 $00 $2003 $00
+		$00 $08 $200A $00
+		$08 $08 $200B $00
+		$00 $10 $2012 $00
+		$08 $10 $2013 $00
+	}
+	
 	;#Data w vrtan.body.idle.r.2 {
 		$09
 		$00 $08 $202A $00
@@ -153,8 +152,37 @@
 		$00 $10 $2012 $00
 		$08 $10 $2013 $00
 	}
+	;#Data w vrtan.body.idle.l.2 {
+		$09
+		$00 $08 $202A $00
+		$08 $08 $202B $00
+		$FF $10 $202C $01
+		$07 $10 $202D $00
+		
+		$00 $00 $2002 $00
+		$08 $00 $2003 $00
+		$00 $08 $200A $00
+		$08 $08 $200B $00
+		$00 $10 $2012 $00
+		$08 $10 $2013 $00
+	}
+
 
 	;#Data w vrtan.body.walk.r.0 {
+		$09
+		$00 $08 $202A $00
+		$08 $08 $202B $00
+		$FF $10 $202C $01
+		$07 $10 $202D $00
+
+		$00 $00 $2002 $00
+		$08 $00 $2003 $00
+		$00 $08 $200A $00
+		$08 $08 $200B $00
+		$00 $10 $2012 $00
+		$08 $10 $2013 $00
+	}
+	;#Data w vrtan.body.walk.l.0 {
 		$09
 		$00 $08 $202A $00
 		$08 $08 $202B $00
@@ -183,6 +211,20 @@
 		$00 $10 $2010 $00
 		$08 $10 $2011 $00
 	}
+	;#Data w vrtan.body.walk.l.1 {
+		$09
+		$00 $08 $202A $00
+		$08 $08 $202B $00
+		$FF $10 $202C $01
+		$07 $10 $202D $00
+
+		$00 $00 $2002 $00
+		$08 $00 $2003 $00
+		$00 $08 $2008 $00
+		$08 $08 $2009 $00
+		$00 $10 $2010 $00
+		$08 $10 $2011 $00
+	}
 
 	;#Data w vrtan.body.walk.r.2 {
 		$09
@@ -198,6 +240,21 @@
 		$00 $10 $200E $00
 		$08 $10 $200F $00
 	}
+	;#Data w vrtan.body.walk.l.2 {
+		$09
+		$00 $08 $202A $00
+		$08 $08 $202B $00
+		$FF $10 $202C $01
+		$07 $10 $202D $00
+
+		$00 $00 $2000 $00
+		$08 $00 $2001 $00
+		$00 $08 $2006 $00
+		$08 $08 $2007 $00
+		$00 $10 $200E $00
+		$08 $10 $200F $00
+	}
+
 
 	;#Data w vrtan.body.jump.r.0 {
 		$09

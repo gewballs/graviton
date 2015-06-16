@@ -31,6 +31,8 @@
 	;#File math.asm
 	;#File oam.asm
 	;#File joy.asm
+
+	;#File vrtan.asm
 	
 	
 	;# Main Program ====================================================
@@ -58,22 +60,28 @@
 	;LDA #$80
 	;STA VMAINC
 	;REP #$30
-	;LDA #$0000
+	;LDA #$7E00
+	;STA WMADD.h
+	;LDA #level
+	;STA WMADD.l
+	;JSL Immediate_DMA
+	;#Data {$00 $80 level.name $0800} // Level name table
+	;LDA #vram.bg1.name
 	;STA VMADD
 	;JSL Immediate_DMA
-	;#Data {$01 $18 level $0800} // Level name table
-	;LDA #$0400
+	;#Data {$01 $18 level.name $0800} // Level name table
+	;LDA #vram.bg2.name
 	;STA VMADD
 	;JSL Immediate_DMA
-	;#Data {$01 $18 sea $0800} // Background name table
-	;LDA #$1000
+	;#Data {$01 $18 sea.name $0800} // Background name table
+	;LDA #vram.bg.char
 	;STA VMADD
 	;JSL Immediate_DMA
-	;#Data {$01 $18 character $0800} // Bg character set
-	;LDA #$6000
+	;#Data {$01 $18 bg.char $0800} // Bg character set
+	;LDA #vram.obj.char
 	;STA VMADD
 	;JSL Immediate_DMA
-	;#Data {$01 $18 vrtan $0A00} // Vrtan character set
+	;#Data {$01 $18 vrtan.char $0A00} // Vrtan character set
 	;LDA #$7E03
 	;STA WMADD.h
 	;LDA #$0320
@@ -111,18 +119,30 @@
 	;STA INIDISP
 	;CLI
 	;
-	;# Initiate Engine
+	;# Initiate Players
 	;REP #$30
-	;LDA #vrtan.body.debug.r.script
-	;STA vrtan.body.script
-	;STZ vrtan.body.frame
-	;STZ vrtan.body.timer
+	;LDA #Vrtan.Idle
+	;STA vrtan.state
+	;LDA #$0078
+	;STA vrtan.x0
+	;LDA #$00A8
+	;STA vrtan.y0
+	;STZ vrtan.vx
+	;STZ vrtan.vy
+	;STZ vrtan.left // 0=right , 1=left
+	;STZ vrtan.flip // 0=normal, 1=flipped
+	;LDA #$0020
+	;STA vrtan.height
+	;LDA #$0010
+	;STA vrtan.width
+	;LDA #$0040
+	;STA vrtan.ghost
 	;
-	;LDA #vrtan.legs.debug.r.script
-	;STA vrtan.legs.script
-	;STZ vrtan.legs.frame
-	;STZ vrtan.legs.timer
+	;# Initiate Environment
+	;LDA #$0008
+	;STA gravity
 	;
+	;# Next Program
 	;INC Main.program // Engine Fade In
 	;
 	;PLB
@@ -166,39 +186,9 @@
 	;JSL Ready_Oam
 	;JSL Rng
 	;
+	;JSR Vrtan
 	;JSR DrawSea
 	;JSR DrawVrtan
-	;
-	;REP #$30 // !!! DEBUG FRAME !!!
-	;LDX Nmi.VRAM_Write.table_i
-	;LDA #$026F
-	;STA Nmi.VRAM_Write.addr,X
-	;LDA vrtan.legs.frame
-	;LSR A
-	;LSR A
-	;LSR A
-	;LSR A
-	;AND #$000F
-	;CLC
-	;ADC #$2410
-	;STA Nmi.VRAM_Write.data,X
-	;INX
-	;INX
-	;INX
-	;INX
-	;LDA #$0270
-	;STA Nmi.VRAM_Write.addr,X
-	;LDA vrtan.legs.frame
-	;AND #$000F
-	;CLC
-	;ADC #$2410
-	;STA Nmi.VRAM_Write.data,X
-	;INX
-	;INX
-	;INX
-	;INX
-	;STX Nmi.VRAM_Write.table_i
-	;SEP #$20 // !!! END DEBUG !!!
 	;
 	;JSL Hide_Unused_Oam
 	;
@@ -231,9 +221,9 @@
 	;SEP #$20
 	;STZ Draw_Sprite.data_bank
 	;STZ Draw_Sprite.obj_p_override
-	;LDA #$78
+	;LDA vrtan.x0
 	;STA Draw_Sprite.x
-	;LDA #$A8
+	;LDA vrtan.y0
 	;STA Draw_Sprite.y
 	;REP #$30
 	;LDA #vrtan.body.script
@@ -250,11 +240,11 @@
 	
 	;#File vrtan.spr
 
-	;#Data l character  {#graviton.chr}
-	;#Data l vrtan      {#vrtan.chr}
+	;#Data l bg.char    {#graviton.chr}
+	;#Data l vrtan.char {#vrtan.chr}
 	;#Data l palette    {#graviton.pal}
-	;#Data l level      {#level.nmt}
-	;#Data l sea        {#sea.nmt}
+	;#Data l level.name {#level.nmt}
+	;#Data l sea.name   {#sea.nmt}
 
 
 	# ROM Registration =================================================
