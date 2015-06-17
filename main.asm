@@ -81,7 +81,7 @@
 	;LDA #vram.obj.char
 	;STA VMADD
 	;JSL Immediate_DMA
-	;#Data {$01 $18 vrtan.char $0A00} // Vrtan character set
+	;#Data {$01 $18 vrtan.char $1000} // Vrtan character set
 	;LDA #$7E03
 	;STA WMADD.h
 	;LDA #$0320
@@ -92,7 +92,11 @@
 	;LDA #$000D// Seed RNG
 	;STA Rng.number
 	;
-	;SEP #$20 // Initiate registers
+	;# Initiate Registers =========================
+	;LDA #$03FF
+	;STA bg1vofs
+	;STA bg2vofs
+	;SEP #$20
 	;LDA #03  // OBJ=8x8,NameSelect=+0x2000,Base=0xC000
 	;STA objsel
 	;LDA #$01 // BG4=8x8,BG3=8x8,BG2=8x8,BG1=8x8,BG3Priority-0,Mode 1
@@ -131,10 +135,14 @@
 	;STZ vrtan.vy
 	;STZ vrtan.left // 0=right , 1=left
 	;STZ vrtan.flip // 0=normal, 1=flipped
-	;LDA #$0020
-	;STA vrtan.height
-	;LDA #$0010
-	;STA vrtan.width
+	;LDA #$0003
+	;STA vrtan.hit.x
+	;LDA #$0006
+	;STA vrtan.hit.y
+	;LDA #$0007
+	;STA vrtan.hit.width
+	;LDA #$0018
+	;STA vrtan.hit.height
 	;LDA #$0040
 	;STA vrtan.ghost
 	;
@@ -226,6 +234,7 @@
 	;LDA vrtan.y0
 	;STA Draw_Sprite.y
 	;REP #$30
+	;STZ Draw_Sprite.char_i
 	;LDA #vrtan.body.script
 	;STA AnimateSprite.base
 	;JSR AnimateSprite

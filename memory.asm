@@ -155,12 +155,16 @@
 	;#Name $08      Grounded.dx
 	;#Name $0A      Grounded.row
 
-	;#Name $00      Move.x0.ptr
-	;#Name $03      Move.x1.ptr
-	;#Name $06      Move.dx
-	;#Name $08      Move.dy
-	;#Name $0A      Move.hit.dx
-	;#Name $0C      Move.hit.dy
+	;#Name $00      Move.x0
+	;#Name $02      Move.y0
+	;#Name $04      Move.x1
+	;#Name $06      Move.y1
+	;#Name $08      Move.width
+	;#Name $0A      Move.height
+	;#Name $0C      Move.dx
+	;#Name $0E      Move.dy
+	;#Name $0C      Move.xChar
+	;#Name $0E      Move.yChar
 
 
 
@@ -197,8 +201,10 @@
 	
 	;#Name $0612    vrtan.ghost
 	;#Name $0614    vrtan.jump
-	;#Name $0616    vrtan.width
-	;#Name $0618    vrtan.height
+	;#Name $0618    vrtan.hit.x
+	;#Name $061A    vrtan.hit.y
+	;#Name $061C    vrtan.hit.width
+	;#Name $061E    vrtan.hit.height
 
 	;#Name $0620    vrtan.body.script
 	;#Name $0622    vrtan.body.frame

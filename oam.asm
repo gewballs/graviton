@@ -248,7 +248,7 @@
 	;BEQ {+}
 	;PLA
 	;AND #$C1
-	;EOR Draw_Sprite.obj_p_override
+	;ORA Draw_Sprite.obj_p_override
 	;BRA {++}
 ;{+}	;PLA
 ;{++}	;STA oam.p,Y // Draw Sprite OBJ P

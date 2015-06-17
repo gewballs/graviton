@@ -1,4 +1,79 @@
 
+;# !!!DEBUG!!!
+;#Data w hit.tl.sprite{
+    $00
+    $00 $00 $3C7F $00
+}
+;#Data w hit.bl.sprite{
+    $00
+    $00 $F9 $BC7F $00
+}
+;#Data w hit.br.sprite{
+    $00
+    $F9 $F9 $FC7F $01
+}
+;#Data w hit.tr.sprite{
+    $00
+    $F9 $00 $7C7F $01
+}
+
+;#Name $0800 hit.show
+
+;#Code w {DrawHitbox}
+;PHP
+;SEP #$20
+;STZ Draw_Sprite.obj_p_override
+;LDA vrtan.x0
+;CLC
+;ADC vrtan.hit.x
+;STA Draw_Sprite.x
+;LDA vrtan.y0
+;CLC
+;ADC vrtan.hit.y
+;STA Draw_Sprite.y
+;STZ Draw_Sprite.data_bank
+;REP #$20
+;LDA #hit.tl.sprite
+;STA Draw_Sprite.data_i
+;STZ Draw_Sprite.char_i
+;JSR Draw_Sprite
+;SEP #$20
+;LDA vrtan.y0
+;CLC
+;ADC vrtan.hit.y
+;ADC vrtan.hit.height
+;STA Draw_Sprite.y
+;STZ Draw_Sprite.data_bank
+;REP #$20
+;LDA #hit.bl.sprite
+;STA Draw_Sprite.data_i
+;STZ Draw_Sprite.char_i
+;JSR Draw_Sprite
+;SEP #$20
+;LDA vrtan.x0
+;CLC
+;ADC vrtan.hit.x
+;ADC vrtan.hit.width
+;STA Draw_Sprite.x
+;STZ Draw_Sprite.data_bank
+;REP #$20
+;LDA #hit.br.sprite
+;STA Draw_Sprite.data_i
+;STZ Draw_Sprite.char_i
+;JSR Draw_Sprite
+;SEP #$20
+;LDA vrtan.y0
+;CLC
+;ADC vrtan.hit.y
+;STA Draw_Sprite.y
+;STZ Draw_Sprite.data_bank
+;REP #$20
+;LDA #hit.tr.sprite
+;STA Draw_Sprite.data_i
+;STZ Draw_Sprite.char_i
+;JSR Draw_Sprite
+;PLP
+;RTS
 
 	;#Code w {Vrtan}
 	;PHP
@@ -6,6 +81,11 @@
 	;
 	;LDX #$0000
 	;JSR (vrtan.state,X)
+	;
+;LDA hit.show
+;BEQ {+}
+;JSR DrawHitbox
+;{+}
 	;
 	;PLP
 	;RTS
@@ -34,20 +114,21 @@
 	;STA vrtan.x0
 	;
 	;TXA
-;{+}	;BIT #$0400 // Down
-	;BEQ {+}
-	;LDA vrtan.y0
-	;INC A
-	;AND #$00FF
-	;STA vrtan.y0
-	;
-	;TXA
-;{+}	;BIT #$0800 // Up
+;{+}	;BIT #$8000 // Up
 	;BEQ {+}
 	;LDA vrtan.y0
 	;DEC A
+	;DEC A
+	;DEC A
 	;AND #$00FF
 	;STA vrtan.y0
+	;
+;{+}	;LDA joy1.edge
+	;BIT #$0020 // L
+	;BEQ {+}
+	;LDA hit.show
+	;EOR #$FFFF
+	;STA hit.show
 ;{+}	;
 	;# Draw Script =====================
 	;TXA
@@ -77,14 +158,25 @@
 ;{+}	;
 	;# Grounded Test ====================
 	;LDA vrtan.x0
+	;CLC
+	;ADC vrtan.hit.x
 	;STA Grounded.x
 	;LDA vrtan.y0
+	;CLC
+	;ADC vrtan.hit.y
 	;STA Grounded.y
-	;LDA vrtan.width
+	;LDA vrtan.hit.width
 	;STA Grounded.width
-	LDA vrtan.height
-	STA Grounded.height
+	;LDA vrtan.hit.height
+	;STA Grounded.height
 	;JSR Grounded
+	;
+	;BCS {+}
+	;LDA vrtan.y0
+	;INC A
+	;AND #$00FF
+	;STA vrtan.y0
+;{+}	;
 	;
 	;RTS
 	
@@ -114,6 +206,7 @@
 
 
 
+
 	;#Code w {Grounded}
 	;PHP
 	;PHB
@@ -127,11 +220,11 @@
 	;LSR A
 	;LSR A
 	;LSR A
+	;AND #$001F
 	;STA Grounded.dx
 	;LDA Grounded.y
 	;CLC
-;ADC #$0020
-	ADC Grounded.height
+	;ADC Grounded.height
 	;INC A
 	;AND #$00F8
 	;ASL A
@@ -148,8 +241,7 @@
 	;STA Grounded.dx
 	;TYA
 	;CLC
-;ADC #$000E
-	ADC Grounded.width
+	;ADC Grounded.width
 	;LSR A
 	;LSR A
 	;LSR A
@@ -157,44 +249,11 @@
 	;SBC Grounded.dx
 	;INC A
 	;TAY
-;{-}	;
-	;LDA level,X
+	;
+;{-}	;LDA level,X
 	;AND #$01FF
-	;CMP #$0009 // Block
-	;BNE {+Air}
-;# !!!DEBUG!!!
-;TXA
-;PHX
-;LDX Nmi.VRAM_Write.table_i
-;LSR A
-;STA Nmi.VRAM_Write.addr,X
-;LDA #$0411
-;STA Nmi.VRAM_Write.data,X
-;INX
-;INX
-;INX
-;INX
-;STX Nmi.VRAM_Write.table_i
-;PLX
-	;LDA #$FFFF // Hit
-;BRA {+}
-	BRA {+Done}
-;{+Air}
-;# !!!DEBUG!!!
-;TXA
-;PHX
-;LDX Nmi.VRAM_Write.table_i
-;LSR A
-;STA Nmi.VRAM_Write.addr,X
-;LDA #$0410
-;STA Nmi.VRAM_Write.data,X
-;INX
-;INX
-;INX
-;INX
-;STX Nmi.VRAM_Write.table_i
-;PLX
-;{+}
+	;CMP #$0009 // Stone character
+	;BEQ {+Pass}
 	;TXA
 	;AND #$FFC0
 	;STA Grounded.row
@@ -206,17 +265,103 @@
 	;TAX
 	;DEY
 	;BNE {-}
-	;LDA #$0000 // Miss
 	;
-;{+Done}	;PLB
+	;PLB
 	;PLP
+	;CLC // Fail
+	;RTS
+	;
+;{+Pass}	;PLB
+	;PLP
+	;SEC // Pass
 	;RTS
 
-	;#Code w {Move}
 
+
+
+
+	;#Code w {Move.X}
+	;PHP
+	;PHB
+	;REP #$30
+	;PEA $7E00
+	;PLB
+	;PLB
+	;
+	;# Delta ==============
+	;LDA Move.x1
+	;SEC
+	;SBC Move.x0
+	;STA Move.dx
+	;
+	;LDA Move.y1
+	;SEC
+	;SBC Move.y0
+	;STA Move.dy
+	;
+	;# First X Tile  ==============
+	;LDA Move.dx // Find initial level tile
+	;BPL {+Plus}
+	;LDA Move.x1
+	;BRA {+Minus}
+;{+Plus}	;LDA Move.x1
+	;CLC
+	;ADC Move.width
+;{+Minus}	;
+	;TAY
+	;LSR A
+	;LSR A
+	;LSR A
+	;AND #$001F
+	;STA Move.xChar
+	;LDA Move.y0
+	;AND #$00F8
+	;ASL A
+	;ASL A
+	;CLC
+	;ADC Move.xChar
+	;ASL A
+	;TAX
+	;
+	;TYA // Find number of tiles to test
+	;LSR A
+	;LSR A
+	;LSR A
+	;STA Move.xChar
+	;TYA
+	;CLC
+	;ADC Grounded.dx
+	;LSR A
+	;LSR A
+	;LSR A
+	;SEC
+	;SBC Grounded.dx
+	;INC A
+	;TAY
+	;
+;{-}	;LDA level,X
+	;AND #$01FF
+	;CMP #$0009 // Stone character
+	;BEQ {+Pass}
+	;TXA
+	;AND #$FFC0
+	;STA Grounded.row
+	;TXA
+	;INC A
+	;INC A
+	;AND #$003F
+	;ORA Grounded.row
+	;TAX
+	;DEY
+	;BNE {-}
+	;
+	;PLB
+	;PLP
+	;CLC // Fail
 	;RTS
-
-
-
-
+	;
+;{+Pass}	;PLB
+	;PLP
+	;SEC // Pass
+	;RTS
 
