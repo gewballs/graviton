@@ -157,16 +157,20 @@
 
 	;#Name $00      Move.x0
 	;#Name $02      Move.y0
-	;#Name $04      Move.x1
-	;#Name $06      Move.y1
+	;#Name $04      Move.dx
+	;#Name $06      Move.dy
 	;#Name $08      Move.width
 	;#Name $0A      Move.height
-	;#Name $0C      Move.dx
-	;#Name $0E      Move.dy
-	;#Name $0C      Move.xChar
-	;#Name $0E      Move.yChar
-
-
+	;#Name $0C      Move.x1
+	;#Name $0E      Move.y1
+	;#Name $10      Move.x0.tile
+	;#Name $12      Move.y0.tile
+	;#Name $14      Move.x1.tile
+	;#Name $16      Move.y1.tile
+	;#Name $18      Move.dx.tile
+	;#Name $1A      Move.dy.tile
+	;#Name $1C      Move.index
+	;#Name $1E      Move.row
 
 
 	;# Graphic Buffer ==================================================
@@ -286,7 +290,7 @@
 	;#Code w Vrtan.Respawn
 
 	;#Code w Grounded
-
+	;#Code w Move.X
 
 
 

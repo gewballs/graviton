@@ -101,9 +101,23 @@
 	;BIT #$0100 // Right
 	;BEQ {+}
 	;LDA vrtan.x0
-	;INC A
-	;AND #$00FF
+	;STA Move.x0
+	;LDA vrtan.y0
+	;STA Move.y0
+	;LDA #$0001
+	;STA Move.dx
+	;LDA #$0000
+	;STA Move.dy
+	;LDA vrtan.hit.width
+	;STA Move.width
+	;LDA vrtan.hit.height
+	;STA Move.height
+	;JSR Move.X
+	;LDA Move.x1
 	;STA vrtan.x0
+	;LDA Move.x1
+	;STA vrtan.y0
+	;LDX joy1
 	;
 	;TXA
 ;{+}	;BIT #$0200 // Left
@@ -207,7 +221,7 @@
 
 
 
-	;#Code w {Grounded}
+	;#Code w {Grounded} ================================================
 	;PHP
 	;PHB
 	;REP #$30
@@ -251,7 +265,7 @@
 	;TAY
 	;
 ;{-}	;LDA level,X
-	;AND #$01FF
+	;AND #$03FF
 	;CMP #$0009 // Stone character
 	;BEQ {+Pass}
 	;TXA
@@ -280,7 +294,7 @@
 
 
 
-	;#Code w {Move.X}
+	;#Code w {Move.X} ==================================================
 	;PHP
 	;PHB
 	;REP #$30
@@ -288,80 +302,122 @@
 	;PLB
 	;PLB
 	;
-	;# Delta ==============
-	;LDA Move.x1
-	;SEC
-	;SBC Move.x0
-	;STA Move.dx
-	;
-	;LDA Move.y1
-	;SEC
-	;SBC Move.y0
-	;STA Move.dy
-	;
-	;# First X Tile  ==============
-	;LDA Move.dx // Find initial level tile
-	;BPL {+Plus}
-	;LDA Move.x1
-	;BRA {+Minus}
-;{+Plus}	;LDA Move.x1
-	;CLC
-	;ADC Move.width
-;{+Minus}	;
+	;# Calculate number of tiles to test in X
+	;LDA Move.x0
 	;TAY
 	;LSR A
 	;LSR A
 	;LSR A
+	;STA Move.x0.tile
+	;TYA
+	;CLC
+	;ADC Move.dx
+	;AND #$00FF
+	;STA Move.x1
+	;LSR A
+	;LSR A
+	;LSR A
+	;SEC
+	;SBC Move.x1.tile
+	;BPL {+}
+	;EOR #$FFFF
+	;INC A
+;{+}	;STA Move.dx.tile
+	;BNE {+}
+	;BRA {+Done}
+;{+}	;
+	;# Calculate number of tiles to test in Y
+	;LDA Move.y0
+	;TAY
+	;LSR A
+	;LSR A
+	;LSR A
+	;STA Move.y0.tile
+	;TYA
+	;CLC
+	;ADC Move.height
+	;LSR A
+	;LSR A
+	;LSR A
+	;SEC
+	;SBC Move.y1.tile
+	;BPL {+}
+	;EOR #$FFFF
+	;INC A
+;{+}	;STA Move.dy.tile
+	;BNE {+}
+	;BRA {+Done}
+;{+}	;
+	;LDA Move.dx
+	;BPL {+Minus}
+	;
+	;# Positive
+	;LDA Move.x0
+	;CLC
+	;ADC Move.width
+	;LSR A
+	;LSR A
+	;LSR A
 	;AND #$001F
-	;STA Move.xChar
+	;STA Move.index
 	;LDA Move.y0
 	;AND #$00F8
 	;ASL A
 	;ASL A
 	;CLC
-	;ADC Move.xChar
+	;ADC Move.index
 	;ASL A
+	;STA Move.index
 	;TAX
 	;
-	;TYA // Find number of tiles to test
-	;LSR A
-	;LSR A
-	;LSR A
-	;STA Move.xChar
-	;TYA
-	;CLC
-	;ADC Grounded.dx
-	;LSR A
-	;LSR A
-	;LSR A
-	;SEC
-	;SBC Grounded.dx
-	;INC A
-	;TAY
 	;
-;{-}	;LDA level,X
-	;AND #$01FF
+	;
+;{-Column}	;LDY Move.dy.tile
+;{-Row}	;TAX
+	;LDA level,X
+	;AND #$03FF
 	;CMP #$0009 // Stone character
-	;BEQ {+Pass}
+	;BEQ {+Hit}
 	;TXA
-	;AND #$FFC0
-	;STA Grounded.row
-	;TXA
+	;CLC
+	;ADC #$0040
+	;AND #$07FF
+	;DEY
+	;BNE {-Row}
+;{+}	;LDA Move.index
+	;TAX
 	;INC A
 	;INC A
 	;AND #$003F
-	;ORA Grounded.row
-	;TAX
-	;DEY
-	;BNE {-}
+	;STA Move.index
+	;TXA
+	;AND #$07C0
+	;ORA Move.index
+	;STA Move.index
+	;DEY Move.dx.tile
+	;BNE {-Column}
 	;
-	;PLB
-	;PLP
-	;CLC // Fail
-	;RTS
+	;CLC
+	;BRA {+Done}
 	;
-;{+Pass}	;PLB
+;{+Hit}	;TXA
+	;ASL A
+	;ASL A
+	;AND #$00F8
+	;SEC
+	;SBC Move.width
+	;STA Move.x1
+	;SEC
+	;
+	;BRA {+Done}
+	;# Negative
+;{+Minus}	;
+	;
+	;
+	;
+	;
+	;
+;{+Done}	;PLB
 	;PLP
-	;SEC // Pass
 	;RTS
 
