@@ -139,7 +139,7 @@
 	;STA vrtan.hit.x
 	;LDA #$0006
 	;STA vrtan.hit.y
-	;LDA #$0007
+	;LDA #$0008
 	;STA vrtan.hit.width
 	;LDA #$0018
 	;STA vrtan.hit.height

@@ -7,120 +7,120 @@
 	;# Direct Page
 	
 	;#Name $00      scratch_pad          b[0x10]
-	;#Name $10      inidisp              b
-	;#Name $11      objsel               b
-	;#Name $12      oamadd               w
-	;#Name $14      bgmode               b
-	;#Name $15      mosaic               b
-	;#Name $16      bg1sc                b
-	;#Name $17      bg2sc                b
-	;#Name $18      bg3sc                b
-	;#Name $19      bg4sc                b
-	;#Name $1A      bg12nba              b
-	;#Name $1B      bg34nba              b
-	;#Name $1C      bg1hofs              w
-	;#Name $1E      bg1vofs              w
-	;#Name $20      bg2hofs              w
-	;#Name $22      bg2vofs              w
-	;#Name $24      bg3hofs              w
-	;#Name $26      bg3vofs              w
-	;#Name $28      bg4hofs              w
-	;#Name $2A      bg4vofs              w
-	;#Name $2C      vmainc               b
-	;#Name $2D      vmadd                w
-	;#Name $2F      m7sel                b
-	;#Name $30      m7a                  w
-	;#Name $32      m7b                  w
-	;#Name $34      m7c                  w
-	;#Name $36      m7d                  w
-	;#Name $38      m7x                  w
-	;#Name $3A      m7y                  w
-	;#Name $3C      cgadd                b
-	;#Name $3D      w12sel               b
-	;#Name $3E      w34sel               b
-	;#Name $3F      wobjsel              b
-	;#Name $40      wh0                  b
-	;#Name $41      wh1                  b
-	;#Name $42      wh2                  b
-	;#Name $43      wh3                  b
-	;#Name $44      wbglog               b
-	;#Name $45      wobjlog              b
-	;#Name $46      tm                   b
-	;#Name $47      ts                   b
-	;#Name $48      tmw                  b
-	;#Name $49      tsw                  b
-	;#Name $4A      cgswsel              b
-	;#Name $4B      cgadsub              b
-	;#Name $4C      coldata_blue         b
-	;#Name $4D      coldata_green        b
-	;#Name $4E      coldata_red          b
-	;#Name $4F      setini               b
-	;#Name $50      ophct                w
-	;#Name $52      opvct                w
-	;#Name $54      stat77               b
-	;#Name $55      stat78               b
-	;#Name $56      apuio0               b
-	;#Name $57      apuio1               b
-	;#Name $58      apuio2               b
-	;#Name $59      apuio3               b
-	;#Name $5A      wmadd                l
-	;#Name $5D      nmitimen             b
-	;#Name $5E      wrio                 b
-	;#Name $5F      htime                w
-	;#Name $61      vtime                w
-	;#Name $63      mdmaen               b
-	;#Name $64      hdmaen               b
-	;#Name $65      memsel               b
-	;#Name $66      rdnmi                b
-	;#Name $67      timeup               b
-	;#Name $68      hvbjoy               b
-	;#Name $69      rdio                 b
-	;#Name $006A    joy                  w[0x04]
-	;#Name $6A      joy1                 w
-	;#Name $6C      joy2                 w
-	;#Name $6E      joy3                 w
-	;#Name $70      joy4                 w
+	;#Name $20      inidisp              b
+	;#Name $21      objsel               b
+	;#Name $22      oamadd               w
+	;#Name $24      bgmode               b
+	;#Name $25      mosaic               b
+	;#Name $26      bg1sc                b
+	;#Name $27      bg2sc                b
+	;#Name $28      bg3sc                b
+	;#Name $29      bg4sc                b
+	;#Name $2A      bg12nba              b
+	;#Name $2B      bg34nba              b
+	;#Name $2C      bg1hofs              w
+	;#Name $2E      bg1vofs              w
+	;#Name $30      bg2hofs              w
+	;#Name $32      bg2vofs              w
+	;#Name $34      bg3hofs              w
+	;#Name $36      bg3vofs              w
+	;#Name $38      bg4hofs              w
+	;#Name $3A      bg4vofs              w
+	;#Name $3C      vmainc               b
+	;#Name $3D      vmadd                w
+	;#Name $3F      m7sel                b
+	;#Name $40      m7a                  w
+	;#Name $42      m7b                  w
+	;#Name $44      m7c                  w
+	;#Name $46      m7d                  w
+	;#Name $48      m7x                  w
+	;#Name $4A      m7y                  w
+	;#Name $4C      cgadd                b
+	;#Name $4D      w12sel               b
+	;#Name $4E      w34sel               b
+	;#Name $4F      wobjsel              b
+	;#Name $50      wh0                  b
+	;#Name $51      wh1                  b
+	;#Name $52      wh2                  b
+	;#Name $53      wh3                  b
+	;#Name $54      wbglog               b
+	;#Name $55      wobjlog              b
+	;#Name $56      tm                   b
+	;#Name $57      ts                   b
+	;#Name $58      tmw                  b
+	;#Name $59      tsw                  b
+	;#Name $5A      cgswsel              b
+	;#Name $5B      cgadsub              b
+	;#Name $5C      coldata_blue         b
+	;#Name $5D      coldata_green        b
+	;#Name $5E      coldata_red          b
+	;#Name $5F      setini               b
+	;#Name $60      ophct                w
+	;#Name $62      opvct                w
+	;#Name $64      stat77               b
+	;#Name $65      stat78               b
+	;#Name $66      apuio0               b
+	;#Name $67      apuio1               b
+	;#Name $68      apuio2               b
+	;#Name $69      apuio3               b
+	;#Name $6A      wmadd                l
+	;#Name $6D      nmitimen             b
+	;#Name $6E      wrio                 b
+	;#Name $6F      htime                w
+	;#Name $71      vtime                w
+	;#Name $73      mdmaen               b
+	;#Name $74      hdmaen               b
+	;#Name $75      memsel               b
+	;#Name $76      rdnmi                b
+	;#Name $77      timeup               b
+	;#Name $78      hvbjoy               b
+	;#Name $79      rdio                 b
+	;#Name $007A    joy                  w[0x04]
+	;#Name $7A      joy1                 w
+	;#Name $7C      joy2                 w
+	;#Name $7E      joy3                 w
+	;#Name $80      joy4                 w
 	
-	;#Name $0072    joy.last             w[0x04]
-	;#Name $72      joy1.last            w
-	;#Name $74      joy2.last            w
-	;#Name $76      joy3.last            w
-	;#Name $78      joy4.last            w
-	;#Name $007A    joy.edge             w[0x04]
-	;#Name $7A      joy1.edge            w
-	;#Name $7C      joy2.edge            w
-	;#Name $7E      joy3.edge            w
-	;#Name $80      joy4.edge            w
-	;#Name $0082    joy.hold             b[0x04]
-	;#Name $82      joy1.hold            b
-	;#Name $83      joy2.hold            b
-	;#Name $84      joy3.hold            b
-	;#Name $85      joy4.hold            b
-	;#Name $0086    joy.cool             b[0x04]
-	;#Name $86      joy1.cool            b
-	;#Name $87      joy2.cool            b
-	;#Name $88      joy3.cool            b
-	;#Name $89      joy4.cool            b
+	;#Name $0082    joy.last             w[0x04]
+	;#Name $82      joy1.last            w
+	;#Name $84      joy2.last            w
+	;#Name $86      joy3.last            w
+	;#Name $88      joy4.last            w
+	;#Name $008A    joy.edge             w[0x04]
+	;#Name $8A      joy1.edge            w
+	;#Name $8C      joy2.edge            w
+	;#Name $8E      joy3.edge            w
+	;#Name $90      joy4.edge            w
+	;#Name $0092    joy.hold             b[0x04]
+	;#Name $92      joy1.hold            b
+	;#Name $93      joy2.hold            b
+	;#Name $94      joy3.hold            b
+	;#Name $95      joy4.hold            b
+	;#Name $0096    joy.cool             b[0x04]
+	;#Name $96      joy1.cool            b
+	;#Name $97      joy2.cool            b
+	;#Name $98      joy3.cool            b
+	;#Name $99      joy4.cool            b
 	
-	;#Name $8A      Nmi.ready            b
-	;#Name $8B      Nmi.count            w
-	;#Name $8D      Nmi.HDMA.data        l
-	;#Name $90      Nmi.VRAM_DMA.data    l
-	;#Name $93      Nmi.VRAM_DMA.data_i  w
-	;#Name $95      Nmi.VRAM_Write.table_i w
+	;#Name $9A      Nmi.ready            b
+	;#Name $9B      Nmi.count            w
+	;#Name $9D      Nmi.HDMA.data        l
+	;#Name $A0      Nmi.VRAM_DMA.data    l
+	;#Name $A3      Nmi.VRAM_DMA.data_i  w
+	;#Name $A5      Nmi.VRAM_Write.table_i w
 	
-	;#Name $97      irq_program          l
+	;#Name $A7      irq_program          l
 	
-	;#Name $9A      Main.count           w
-	;#Name $9C      Main.program         w
-	;#Name $9E      Sub.program          w
+	;#Name $AA      Main.count           w
+	;#Name $AC      Main.program         w
+	;#Name $AE      Sub.program          w
 	
-	;#Name $A0      oam_i                w
-	;#Name $A2      oam2_byte_i          b
-	;#Name $A3      oam2_bit_i           b
+	;#Name $B0      oam_i                w
+	;#Name $B2      oam2_byte_i          b
+	;#Name $B3      oam2_bit_i           b
 	
-	;#Name $A6      Rng.number           w
-	;#Name $A8      pause                b
+	;#Name $B6      Rng.number           w
+	;#Name $B8      pause                b
 	
 	
 	;# Scratch Pad
@@ -163,14 +163,9 @@
 	;#Name $0A      Move.height
 	;#Name $0C      Move.x1
 	;#Name $0E      Move.y1
-	;#Name $10      Move.x0.tile
-	;#Name $12      Move.y0.tile
-	;#Name $14      Move.x1.tile
-	;#Name $16      Move.y1.tile
-	;#Name $18      Move.dx.tile
-	;#Name $1A      Move.dy.tile
-	;#Name $1C      Move.index
-	;#Name $1E      Move.row
+	;#Name $10      Move.dx.tile
+	;#Name $12      Move.dy.tile
+	;#Name $14      Move.index
 
 
 	;# Graphic Buffer ==================================================
