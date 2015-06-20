@@ -166,6 +166,9 @@
 	;#Name $10      Move.dx.tile
 	;#Name $12      Move.dy.tile
 	;#Name $14      Move.index
+	;#Name $16      Move.temp
+	;#Name $18      Move.iteration
+	;#Name $1A      Move.hit
 
 
 	;# Graphic Buffer ==================================================
@@ -285,7 +288,9 @@
 	;#Code w Vrtan.Respawn
 
 	;#Code w Grounded
+	;#Code w Move
 	;#Code w Move.X
+	;#Code w Move.Y
 
 
 
