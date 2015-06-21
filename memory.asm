@@ -168,8 +168,9 @@
 	;#Name $14      Move.index
 	;#Name $16      Move.temp
 	;#Name $18      Move.iteration
-	;#Name $1A      Move.hit
-
+	;#Name $1A      Move.hit.x
+	;#Name $1C      Move.hit.y
+	;#Name $1E      Move.copy
 
 	;# Graphic Buffer ==================================================
 
@@ -187,34 +188,36 @@
 	;#Name $0522    Nmi.VRAM_Write.data  w
 
 	;# Player Structure ================================================
-	;#Name $0600    vrtan.state
+	;#Name $0600    vrtan.state0
+	;#Name $0602    vrtan.state1
 
-	;#Name $0602    vrtan.x0
+	;#Name $0604    vrtan.x0
 	;#Name $0606    vrtan.y0
 	
-	;#Name $0604    vrtan.x1
-	;#Name $0608    vrtan.y1
+	;#Name $0608    vrtan.x1
+	;#Name $060A    vrtan.y1
 
-	;#Name $060A    vrtan.vx
-	;#Name $060C    vrtan.vy
+	;#Name $060C    vrtan.vx
+	;#Name $060E    vrtan.vy
 
-	;#Name $060E    vrtan.left
-	;#Name $0610    vrtan.flip
+	;#Name $0610    vrtan.left0
+	;#Name $0612    vrtan.left1
+	;#Name $0614    vrtan.flip
 	
-	;#Name $0612    vrtan.ghost
-	;#Name $0614    vrtan.jump
-	;#Name $0618    vrtan.hit.x
-	;#Name $061A    vrtan.hit.y
-	;#Name $061C    vrtan.hit.width
-	;#Name $061E    vrtan.hit.height
+	;#Name $0616    vrtan.ghost
+	;#Name $0618    vrtan.jump
+	;#Name $061A    vrtan.hit.x
+	;#Name $061C    vrtan.hit.y
+	;#Name $061E    vrtan.hit.width
+	;#Name $0620    vrtan.hit.height
 
-	;#Name $0620    vrtan.body.script
-	;#Name $0622    vrtan.body.frame
-	;#Name $0624    vrtan.body.timer
+	;#Name $0622    vrtan.body.script
+	;#Name $0624    vrtan.body.frame
+	;#Name $0626    vrtan.body.timer
 	
-	;#Name $0626    vrtan.legs.script
-	;#Name $0628    vrtan.legs.frame
-	;#Name $062A    vrtan.legs.timer
+	;#Name $0628    vrtan.legs.script
+	;#Name $062A    vrtan.legs.frame
+	;#Name $062C    vrtan.legs.timer
 
 	;# Environment =====================================================
 	;#Name $0700  gravity
@@ -273,7 +276,6 @@
 	
 	
 	;#Code w Vrtan
-	;#Code w Vrtan.Player
 	;#Code w Vrtan.Idle
 	;#Code w Vrtan.Walk
 	;#Code w Vrtan.Jump
@@ -287,14 +289,12 @@
 	;#Code w Vrtan.FallSpike
 	;#Code w Vrtan.Respawn
 
-	;#Code w Grounded
+	;#Code w Vrtan.Sprite
+	;#Code w Vrtan.Move
+
 	;#Code w Move
 	;#Code w Move.X
 	;#Code w Move.Y
-
-
-
-
 
 	;#Code l Immediate_DMA
 	
@@ -307,9 +307,6 @@
 	;#Code l Rng
 	;#Data l sinusoid
 
-
-
-
 	;# Backgrounds
 	;#Data l bg.char
 	;#Data l palette
@@ -317,26 +314,28 @@
 	;#Data l sea.name
 	;#Data l vrtan.char
 
-	;# Sprite Scripts
-	;#Data w vrtan.body.debug.r.script
-	;#Data w vrtan.legs.debug.r.script
-	
+	;# Sprite Scripts ========================
 	;#Data w vrtan.body.idle.r.script
 	;#Data w vrtan.body.idle.l.script
-	;#Data w vrtan.body.walk.l.script
 	;#Data w vrtan.body.walk.r.script
+	;#Data w vrtan.body.walk.l.script
 	;#Data w vrtan.body.jump.r.script
+	;#Data w vrtan.body.jump.l.script
 	;#Data w vrtan.body.punch.r.script
+	;#Data w vrtan.body.punch.l.script
 	;#Data w vrtan.body.uppercut.r.script
+	;#Data w vrtan.body.uppercut.l.script
 
 	;#Data w vrtan.legs.idle.r.script
 	;#Data w vrtan.legs.idle.l.script
 	;#Data w vrtan.legs.walk.r.script
 	;#Data w vrtan.legs.walk.l.script
 	;#Data w vrtan.legs.jump.r.script
+	;#Data w vrtan.legs.jump.l.script
 	;#Data w vrtan.legs.punch.r.script
+	;#Data w vrtan.legs.punch.l.script
 
-
+	;# Sprite ================================
 	;# Body Sprite
 	;#Data w vrtan.body.idle.r.0
 	;#Data w vrtan.body.idle.l.0
@@ -353,31 +352,41 @@
 	;#Data w vrtan.body.walk.l.2
 
 	;#Data w vrtan.body.jump.r.0
+	;#Data w vrtan.body.jump.l.0
 	
 	;#Data w vrtan.body.punch.r.0
+	;#Data w vrtan.body.punch.l.0
 	;#Data w vrtan.body.punch.r.1
+	;#Data w vrtan.body.punch.l.1
 	
 	;#Data w vrtan.body.uppercut.r.0
+	;#Data w vrtan.body.uppercut.l.0
 	;#Data w vrtan.body.uppercut.r.1
+	;#Data w vrtan.body.uppercut.l.1
 	;#Data w vrtan.body.uppercut.r.2
+	;#Data w vrtan.body.uppercut.l.2
 
 	;# Legs Sprite
 	;#Data w vrtan.legs.idle.r.0
+	;#Data w vrtan.legs.idle.l.0
 	
 	;#Data w vrtan.legs.walk.r.0
+	;#Data w vrtan.legs.walk.l.0
 	;#Data w vrtan.legs.walk.r.1
+	;#Data w vrtan.legs.walk.l.1
 	;#Data w vrtan.legs.walk.r.2
+	;#Data w vrtan.legs.walk.l.2
 	;#Data w vrtan.legs.walk.r.3
+	;#Data w vrtan.legs.walk.l.3
 	;#Data w vrtan.legs.walk.r.4
+	;#Data w vrtan.legs.walk.l.4
 	;#Data w vrtan.legs.walk.r.5
+	;#Data w vrtan.legs.walk.l.5
 
 	;#Data w vrtan.legs.jump.r.0
+	;#Data w vrtan.legs.jump.l.0
 
-
-
-
-
-
+	;# Technical ============================
 	;#Data l rom_header
 	;#Data l vector_table
 	

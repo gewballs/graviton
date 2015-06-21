@@ -1,324 +1,458 @@
+	
+	;# !!!DEBUG!!!
+	;#Data w hit.tl.sprite{
+	    $00
+	    $00 $00 $3C7F $00
+	}
+	;#Data w hit.bl.sprite{
+	    $00
+	    $00 $F8 $BC7F $00
+	}
+	;#Data w hit.br.sprite{
+	    $00
+	    $F8 $F8 $FC7F $01
+	}
+	;#Data w hit.tr.sprite{
+	    $00
+	    $F8 $00 $7C7F $01
+	}
 
-;# !!!DEBUG!!!
-;#Data w hit.tl.sprite{
-    $00
-    $00 $00 $3C7F $00
-}
-;#Data w hit.bl.sprite{
-    $00
-    $00 $F8 $BC7F $00
-}
-;#Data w hit.br.sprite{
-    $00
-    $F8 $F8 $FC7F $01
-}
-;#Data w hit.tr.sprite{
-    $00
-    $F8 $00 $7C7F $01
-}
+	;# !!! DEBUG !!!
+	;#Name $0800 hit.show
 
-;#Name $0800 hit.show
-
-;#Code w {DrawHitbox}
-;PHP
-;SEP #$20
-;STZ Draw_Sprite.obj_p_override
-;LDA vrtan.x0
-;CLC
-;ADC vrtan.hit.x
-;STA Draw_Sprite.x
-;LDA vrtan.y0
-;CLC
-;ADC vrtan.hit.y
-;STA Draw_Sprite.y
-;STZ Draw_Sprite.data_bank
-;REP #$20
-;LDA #hit.tl.sprite
-;STA Draw_Sprite.data_i
-;STZ Draw_Sprite.char_i
-;JSR Draw_Sprite
-;SEP #$20
-;LDA vrtan.y0
-;CLC
-;ADC vrtan.hit.y
-;ADC vrtan.hit.height
-;STA Draw_Sprite.y
-;STZ Draw_Sprite.data_bank
-;REP #$20
-;LDA #hit.bl.sprite
-;STA Draw_Sprite.data_i
-;STZ Draw_Sprite.char_i
-;JSR Draw_Sprite
-;SEP #$20
-;LDA vrtan.x0
-;CLC
-;ADC vrtan.hit.x
-;ADC vrtan.hit.width
-;STA Draw_Sprite.x
-;STZ Draw_Sprite.data_bank
-;REP #$20
-;LDA #hit.br.sprite
-;STA Draw_Sprite.data_i
-;STZ Draw_Sprite.char_i
-;JSR Draw_Sprite
-;SEP #$20
-;LDA vrtan.y0
-;CLC
-;ADC vrtan.hit.y
-;STA Draw_Sprite.y
-;STZ Draw_Sprite.data_bank
-;REP #$20
-;LDA #hit.tr.sprite
-;STA Draw_Sprite.data_i
-;STZ Draw_Sprite.char_i
-;JSR Draw_Sprite
-;PLP
-;RTS
-
-	;#Code w {Vrtan}
+	;# !!! DEBUG !!!
+	;#Code w {DrawHitbox}
 	;PHP
-	;REP #$30
-	;
-	;LDX #$0000
-	;JSR (vrtan.state,X)
-	;
-;LDA hit.show
-;BEQ {+}
-;JSR DrawHitbox
-;{+}
-	;
-	;PLP
-	;RTS
-	
-	;#Code w {Vrtan.Player}
-	;RTS
-	
-	;#Code w {Vrtan.Idle}
-	;
-	;# Input ===========================
-	;LDA joy1
-	;BIT #$8000
-	;BEQ {+NoJump}
-	;LDA #$FFFD
-	;BRA {+Dy}
-;{+NoJump}	;LDA vrtan.x0
-	;CLC
-	;ADC vrtan.hit.x
-	;STA Grounded.x
-	;LDA vrtan.y0
-	;CLC
-	;ADC vrtan.hit.y
-	;STA Grounded.y
-	;LDA vrtan.hit.width
-	;STA Grounded.width
-	;LDA vrtan.hit.height
-	;STA Grounded.height
-	;JSR Grounded
-	;BCS {+Neutral}
-	;LDA #$0002
-	;BRA {+Dy}
-;{+Neutral}	;LDA #$0000
-;{+Dy}	;STA vrtan.vy
-	
-	;LDA joy1
-	;BIT #$0100 // Right
-	;BEQ {+Left}
-	;BIT #$4000 // X Button
-	;BNE {+Fast}
-	;LDA #$0001
-	;BRA {+Dx}
-;{+Fast}	;LDA #$0002
-	;BRA {+Dx}
-;{+Left}	;BIT #$0200 // Left
-	;BEQ {+Neutral}
-	;BIT #$4000 // X Button
-	;BNE {+Fast}
-	;LDA #$FFFF
-	;BRA {+Dx}
-;{+Fast}	;LDA #$FFFE
-	;BRA {+Dx}
-;{+Neutral}	;LDA #$0000
-;{+Dx}	;STA vrtan.vx
-	;
+	;SEP #$20
+	;STZ Draw_Sprite.obj_p_override
 	;LDA vrtan.x0
 	;CLC
 	;ADC vrtan.hit.x
-	;AND #$00FF
-	;STA Move.x0
+	;STA Draw_Sprite.x
 	;LDA vrtan.y0
 	;CLC
 	;ADC vrtan.hit.y
-	;AND #$00FF
-	;STA Move.y0
-	;LDA vrtan.vx
-	;STA Move.dx
-	;LDA vrtan.vy
-	;STA Move.dy
-	;LDA vrtan.hit.width
-	;STA Move.width
-	;LDA vrtan.hit.height
-	;STA Move.height
-	;JSR Move
-	;LDA Move.x1
-	;SEC
-	;SBC vrtan.hit.x
-	;AND #$00FF
-	;STA vrtan.x0
-	;LDA Move.y1
-	;SEC
-	;SBC vrtan.hit.y
-	;AND #$00FF
-	;STA vrtan.y0
-	;
-	;LDA joy1.edge
-	;BIT #$0020 // L
-	;BEQ {+}
-	;LDA hit.show
-	;EOR #$FFFF
-	;STA hit.show
-	;
-;{+}	;LDA joy1.edge
-	;BIT #$0010 // R
-	;BEQ {+}
-	;LDA vrtan.hit.width
-	;CMP #$0008
-	;BEQ {+Big}
-	;LDA #$0008
-	;STA vrtan.hit.width
-	;LDA #$0018
-	;STA vrtan.hit.height
-	;BRA {+}
-;{+Big}	;LDA #$0020
-	;STA vrtan.hit.width
-	;LDA #$0028
-	;STA vrtan.hit.height
-;{+}	;
-	;# Draw Script =====================
-	;LDA joy1
-	;BIT #$0F00
-	;BNE {+Walk}
-	;LDA vrtan.body.script
-	;CMP #vrtan.body.idle.r.script
-	;BEQ {+}
-	;LDA #vrtan.body.idle.r.script
-	;STA vrtan.body.script
-	;STZ vrtan.body.frame
-	;STZ vrtan.body.timer
-	;LDA #vrtan.legs.idle.r.script
-	;STA vrtan.legs.script
-	;STZ vrtan.legs.frame
-	;STZ vrtan.legs.timer
-	;BRA {+}
-;{+Walk}	;LDA vrtan.body.script
-	;CMP #vrtan.body.walk.r.script
-	;BEQ {+}
-	;LDA #vrtan.body.walk.r.script
-	;STA vrtan.body.script
-	;LDA #vrtan.legs.walk.r.script
-	;STA vrtan.legs.script
-	;STZ vrtan.legs.frame
-	;STZ vrtan.legs.timer
-;{+}	;
+	;STA Draw_Sprite.y
+	;STZ Draw_Sprite.data_bank
+	;REP #$20
+	;LDA #hit.tl.sprite
+	;STA Draw_Sprite.data_i
+	;STZ Draw_Sprite.char_i
+	;JSR Draw_Sprite
+	;SEP #$20
+	;LDA vrtan.y0
+	;CLC
+	;ADC vrtan.hit.y
+	;ADC vrtan.hit.height
+	;STA Draw_Sprite.y
+	;STZ Draw_Sprite.data_bank
+	;REP #$20
+	;LDA #hit.bl.sprite
+	;STA Draw_Sprite.data_i
+	;STZ Draw_Sprite.char_i
+	;JSR Draw_Sprite
+	;SEP #$20
+	;LDA vrtan.x0
+	;CLC
+	;ADC vrtan.hit.x
+	;ADC vrtan.hit.width
+	;STA Draw_Sprite.x
+	;STZ Draw_Sprite.data_bank
+	;REP #$20
+	;LDA #hit.br.sprite
+	;STA Draw_Sprite.data_i
+	;STZ Draw_Sprite.char_i
+	;JSR Draw_Sprite
+	;SEP #$20
+	;LDA vrtan.y0
+	;CLC
+	;ADC vrtan.hit.y
+	;STA Draw_Sprite.y
+	;STZ Draw_Sprite.data_bank
+	;REP #$20
+	;LDA #hit.tr.sprite
+	;STA Draw_Sprite.data_i
+	;STZ Draw_Sprite.char_i
+	;JSR Draw_Sprite
+	;PLP
 	;RTS
 	
-	;#Code w {Vrtan.Walk}
-	;RTS
+	;# ===============================================================//
+	;#Code w {Vrtan}                                                  //
+	;# ===============================================================//
+	;PHP                  // Php();
+	;REP #$30             // Rep(0x30);
+	;
+	;# Program =============
+	;LDX #$0000           // state0();
+	;JSR (vrtan.state0,X) //
+	;
+	;# Drawing =============
+	;JSR Vrtan.Sprite     // VrtanSprite();
+	;
+	;# Rotate State ========
+	;LDA vrtan.state1     // state0=state1;
+	;STA vrtan.state0     //
+	;LDA vrtan.left1      // left0=left1;
+	;STA vrtan.left0      //
+	;LDA vrtan.x1         // x0=x1;
+	;STA vrtan.x0         //
+	;LDA vrtan.y1         // y0=y1;
+	;STA vrtan.y0         //
+	;
+	;# !!! DEBUG !!!
+	;# Hitbox ==============
+	;LDA joy1.edge        // if(joy1.edge&0x0020){
+	;BIT #$0020           //
+	;BEQ {+}              //
+	;LDA hit.show         //   hit.show==!hit.show;
+	;EOR #$FFFF           //
+	;STA hit.show         // }
+;{+}	;LDA hit.show         // if(hit.show) DrawHitBox();
+	;BEQ {+}              //
+	;JSR DrawHitbox       //
+;{+}        ;
+	;PLP                  // Plp();
+	;RTS                  // return;
 	
-	;#Code w {Vrtan.Jump}
-	;RTS
+	;# ===============================================================//
+	;#Code w {Vrtan.Idle}                                             //
+	;# ===============================================================//
+	;# Dx ==================
+	;LDA joy1             // if(joy1&0x0100){ // D-pad right
+	;BIT #$0100           //
+	;BEQ {+Left}          //   // X button
+	;BIT #$4000           //   vx=joy1&0x4000?2:1;
+	;BNE {+Fast}          //
+	;LDA #$0001           //
+	;BRA {+Dx}            //
+;{+Fast}	;LDA #$0002           //
+	;BRA {+Dx}            // }else if(joy1&0200){ // D-pad left
+;{+Left}	;BIT #$0200           //
+	;BEQ {+Neutral}       //   // X button
+	;BIT #$4000           //   vx=joy1&0x4000?-2:-1;
+	;BNE {+Fast}          //
+	;LDA #$FFFF           //
+	;BRA {+Dx}            //
+;{+Fast}	;LDA #$FFFE           //
+	;BRA {+Dx}            // }else{
+;{+Neutral}	;LDA #$0000           //   vx=0;
+;{+Dx}	;STA vrtan.vx         // }
+	;
+	;# Dy ==================
+	;LDA joy1             // // B button;
+	;BIT #$8000           // vy=joy1&0x8000?-3:2;
+	;BEQ {+Fall}          //
+	;LDA #$FFFD           //
+	;BRA {+Dy}            //
+;{+Fall}	;LDA #$0002           //
+;{+Dy}	;STA vrtan.vy         //
+	;
+	;# Move ================
+	;JSR Vrtan.Move       // VrtanMove();
+	;LDA Move.y1          // if(y1<y0){
+	;CMP Move.y0          //
+	;BCS {+Fall}          //
+	;LDA #Vrtan.Jump      //   state1=VrtanJump;
+	;STA vrtan.state1     //
+	;LDA #$0018           //   jump=0x0018;
+	;STA vrtan.jump       //
+	;BRA {+Break}         //
+;{+Fall}	;BEQ {+Walk}          // }else if(y1>y0){
+	;LDA #Vrtan.Fall      //   state1=VrtanFall;
+	;STA vrtan.state1     //
+	;BRA {+Break}         // }else if(x1!=x0){
+;{+Walk}	;LDA Move.x1          //
+	;CMP Move.x0          //
+	;BEQ {+Idle}          //
+	;LDA #Vrtan.Walk      //   state1=VrtanWalk;
+	;STA vrtan.state1     //
+	;BRA {+Break}         // }else{
+;{+Idle}	;LDA #Vrtan.Idle      //   state1=VrtanIdle;
+	;STA vrtan.state1     // }
+;{+Break}	;
+	;RTS                  // return;
+	
+	;# ===============================================================//
+	;#Code w {Vrtan.Walk}                                             //
+	;# ===============================================================//
+	;# Dx ==================
+	;LDA joy1             // if(joy1&0x0100){ // Right
+	;BIT #$0100           //
+	;BEQ {+Left}          //   // X Button
+	;BIT #$4000           //   vx=joy1&0x4000?2:1;
+	;BNE {+Fast}          //
+	;LDA #$0001           //
+	;BRA {+Dx}            //
+;{+Fast}	;LDA #$0002           //
+	;BRA {+Dx}            // }else if(joy1&0200){ //Left
+;{+Left}	;BIT #$0200           //
+	;BEQ {+Neutral}       //   // X button
+	;BIT #$4000           //   vx=joy1&0x4000?-2:-1;
+	;BNE {+Fast}          //
+	;LDA #$FFFF           //
+	;BRA {+Dx}            //
+;{+Fast}	;LDA #$FFFE           //
+	;BRA {+Dx}            // }else{
+;{+Neutral}	;LDA #$0000           //   vx=0;
+;{+Dx}	;STA vrtan.vx         // }
+	;
+	;# Dy ==================
+	;LDA joy1             // // B button;
+	;BIT #$8000           // vy=joy1&0x8000?-3:2;
+	;BEQ {+Fall}          //
+	;LDA #$FFFD           //
+	;BRA {+Dy}            //
+;{+Fall}	;LDA #$0002           //
+;{+Dy}	;STA vrtan.vy         //
+	;
+	;# Move ================
+	;JSR Vrtan.Move       // VrtanMove();
+	;LDA Move.y1          // if(y1<y0){
+	;CMP Move.y0          //
+	;BCS {+Fall}          //
+	;LDA #Vrtan.Jump      //   state1=VrtanJump;
+	;STA vrtan.state1     //
+	;LDA joy1             //   jump=joy1&0x4000?0x0028:0x0020;
+	;BIT #$4000           //
+	;BNE {+Fast}          //
+	;LDA #$0020           //
+	;BRA {+Slow}          //
+;{+Fast}	;LDA #$0028           //
+;{+Slow}	;STA vrtan.jump       //
+	;BRA {+Break}         //
+;{+Fall}	;BEQ {+Walk}          // }else if(y1>y0){
+	;LDA #Vrtan.Fall      //   state1=VrtanFall;
+	;STA vrtan.state1     //
+	;BRA {+Break}         //
+;{+Walk}	;LDA Move.x1          // }else if(x1!=x0){
+	;CMP Move.x0          //
+	;BEQ {+Idle}          //
+	;LDA #Vrtan.Walk      //   state1=VrtanWalk;
+	;STA vrtan.state1     //
+	;BRA {+Break}         // }else{
+;{+Idle}	;LDA #Vrtan.Idle      //   state1=VrtanIdle;
+	;STA vrtan.state1     // }
+;{+Break}	;
+	;RTS                  // return;
+	
+	;# ===============================================================//
+	;#Code w {Vrtan.Jump}                                             //
+	;# ===============================================================//
+	;# Dy ==================
+	;LDA joy1             // if(joy1&0x8000&&jump<0){ // B Button
+	;BIT #$8000           //
+	;BEQ {+Fall}          //
+	;LDA vrtan.jump       //
+	;BMI {+Fall}          //
+	;DEC vrtan.jump       //   jump--;
+	;LDA #$FFFD           //   vy=-3;
+	;BRA {+Dy}            // }else{
+;{+Fall}	;LDA #$0000           //   vy=0;
+;{+Dy}	;STA vrtan.vy         // }
+	;
+	;# Dx ==================
+	;LDA joy1             // if(joy1&0x0100){ // D-pad right
+	;BIT #$0100           //
+	;BEQ {+Left}          //   // X button
+	;BIT #$4000           //   vx=joy1&0x4000?2:1;
+	;BNE {+Fast}          //
+	;LDA #$0001           //
+	;BRA {+Dx}            //
+;{+Fast}	;LDA #$0002           //
+	;BRA {+Dx}            //
+;{+Left}	;BIT #$0200           // }else if(joy1&0x0200){ // D-pad left
+	;BEQ {+Neutral}       //   // X button
+	;BIT #$4000           //   vx=joy1&0x4000?-2:-1;
+	;BNE {+Fast}          //
+	;LDA #$FFFF           //
+	;BRA {+Dx}            //
+;{+Fast}	;LDA #$FFFE           //
+	;BRA {+Dx}            //
+;{+Neutral}	;LDA #$0000           //
+;{+Dx}	;STA vrtan.vx         //
+	;
+	;# Move ================
+	;JSR Vrtan.Move       // VrtanMove();
+	;LDA Move.y1          // if(y1>=y0){
+	;CMP Move.y0          //
+	;BCC {+Jump}          //
+	;LDA #Vrtan.Fall      //   state1=VrtanFall;
+	;STA vrtan.state1     //
+	;BRA {+Break}         // }else{
+;{+Jump}	;LDA #Vrtan.Jump      //   state1=VrtanJump;
+	;STA vrtan.state1     // }
+;{+Break}	;
+	;RTS                  // return;
+	
+	;# ===============================================================//
+	;#Code w {Vrtan.Fall}                                             //
+	;# ===============================================================//
+	;# Dy ==================
+	;LDA #$0003           // vy=3;
+	;STA vrtan.vy         //
+	
+	;# Dx ==================
+	;LDA joy1             // if(joy1&0x0100){ // Right
+	;BIT #$0100           //
+	;BEQ {+Left}          //   // X Button
+	;BIT #$4000           //   vx=joy1&0x4000?2:1;
+	;BNE {+Fast}          //
+	;LDA #$0001           //
+	;BRA {+Dx}            //
+;{+Fast}	;LDA #$0002           //
+	;BRA {+Dx}            // }else if(joy1&0200){ //Left
+;{+Left}	;BIT #$0200           //
+	;BEQ {+Neutral}       //   // X button
+	;BIT #$4000           //   vx=joy1&0x4000?-2:-1;
+	;BNE {+Fast}          //
+	;LDA #$FFFF           //
+	;BRA {+Dx}            //
+;{+Fast}	;LDA #$FFFE           //
+	;BRA {+Dx}            // }else{
+;{+Neutral}	;LDA #$0000           //   vx=0;
+;{+Dx}	;STA vrtan.vx         // }
+	;
+	;# Move ================
+	;JSR Vrtan.Move       // VrtanMove();
+	;LDA Move.y1          // if(y1==y0){
+	;CMP Move.y0          //
+	;BNE {+Fall}          //
+	;LDA Move.x1          //   if(x1==x0){
+	;CMP Move.x0          //
+	;BNE {+Walk}          //
+	;LDA #Vrtan.Idle      //     state=VrtanIdle;
+	;STA vrtan.state1     //
+	;BRA {+Break}         //   }else{
+;{+Walk}	;LDA #Vrtan.Walk      //     state=VrtanWalk;
+	;STA vrtan.state1     //   }
+	;BRA {+Break}         // }else{
+;{+Fall}	;LDA #Vrtan.Fall      //   state1=VrtanFall;
+	;STA vrtan.state1     // }
+;{+Break}	;
+	;RTS                  // return;
 	
 	;#Code w {Vrtan.Punch}
-	;RTS
+	;RTS                  // return;
 	
 	;#Code w {Vrtan.JumpPunch}
-	;RTS
+	;RTS                  // return;
 	
 	;#Code w {Vrtan.Uppercut}
-	;RTS
+	;RTS                  // return;
 	
 	;#Code w {Vrtan.Crush}
-	;RTS
+	;RTS                  // return;
 	
 	;#Code w {Vrtan.Spike}
-	;RTS
+	;RTS                  // return;
 	
 	;#Code w {Vrtan.Respawn}
-	;RTS
-
-
-
-
-	;#Code w {Grounded} ================================================
-	;PHP
-	;PHB
-	;REP #$30
-	;PEA $7E00
-	;PLB
-	;PLB
+	;RTS                  // return;
+	
+	;# ===============================================================//
+	;#Code w {Vrtan.Sprite}                                           //
+	;# ===============================================================//
+	;LDA vrtan.state1     // if(state1!=state0||left1!=left0){
+	;CMP vrtan.state0     //
+	;BNE {+Walk}          //
+	;LDX vrtan.left1      //
+	;CPX vrtan.left0      //
+	;BEQ {+Done}          //
+;{+Walk}	;CMP #Vrtan.Walk      //   if(state1==Vrtan.Walk){
+	;BNE {+Jump}          //
+	;LDA vrtan.left1      //     if(!left){
+	;BNE {+Left}          //
+	;LDX #vrtan.body.walk.r.script // X=body.walk.r.script;
+	;LDY #vrtan.legs.walk.r.script // Y=legs.walk.r.script;
+	;BRA {+Break}         //     }else{
+;{+Left}	;LDX #vrtan.body.walk.l.script // X=body.walk.l.script;
+	;LDY #vrtan.legs.walk.l.script // Y=legs.walk.l.script;
+	;BRA {+Break}         //     }
+;{+Jump}	;CMP #Vrtan.Jump      //   }else if(state1==Vrtan.Jump){
+	;BNE {+Fall}          //
+	;LDA vrtan.left1      //     if(!left){
+	;BNE {+Left}          //
+	;LDX #vrtan.body.jump.r.script // X=body.jump.r.script;
+	;LDY #vrtan.legs.jump.r.script // Y=legs.jump.r.script;
+	;BRA {+Break}         //     }else{
+;{+Left}	;LDX #vrtan.body.jump.l.script // X=body.jump.l.script;
+	;LDY #vrtan.legs.jump.l.script // Y=legs.jump.l.script;
+	;BRA {+Break}         //     }
+;{+Fall}	;CMP #Vrtan.Fall      //   }else if(state1==Vrtan.Fall){
+	;BNE {+Idle}          //
+	;LDA vrtan.left1      //     if(!left){
+	;BNE {+Left}          //
+	;LDX #vrtan.body.idle.r.script // X=body.idle.r.script;
+	;LDY #vrtan.legs.idle.r.script // Y=legs.idle.r.script;
+	;BRA {+Break}         //     }else{
+;{+Left}	;LDX #vrtan.body.idle.l.script // X=body.idle.l.script;
+	;LDY #vrtan.legs.idle.l.script // Y=legs.idle.l.script;
+	;BRA {+Break}         //     }
+;{+Idle}	;LDA vrtan.left1      //   }else{
+	;BNE {+Left}          //     if(!left){
+	;LDX #vrtan.body.idle.r.script // X=body.idle.r.script;
+	;LDY #vrtan.legs.idle.r.script // Y=legs.idle.r.script;
+	;BRA {+Break}         //     }else{
+;{+Left}	;LDX #vrtan.body.idle.l.script // X=body.idle.l.script;
+	;LDY #vrtan.legs.idle.l.script // Y=legs.idle.l.script;
+;{+Break}	;STX vrtan.body.script//     }
+	;STZ vrtan.body.frame //   }
+	;STZ vrtan.body.timer //   body.script=X,body.frame=body.timer=0;
+	;STY vrtan.legs.script//   legs.script=Y,legs.frame=legs.timer=0;
+	;STZ vrtan.legs.frame //
+	;STZ vrtan.legs.timer // }
+;{+Done}	;RTS                  // return;
+	
+	;# ===============================================================//
+	;#Code w {Vrtan.Move}                                             //
+	;# ===============================================================//
+	;LDA vrtan.x0         // Move.x0=(x0+hit.x)%0x0100;
+	;CLC                  //
+	;ADC vrtan.hit.x      //
+	;AND #$00FF           //
+	;STA Move.x0          //
+	;LDA vrtan.y0         // Move.y0=(y0+hit.y)%0x0100;
+	;CLC                  //
+	;ADC vrtan.hit.y      //
+	;AND #$00FF           //
+	;STA Move.y0          //
+	;LDA vrtan.vx         // Move.dx=vx;
+	;STA Move.dx          //
+	;LDA vrtan.vy         // Move.dy=vy;
+	;STA Move.dy          //
+	;LDA vrtan.hit.width  // Move.hit.width=hit.width;
+	;STA Move.width       //
+	;LDA vrtan.hit.height // Move.hit.height=hit.height;
+	;STA Move.height      //
+	;JSR Move             // Move();
 	;
-	;LDA Grounded.x // Find initial level tile to test
-	;TAY
-	;LSR A
-	;LSR A
-	;LSR A
-	;AND #$001F
-	;STA Grounded.dx
-	;LDA Grounded.y
-	;CLC
-	;ADC Grounded.height
-	;AND #$00F8
-	;ASL A
-	;ASL A
-	;CLC
-	;ADC Grounded.dx
-	;ASL A
-	;TAX
+	;LDA Move.x1          // x1=(Move.x1-hit.x)%0x0100;
+	;SEC                  //
+	;SBC vrtan.hit.x      //
+	;AND #$00FF           //
+	;STA vrtan.x1         //
+	;LDA Move.y1          // y1=(Move.y1-hit.y)%0x0100;
+	;SEC                  //
+	;SBC vrtan.hit.y      //
+	;AND #$00FF           //
+	;STA vrtan.y1         //
 	;
-	;TYA // Find number of tiles to test
-	;LSR A
-	;LSR A
-	;LSR A
-	;STA Grounded.dx
-	;TYA
-	;CLC
-	;ADC Grounded.width
-	;DEC A
-	;LSR A
-	;LSR A
-	;LSR A
-	;SEC
-	;SBC Grounded.dx
-	;INC A
-	;TAY
-	;
-;{-}	;LDA level,X
-	;AND #$03FF
-	;CMP #$0009 // Stone character
-	;BEQ {+Pass}
-	;TXA
-	;AND #$FFC0
-	;STA Grounded.row
-	;TXA
-	;INC A
-	;INC A
-	;AND #$003F
-	;ORA Grounded.row
-	;TAX
-	;DEY
-	;BNE {-}
-	;
-	;PLB
-	;PLP
-	;CLC // Fail
-	;RTS
-	;
-;{+Pass}	;PLB
-	;PLP
-	;SEC // Pass
-	;RTS
-
-
-	;#Code w {Move} ====================================================
+	;LDA vrtan.x1         // if(x1!=x0){ 
+	;CMP vrtan.x0         //
+	;BEQ {+Same}          //
+	;LDA vrtan.vx         //   left1=vx<0?0xFFFF:0x0000;
+	;BMI {+Left}          //
+	;LDA #$0000           //
+	;BRA {+Right}         //
+;{+Left}	;LDA #$FFFF           //
+;{+Right}	;STA vrtan.left1      // }
+;{+Same}	;
+	;RTS                  // return;
+	
+	;# ===============================================================//
+	;#Code w {Move}                                                   //
+	;# ===============================================================//
 	;PHP                  // Php();
 	;PHB                  // Phb();
 	;REP #$30             // B=0x7E;
@@ -326,20 +460,24 @@
 	;PLB                  //
 	;PLB                  //
 	;
-	;LDA $001337          // !!! DEBUG !!!
-	;
-	;STZ Move.hit         // hit=0;
+	;STZ Move.hit.x       // hitX=0;
+	;STZ Move.hit.y       // hitY=0;
 	;JSR Move.Y           // Move.Y();
+	;LDA Move.y0          //
+	;STA Move.copy        //
 	;LDA Move.y1          // y0=y1;
 	;STA Move.y0          //
 	;JSR Move.X           // Move.X();
+	;LDA Move.copy        //
+	;STA Move.y0          //
 	;
 	;PLB                  // Plb();
 	;PLP                  // Plp();
 	;RTS                  // return;
-
-
-	;#Code w {Move.X} ==================================================
+	
+	;# ===============================================================//
+	;#Code w {Move.X}                                                 //
+	;# ===============================================================//
 	;# dxTile ==============
 	;LDA Move.dx          // if(dx==0){
 	;BNE {+Delta}         //
@@ -444,7 +582,7 @@
 ;{++}	;AND #$00FF           //
 ;{+Inside}	;STA Move.x1          //       }
 	;LDA #$FFFF           //       hit=1;
-	;STA Move.hit         //       return;
+	;STA Move.hit.x       //       return;
 	;RTS                  //     }
 ;{+Air}	;TXA                  //     X=(X+0x0040)%0x0800;
 	;CLC                  //
@@ -477,8 +615,9 @@
 	;STA Move.x1          //
 	;RTS                  // return;
 
-
-	;#Code w {Move.Y} ==================================================
+	;# ===============================================================//
+	;#Code w {Move.Y}                                                 //
+	;# ===============================================================//
 	;# dyTile ==============
 	;LDA Move.dy          // if(dy==0){
 	;BNE {+Delta}         //
@@ -584,7 +723,7 @@
 ;{++}	;AND #$00FF           //         y1%=0x0100
 ;{+Inside}	;STA Move.y1          //       }
 	;LDA #$FFFF           //       hit=1;
-	;STA Move.hit         //       return;
+	;STA Move.hit.y       //       return;
 	;RTS                  //     }
 ;{+Air}	;TXA                  //     X=X&0x07C0|(X+2)%0x40;
 	;INC A                //
@@ -615,4 +754,8 @@
 	;AND #$00FF           //
 	;STA Move.y1          //
 	;RTS                  // return;
+	
+	;# ===============================================================//
+	;#                                                                //
+	;# ===============================================================//
 

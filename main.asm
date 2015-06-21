@@ -126,14 +126,22 @@
 	;# Initiate Players
 	;REP #$30
 	;LDA #Vrtan.Idle
-	;STA vrtan.state
+	;STA vrtan.state0
+	;LDA #vrtan.body.idle.r.script
+	;STA vrtan.body.script
+	;STZ vrtan.body.frame
+	;STZ vrtan.body.timer
+	;LDA #vrtan.legs.idle.r.script
+	;STA vrtan.legs.script
+	;STZ vrtan.legs.frame
+	;STZ vrtan.legs.timer
 	;LDA #$0078
 	;STA vrtan.x0
 	;LDA #$00A8
 	;STA vrtan.y0
 	;STZ vrtan.vx
 	;STZ vrtan.vy
-	;STZ vrtan.left // 0=right , 1=left
+	;STZ vrtan.left0 // 0=right , 1=left
 	;STZ vrtan.flip // 0=normal, 1=flipped
 	;LDA #$0003
 	;STA vrtan.hit.x
