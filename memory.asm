@@ -222,8 +222,15 @@
             ;#Name $0630    vrtan.hazard
             ;#Name $0632    vrtan.hit.show
             
-            ;#Name $0650    player0.score
-            ;#Name $0651    player1.score
+			;#Name $0634    p0.punch.timer
+
+			;#Name $0636    p0.run.timer
+			;#Name $0638    p0.run.flag
+            
+            ;#Name $0650    p0.score
+            ;#Name $0651    p1.score
+
+
             ;# Environment =====================================================
             ;#Name $0700  gravity
 
@@ -299,6 +306,7 @@
             ;#Code w Draw.Level
             ;#Code w Draw.Players
             ;#Code w Draw.Entity
+			;#Code w Draw.Effects
             
 
             ;#Code l Dma.Immediate
@@ -397,6 +405,10 @@
 
             ;#Data w vrtan.legs.jump.r.0
             ;#Data w vrtan.legs.jump.l.0
+
+			;# Hdma
+            ;#Data w hdma.sea.set
+            ;#Data w hdma.sea
 
             ;# Technical ============================
             ;#Data l header

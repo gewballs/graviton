@@ -165,7 +165,7 @@
             ;STA vrtan.hit.y      //
             ;LDA #$0008           // vrtan.hit.width=0x0008;
             ;STA vrtan.hit.width  //
-            ;LDA #$0018           // vrtan.hit.height=0x0018;
+            ;LDA #$0019           // vrtan.hit.height=0x0019;
             ;STA vrtan.hit.height //
             ;LDA #$0040           // vrtan.ghost=0x0040;
             ;STA vrtan.ghost      //
