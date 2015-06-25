@@ -173,6 +173,12 @@
             ;# Environment =========
             ;LDA #$0005           // gravity=0x0005;
             ;STA gravity          //
+			;SEP #$20
+            ;LDA #$12
+            ;STA gradient.b0
+            ;LDA #$03
+            ;STA gradient.b1
+			;REP #$20
             ;
             ;# Program =============
             ;INC Main.program     // Main.program++;

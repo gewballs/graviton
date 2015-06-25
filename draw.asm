@@ -13,7 +13,7 @@
             ;JSR Draw.Level       // Level();
             ;JSR Draw.Players     // Players();
             ;JSR Draw.Entity      // Entity();
-			;JSR Draw.Effects     // Effects();
+			;JSR Draw.Gradient    // Gradient();
             ;
             ;PLP                  // Plp();
             ;RTS                  // return;
@@ -237,52 +237,142 @@
             ;# ===============================================================//
             ;RTS
            
-
-
-
-
-
-
-
-
-
-
-            ;#Data w hdma.sea {
-				$0F $92
-				$0F $91
-				$0F $90
-				$0F $8F
-				$0F $8E
-				$0F $8D
-				$0F $8C
-				$0F $8B
-				$0F $8A
-				$0F $89
-				$0F $88
-				$0F $87
-				$0F $86
-				$0F $85
-				$0F $84
-				$0F $83
+            ;#Data w hdma.sea{
+				$0F gradient
+				$0F $0727
+				$0F $0728
+				$0F $0729
+				$0F $072A
+				$0F $072B
+				$0F $072C
+				$0F $072D
+				$0F $072E
+				$0F $072F
+				$0F $0730
+				$0F $0731
+				$0F $0732
+				$0F $0733
+				$0F $0734
+				$0F $0735
+				$00
 			}
 
-			;#Data w hdma.sea.set {
-				$00 $32 hdma.sea
+			;#Data w hdma.sea.set{
+				$40 $32 hdma.sea $00
 				$0000
 			}
 
             ;# ===============================================================//
-            ;#Code w {Draw.Effects}                                           //
+            ;#Code w {Draw.Gradient}                                          //
             ;# ===============================================================//
+			;# Registers ===============
 			;SEP #$20
 			;LDA #$00
 			;STA cgswsel
 			;LDA #$20
 			;STA cgadsub
-			;LDA #$8F
-			;STA coldata_blue
-			;REP #$20
+			
+			
+			
+			;# DEBUG	
+			;REP #$20	
+			;LDA joy1
+			;BIT #$0400
+			;BEQ {+Up}
 			;
+			;LDA gradient.b1
+			;CMP #$0003
+			;BEQ {+Break}
+			;DEC gradient.b1
+			;INC gradient.b0
+			;
+			;BRA {+Break}
+;{+Up}      ;BIT #$0800
+			;BEQ {+Break}
+			;LDA gradient.b0
+			;CMP #$0003
+			;BEQ {+Break}
+			;DEC gradient.b0
+			;INC gradient.b1
+            
+			;BRA {+Break}
+			;
+			;
+			;
+;{+Break}   ;
+			;SEP #$20
+			;
+			
+			
+			
+			
+			;
+			;# Direction ===============
+			;LDA gradient.b1
+			;CMP gradient.b0
+			;BCC {+Neg}
+			;
+			;# Positive ================
+			;SEC
+			;SBC gradient.b0
+			;REP #$20
+			;AND #$00FF
+            ;ASL A
+			;ASL A
+			;ASL A
+			;ASL A
+			;STA gradient.db
+			;LDX #$000F
+			;LDA gradient.b1
+			;AND #$00FF
+    		;XBA
+;{-Loop} 	;PHA
+			;XBA
+			;SEP #$20
+			;CMP #$20
+			;BCC {+NoClamp}
+			;LDA #$1F
+;{+NoClamp} ;ORA #$80
+			;STA gradient,X
+            ;REP #$20
+			;PLA
+			;SEC
+			;SBC gradient.db
+			;DEX
+			;BPL {-Loop}
+			;BRA {+Pos}
+			;
+			;# Negative ================
+;{+Neg}		;LDA gradient.b0
+			;SEC
+			;SBC gradient.b1
+			;REP #$20
+			;AND #$00FF
+            ;ASL A
+			;ASL A
+			;ASL A
+			;ASL A
+			;STA gradient.db
+			;LDX #$000F
+			;LDA gradient.b1
+			;AND #$00FF
+    		;XBA
+;{-Loop} 	;PHA
+			;XBA
+			;SEP #$20
+			;CMP #$20
+			;BCC {+NoClamp}
+			;LDA #$1F
+;{+NoClamp} ;ORA #$80
+			;STA gradient,X
+            ;REP #$20
+			;PLA
+			;CLC
+			;ADC gradient.db
+			;DEX
+			;BPL {-Loop}
+;{+Pos}		;
+			;# Hdma ====================
 			;STZ Nmi.Hdma.data.h
 			;LDA #hdma.sea.set
 			;STA Nmi.Hdma.data
@@ -290,10 +380,6 @@
 			;LDA #$02
 			;STA hdmaen
 			;REP #$20
-			;
-			;
-			;
-			;
 			;
             ;RTS
             

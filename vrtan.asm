@@ -14,6 +14,10 @@
 			;#Name $8000 JOY_jump
 			;#Name $4000 JOY_attack
 
+			;#Name $0000 TILE_air
+			;#Name $0020 TILE_solid
+			;#Name $0021 TILE_spike
+
             ;# ===============================================================//
             ;#Code w {Vrtan}                                                  //
             ;# ===============================================================//
@@ -463,6 +467,8 @@
             ;LDA Move.y1          // if(y1>=y0){
             ;CMP Move.y0          //
             ;BCC {+Jump}          //
+			;STZ p0.run.flag      //
+			;STZ p0.run.timer
             ;LDA #Vrtan.Fall      //   state1=VrtanFall;
             ;STA vrtan.state1     //
             ;BRA {+Break}         // }else{
@@ -741,8 +747,8 @@
 ;{-Row}     ;TAX                  //   X=index;
             ;LDA level,X          //   for(Y=dyTile:Y:Y--){ // Row
             ;AND #$03FF           //     switch(level[X]&0x03FF){
-            ;CMP #$000A           //     case TILE_spike:
-            ;BNE {+Stone}         //
+            ;CMP #TILE_spike      //     case TILE_spike:
+            ;BNE {+Solid}         //
             ;LDA Move.dx          //       Move.hazard|=dx<0?0x0004:0x0001:
             ;BMI {+Left}          //
             ;LDA #$0001           //
@@ -751,7 +757,7 @@
 ;{+Right}   ;ORA Move.hazard      //
             ;STA Move.hazard      //
             ;BRA {+Air}           //       break;
-;{+Stone}   ;CMP #$0009           //     case TILE_stone:
+;{+Solid}   ;CMP #TILE_solid      //     case TILE_solid:
             ;BNE {+Air}           //
             ;LDA Move.iteration   //       if(iteration==0){
             ;BNE {+Outside}       //
@@ -898,8 +904,8 @@
 ;{-Column}  ;TAX                  //   X=index;
             ;LDA level,X          //   for(Y=dxTile:Y:Y--){ // Row
             ;AND #$03FF           //     if((level[X]&0x03FF)==TILE_stone){
-            ;CMP #$000A           //     case TILE_spike:
-            ;BNE {+Stone}         //
+            ;CMP #TILE_spike      //     case TILE_spike:
+            ;BNE {+Solid}         //
             ;LDA Move.dy          //       Move.hazard|=dy<0?0x0008:0x0002:
             ;BMI {+Up}            //
             ;LDA #$0002           //
@@ -908,7 +914,7 @@
 ;{+Down}    ;ORA Move.hazard      //
             ;STA Move.hazard      //
             ;BRA {+Air}           //       break;
-;{+Stone}   ;CMP #$0009           //     case TILE_stone:
+;{+Solid}   ;CMP #TILE_solid      //     case TILE_solid:
             ;BNE {+Air}           //
             ;LDA Move.iteration   //       if(iteration==0){
             ;BNE {+Outside}       //

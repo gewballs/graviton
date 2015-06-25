@@ -399,6 +399,7 @@
             ;#Code w {Nmi.Hdma}                                               //
             ;# ===============================================================//
             ;PHP
+;LDA $1337
             ;SEP #$10
             ;LDX #$10
             ;LDY #$00
@@ -416,6 +417,10 @@
             ;STA DMAA.h,X
             ;INY
             ;INY
+			;SEP #$20
+			;LDA [Nmi.Hdma.data],Y
+			;STA DMAD.b,X
+			;INY
 ;{+}        ;SEP #$20
             ;TXA
             ;CLC

@@ -234,6 +234,11 @@
             ;# Environment =====================================================
             ;#Name $0700  gravity
 
+            ;#Name $0720  gradient.b0    b INPUT
+            ;#Name $0722  gradient.b1    b INPUT
+			;#Name $0724  gradient.db    b
+            ;#Name $0726  gradient       b[0x10]
+
             ;# WRAM $7E:2000-$7E:FFFF
             ;#Name $2000  level // w[0x0400]
             
@@ -306,7 +311,7 @@
             ;#Code w Draw.Level
             ;#Code w Draw.Players
             ;#Code w Draw.Entity
-			;#Code w Draw.Effects
+			;#Code w Draw.Gradient
             
 
             ;#Code l Dma.Immediate
