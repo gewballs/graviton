@@ -14,6 +14,7 @@
             ;JSR Draw.Players     // Players();
             ;JSR Draw.Entity      // Entity();
 			;JSR Draw.Gradient    // Gradient();
+			;JSR Draw.Grass       // Grass();
             ;
             ;PLP                  // Plp();
             ;RTS                  // return;
@@ -194,10 +195,106 @@
             ;INX                  //
             ;STX Nmi.Write.i      // Nmi.Write.i=X;
             ;
-            ;# Meter ===============
+			;# Gravity gauge =======
+			;LDX Nmi.Write.i
+			;LDA gravity1         //
+			;TAY
+			;BEQ {+Clear}
+			;BMI {+Minus}
+			;
+			;# Positive
+			;LDA #$0030           // Vram address
+;{-}      	;STA Nmi.Write.base,X
+			;TYA
+			;BNE {+Nonzero}
+			;LDA #$2408
+			;STA Nmi.Write.data,X
+			;BRA {+Next}
+			;
+;{+Nonzero} ;CMP #$0008
+			;BCS {+Fill}
+			;CLC
+			;ADC #$2408
+			;STA Nmi.Write.data,X
+			;LDY #$0000
+			;BRA {+Next}
+			;
+;{+Fill}    ;LDA #$240F
+			;STA Nmi.Write.data,X
+			;TYA
+			;SEC
+			;SBC #$0008
+			;TAY
+			;
+;{+Next}    ;LDA Nmi.Write.base,X
+			;INX
+            ;INX
+            ;INX
+            ;INX
+			;
+			;INC A
+			;CMP #$0034
+			;BNE {-}
+			;BRA {+Break}
+			;
+;{+Clear}   ;LDA #$002F           // Vram address
+          	;STA Nmi.Write.base,X
+			;LDA #$6408
+			;STA Nmi.Write.data,X
+			;INX
+			;INX
+			;INX
+			;INX
+			;LDA #$0030           // Vram address
+          	;STA Nmi.Write.base,X
+			;LDA #$2408
+			;STA Nmi.Write.data,X
+			;INX
+            ;INX
+            ;INX
+            ;INX
+			;BRA {+Break}
+			;
+;{+Minus}   ;# Negative
+			;EOR #$FFFF
+			;INC A
+			;TAY
+			;LDA #$002F           // Vram address
+;{-}      	;STA Nmi.Write.base,X
+			;TYA
+			;BNE {+Nonzero}
+			;LDA #$6408
+			;STA Nmi.Write.data,X
+			;BRA {+Next}
+			;
+;{+Nonzero} ;CMP #$0008
+			;BCS {+Fill}
+			;CLC
+			;ADC #$6408
+			;STA Nmi.Write.data,X
+			;LDY #$0000
+			;BRA {+Next}
+			;
+;{+Fill}    ;LDA #$640F
+			;STA Nmi.Write.data,X
+			;TYA
+			;SEC
+			;SBC #$0008
+			;TAY
+			;
+;{+Next}    ;LDA Nmi.Write.base,X
+			;INX
+            ;INX
+            ;INX
+            ;INX
+			;
+			;DEC A
+			;CMP #$002B
+			;BNE {-}
             ;
+;{+Break}   ;STX Nmi.Write.i
             ;
-            ;RTS                  // return;
+			;RTS                  // return;
             
             ;# ===============================================================//
             ;#Code w {Draw.Level}                                             //
@@ -271,43 +368,19 @@
 			;STA cgswsel
 			;LDA #$20
 			;STA cgadsub
-			
-			
-			
-			;# DEBUG	
-			;REP #$20	
-			;LDA joy1
-			;BIT #$0400
-			;BEQ {+Up}
-			;
-			;LDA gradient.b1
-			;CMP #$0003
-			;BEQ {+Break}
-			;DEC gradient.b1
-			;INC gradient.b0
-			;
-			;BRA {+Break}
-;{+Up}      ;BIT #$0800
-			;BEQ {+Break}
-			;LDA gradient.b0
-			;CMP #$0003
-			;BEQ {+Break}
-			;DEC gradient.b0
-			;INC gradient.b1
-            
-			;BRA {+Break}
-			;
-			;
-			;
-;{+Break}   ;
-			;SEP #$20
-			;
-			
-			
-			
-			
 			;
 			;# Direction ===============
+			;LDA gravity1
+			;CLC
+			;ADC #$20
+			;LSR A
+			;LSR A
+			;STA gradient.b1
+			;LDA #$0F
+			;SEC
+			;SBC gradient.b1
+			;STA gradient.b0
+			;
 			;LDA gradient.b1
 			;CMP gradient.b0
 			;BCC {+Neg}
@@ -383,6 +456,108 @@
 			;
             ;RTS
             
+            ;#Data w grass.base{
+			    $0088
+				$009A
+                $0142
+				$0145
+				$0232
+				$025D
+				$02B9
+				$0362
+				$037E
+			}
+            ;#Data w grass.tile{
+			    $A800
+				$E800
+                $6800
+				$2800
+				$A800
+				$6800
+				$E800
+				$2800
+				$2800
+			}
+			;#Data w grass.name.v0{
+			    $0022
+				$0023
+				$0024
+				$0025
+			}
+			;#Data w grass.name.v1{
+			    $0025
+				$0024
+				$0023
+				$0022
+			}
+
+            ;# ===============================================================//
+            ;#Code w {Draw.Grass}                                             //
+            ;# ===============================================================//
+			;LDA grass.timer
+			;BNE {+Wait}
+			;
+			;LDA #$0008
+			;STA grass.timer
+			;
+			;LDA gravity1
+			;BMI {+Up}
+			;DEC grass.frame
+			;DEC grass.frame
+			;BRA {+Down}
+;{+Up}      ;INC grass.frame
+            ;INC grass.frame
+;{+Down}    ;LDA grass.frame
+			;BPL {+Max}
+			;LDA #$0000
+			;BRA {+Min}
+;{+Max}     ;CMP #$0008
+            ;BCC {+Ok}
+			;LDA #$0006
+;{+Min}     ;STA grass.frame
+;{+Ok}      ;
+			;# Update tiles
+			;
+			;
+			;LDX Nmi.Write.i
+			;LDY #$0010
+;{-}		;LDA grass.base,Y
+			;STA Nmi.Write.base,X
+			;LDA grass.tile,Y
+			;PHY
+			;LDY grass.frame
+			;BIT #$8000
+			;BNE {+Flip}
+			;ORA grass.name.v0,Y
+			;BRA {+NoFlip}
+;{+Flip}    ;ORA grass.name.v1,Y
+;{+NoFlip}  ;STA Nmi.Write.data,X
+			;INX
+			;INX
+			;INX
+			;INX
+            ;PLY
+			;DEY
+			;DEY
+			;BPL {-}
+			;STX Nmi.Write.i
+			;
+			;
+			;
+;{+Idle}    ;LDA grass.timer
+            ;BEQ {+Zero}
+;{+Wait}    ;DEC grass.timer
+;{+Zero}    ;
+			;RTS
+
+
+
+
+
+
+
+
+
             ;# ===============================================================//
             ;#                                                                //
             ;# ===============================================================//

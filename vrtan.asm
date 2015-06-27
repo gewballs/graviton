@@ -16,6 +16,8 @@
 
 			;#Name $0000 TILE_air
 			;#Name $0020 TILE_solid
+			;#Name $0026 TILE_mossUp
+			;#Name $0027 TILE_mossDown
 			;#Name $0021 TILE_spike
 
             ;# ===============================================================//
@@ -758,8 +760,12 @@
             ;STA Move.hazard      //
             ;BRA {+Air}           //       break;
 ;{+Solid}   ;CMP #TILE_solid      //     case TILE_solid:
-            ;BNE {+Air}           //
-            ;LDA Move.iteration   //       if(iteration==0){
+            ;BEQ {+Stop}          //
+			;CMP #TILE_mossUp
+			;BEQ {+Stop}
+			;CMP #TILE_mossDown
+			;BNE {+Air}
+;{+Stop}    ;LDA Move.iteration   //       if(iteration==0){
             ;BNE {+Outside}       //
             ;LDA Move.x0          //         x1=x0;
             ;BRA {+Inside}        //       }else{
@@ -915,8 +921,12 @@
             ;STA Move.hazard      //
             ;BRA {+Air}           //       break;
 ;{+Solid}   ;CMP #TILE_solid      //     case TILE_solid:
-            ;BNE {+Air}           //
-            ;LDA Move.iteration   //       if(iteration==0){
+            ;BEQ {+Stop}          //
+			;CMP #TILE_mossUp
+			;BEQ {+Stop}
+			;CMP #TILE_mossDown
+			;BNE {+Air}
+;{+Stop}    ;LDA Move.iteration   //       if(iteration==0){
             ;BNE {+Outside}       //
             ;LDA Move.y0          //         y1=y0;
             ;BRA {+Inside}        //       }else{

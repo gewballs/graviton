@@ -43,6 +43,7 @@
             
             ;# Game ================
             ;#File draw.asm       // Render code
+			;#File gravity.asm    // Gravity code
             ;#File vrtan.asm      // Player code
             ;#File debug.asm      // Debug code
             
@@ -171,8 +172,9 @@
             ;STA vrtan.ghost      //
             ;
             ;# Environment =========
-            ;LDA #$0005           // gravity=0x0005;
-            ;STA gravity          //
+            ;LDA #$001F           // gravity0=0x001F;
+            ;STA gravity0         //
+            ;STA gravity1         //
 			;SEP #$20
             ;LDA #$12
             ;STA gradient.b0
@@ -234,6 +236,7 @@
             ;JSL Rng              //   Rng();
             ;
             ;# Game ================
+			;JSR Gravity          //   Gravity();
             ;JSR Vrtan            //   Vrtan();
             ;JSR Draw             //   Draw();
             ;JSR Debug            //   Debug();
@@ -265,9 +268,9 @@
             ;# ===============================================================//
             ;#File vrtan.spr      // Player sprite and animatin scripts
             
-            ;#Data l bg.char    {#graviton.chr} // Background char, 8x8p 4-bit
+            ;#Data l bg.char    {#bg.chr}       // Background char, 8x8p 4-bit
             ;#Data l vrtan.char {#vrtan.chr}    // Player obj char, 8x8p 4-bit
-            ;#Data l palette    {#graviton.pal} // Cgram palette
+            ;#Data l palette    {#color.pal}    // Cgram palette
             ;#Data l level.name {#level.map}    // Level tilemap/level data
             ;#Data l sea.name   {#sea.map}      // Sea tilemap
             
