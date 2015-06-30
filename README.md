@@ -1,4 +1,7 @@
 # graviton
+![alt tag](https://raw.githubusercontent.com/gewballs/graviton/master/pictures/graviton_antigravity.jpg)
+
+
 SNES Graviton
 
 This is a small project to demonstrate how a SNES game works.
@@ -11,8 +14,11 @@ am not making it available), and data is stored in various
 binary files.  The file types are as follows:
 
 *.asm // Assembly text file
+
 *.pal // Palette    binary file, ie colors
+
 *.chr // Character  binary file, ie tiles
+
 *.nmt // Name table binary file, ie tile map
 
 Everything flows from main.asm, so to read the program, begin
@@ -32,12 +38,17 @@ may have + or - prefix to force search in on direction.
 Assembler directives give the assembler special instructions
 to ease programming.  Directives start with a hash #.
 
-#LoROM    // This defines how to map ROM to CPU addresses
-#Name     // Names define constants
-#Code     // Uses the value of the current PC as code address
-#Data     // Data is defined between braces { }.  A name with
+\#LoROM    // This defines how to map ROM to CPU addresses
+
+\#Name     // Names define constants
+
+\#Code     // Uses the value of the current PC as code address
+
+\#Data     // Data is defined between braces { }.  A name with
           // a hash # prefix will insert that binary data file
-#File     // Include a text file
-# Comment // A Hash followed by whitespace is a comment
+          
+\#File     // Include a text file
+
+\# Comment // A Hash followed by whitespace is a comment
 
 More to come
