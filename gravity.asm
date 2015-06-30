@@ -3,6 +3,7 @@
 			;REP #$30
 			;
             ;# Gauge ===============
+;{+Clamp}			;LDX $1337
             ;LDA joy              // !!! DEBUG !!!
 			;BIT #$0400           // Down
 			;BEQ {+Up}
@@ -25,9 +26,6 @@
 			;BCS {+Write}
 			;LDA #$FFE1
 ;{+Write}   ;STA gravity1
-			;
-			;LDA gravity1
-			;STA gravity0
 			;
 			;PLP
 			;RTS

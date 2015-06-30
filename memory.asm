@@ -231,7 +231,7 @@
             ;#Name $0651    p1.score
 
 
-            ;# Environment =====================================================
+            ;# En.rinment =====================================================
             ;#Name $0700  gravity0
             ;#Name $0702  gravity1
 			
@@ -343,24 +343,42 @@
 
             ;# Sprite Scripts ========================
             ;#Data w vrtan.body.idle.r.script
+            ;#Data w vrtan.body.idle.ri.script
             ;#Data w vrtan.body.idle.l.script
+            ;#Data w vrtan.body.idle.li.script
             ;#Data w vrtan.body.walk.r.script
+            ;#Data w vrtan.body.walk.ri.script
             ;#Data w vrtan.body.walk.l.script
+            ;#Data w vrtan.body.walk.li.script
             ;#Data w vrtan.body.jump.r.script
+            ;#Data w vrtan.body.jump.ri.script
             ;#Data w vrtan.body.jump.l.script
+            ;#Data w vrtan.body.jump.li.script
             ;#Data w vrtan.body.punch.r.script
+            ;#Data w vrtan.body.punch.ri.script
             ;#Data w vrtan.body.punch.l.script
+            ;#Data w vrtan.body.punch.li.script
             ;#Data w vrtan.body.uppercut.r.script
+            ;#Data w vrtan.body.uppercut.ri.script
             ;#Data w vrtan.body.uppercut.l.script
+            ;#Data w vrtan.body.uppercut.li.script
 
             ;#Data w vrtan.legs.idle.r.script
+            ;#Data w vrtan.legs.idle.ri.script
             ;#Data w vrtan.legs.idle.l.script
+            ;#Data w vrtan.legs.idle.li.script
             ;#Data w vrtan.legs.walk.r.script
+            ;#Data w vrtan.legs.walk.ri.script
             ;#Data w vrtan.legs.walk.l.script
+            ;#Data w vrtan.legs.walk.li.script
             ;#Data w vrtan.legs.jump.r.script
+            ;#Data w vrtan.legs.jump.ri.script
             ;#Data w vrtan.legs.jump.l.script
+            ;#Data w vrtan.legs.jump.li.script
             ;#Data w vrtan.legs.punch.r.script
+            ;#Data w vrtan.legs.punch.ri.script
             ;#Data w vrtan.legs.punch.l.script
+            ;#Data w vrtan.legs.punch.li.script
 
             ;# Sprite ================================
             ;# Hitbox
@@ -371,53 +389,93 @@
 
             ;# Body Sprite
             ;#Data w vrtan.body.idle.r.0
+            ;#Data w vrtan.body.idle.ri.0
             ;#Data w vrtan.body.idle.l.0
+            ;#Data w vrtan.body.idle.li.0
             ;#Data w vrtan.body.idle.r.1
+            ;#Data w vrtan.body.idle.ri.1
             ;#Data w vrtan.body.idle.l.1
+            ;#Data w vrtan.body.idle.li.1
             ;#Data w vrtan.body.idle.r.2
+            ;#Data w vrtan.body.idle.ri.2
             ;#Data w vrtan.body.idle.l.2
+            ;#Data w vrtan.body.idle.li.2
             
             ;#Data w vrtan.body.walk.r.0
+            ;#Data w vrtan.body.walk.ri.0
             ;#Data w vrtan.body.walk.l.0
+            ;#Data w vrtan.body.walk.li.0
             ;#Data w vrtan.body.walk.r.1
+            ;#Data w vrtan.body.walk.ri.1
             ;#Data w vrtan.body.walk.l.1
+            ;#Data w vrtan.body.walk.li.1
             ;#Data w vrtan.body.walk.r.2
+            ;#Data w vrtan.body.walk.ri.2
             ;#Data w vrtan.body.walk.l.2
+            ;#Data w vrtan.body.walk.li.2
 
             ;#Data w vrtan.body.jump.r.0
+            ;#Data w vrtan.body.jump.ri.0
             ;#Data w vrtan.body.jump.l.0
+            ;#Data w vrtan.body.jump.li.0
             
             ;#Data w vrtan.body.punch.r.0
+            ;#Data w vrtan.body.punch.ri.0
             ;#Data w vrtan.body.punch.l.0
+            ;#Data w vrtan.body.punch.li.0
             ;#Data w vrtan.body.punch.r.1
+            ;#Data w vrtan.body.punch.ri.1
             ;#Data w vrtan.body.punch.l.1
+            ;#Data w vrtan.body.punch.li.1
             
             ;#Data w vrtan.body.uppercut.r.0
+            ;#Data w vrtan.body.uppercut.ri.0
             ;#Data w vrtan.body.uppercut.l.0
+            ;#Data w vrtan.body.uppercut.li.0
             ;#Data w vrtan.body.uppercut.r.1
+            ;#Data w vrtan.body.uppercut.ri.1
             ;#Data w vrtan.body.uppercut.l.1
+            ;#Data w vrtan.body.uppercut.li.1
             ;#Data w vrtan.body.uppercut.r.2
+            ;#Data w vrtan.body.uppercut.ri.2
             ;#Data w vrtan.body.uppercut.l.2
+            ;#Data w vrtan.body.uppercut.li.2
 
             ;# Legs Sprite
             ;#Data w vrtan.legs.idle.r.0
+            ;#Data w vrtan.legs.idle.ri.0
             ;#Data w vrtan.legs.idle.l.0
+            ;#Data w vrtan.legs.idle.li.0
             
             ;#Data w vrtan.legs.walk.r.0
+            ;#Data w vrtan.legs.walk.ri.0
             ;#Data w vrtan.legs.walk.l.0
+            ;#Data w vrtan.legs.walk.li.0
             ;#Data w vrtan.legs.walk.r.1
+            ;#Data w vrtan.legs.walk.ri.1
             ;#Data w vrtan.legs.walk.l.1
+            ;#Data w vrtan.legs.walk.li.1
             ;#Data w vrtan.legs.walk.r.2
+            ;#Data w vrtan.legs.walk.ri.2
             ;#Data w vrtan.legs.walk.l.2
+            ;#Data w vrtan.legs.walk.li.2
             ;#Data w vrtan.legs.walk.r.3
+            ;#Data w vrtan.legs.walk.ri.3
             ;#Data w vrtan.legs.walk.l.3
+            ;#Data w vrtan.legs.walk.li.3
             ;#Data w vrtan.legs.walk.r.4
+            ;#Data w vrtan.legs.walk.ri.4
             ;#Data w vrtan.legs.walk.l.4
+            ;#Data w vrtan.legs.walk.li.4
             ;#Data w vrtan.legs.walk.r.5
+            ;#Data w vrtan.legs.walk.ri.5
             ;#Data w vrtan.legs.walk.l.5
+            ;#Data w vrtan.legs.walk.li.5
 
             ;#Data w vrtan.legs.jump.r.0
+            ;#Data w vrtan.legs.jump.ri.0
             ;#Data w vrtan.legs.jump.l.0
+            ;#Data w vrtan.legs.jump.li.0
 
 			;# Hdma
             ;#Data w hdma.sea.set

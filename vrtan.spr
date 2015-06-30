@@ -8,6 +8,13 @@
 	    vrtan.body.idle.r.2 $001C
 	    vrtan.body.idle.r.1 $0004
 	}
+	;#Data w vrtan.body.idle.ri.script{
+	    $0004
+	    vrtan.body.idle.ri.0 $0008
+	    vrtan.body.idle.ri.1 $0004
+	    vrtan.body.idle.ri.2 $001C
+	    vrtan.body.idle.ri.1 $0004
+	}
 	;#Data w vrtan.body.idle.l.script{
 	    $0004
 	    vrtan.body.idle.l.0 $0008
@@ -15,12 +22,27 @@
 	    vrtan.body.idle.l.2 $001C
 	    vrtan.body.idle.l.1 $0004
 	}
+	;#Data w vrtan.body.idle.li.script{
+	    $0004
+	    vrtan.body.idle.li.0 $0008
+	    vrtan.body.idle.li.1 $0004
+	    vrtan.body.idle.li.2 $001C
+	    vrtan.body.idle.li.1 $0004
+	}
+
 	;#Data w vrtan.body.walk.r.script{
 	    $0004
 	    vrtan.body.walk.r.0 $0008
 	    vrtan.body.walk.r.1 $0004
 	    vrtan.body.walk.r.2 $0008
 	    vrtan.body.walk.r.1 $0004
+	}
+	;#Data w vrtan.body.walk.ri.script{
+	    $0004
+	    vrtan.body.walk.ri.0 $0008
+	    vrtan.body.walk.ri.1 $0004
+	    vrtan.body.walk.ri.2 $0008
+	    vrtan.body.walk.ri.1 $0004
 	}
 	;#Data w vrtan.body.walk.l.script{
 	    $0004
@@ -29,19 +51,42 @@
 	    vrtan.body.walk.l.2 $0008
 	    vrtan.body.walk.l.1 $0004
 	}
+	;#Data w vrtan.body.walk.li.script{
+	    $0004
+	    vrtan.body.walk.li.0 $0008
+	    vrtan.body.walk.li.1 $0004
+	    vrtan.body.walk.li.2 $0008
+	    vrtan.body.walk.li.1 $0004
+	}
+
 	;#Data w vrtan.body.jump.r.script{
 	    $0001
 	    vrtan.body.jump.r.0 $0004
+	}
+	;#Data w vrtan.body.jump.ri.script{
+	    $0001
+	    vrtan.body.jump.ri.0 $0004
 	}
 	;#Data w vrtan.body.jump.l.script{
 	    $0001
 	    vrtan.body.jump.l.0 $0004
 	}
+	;#Data w vrtan.body.jump.li.script{
+	    $0001
+	    vrtan.body.jump.li.0 $0004
+	}
+
 	;#Data w vrtan.body.punch.r.script{
 	    $0003
 	    vrtan.body.punch.r.0 $0004
 	    vrtan.body.punch.r.1 $0004
 	    vrtan.body.punch.r.0 $0400
+	}
+	;#Data w vrtan.body.punch.ri.script{
+	    $0003
+	    vrtan.body.punch.ri.0 $0004
+	    vrtan.body.punch.ri.1 $0004
+	    vrtan.body.punch.ri.0 $0400
 	}
 	;#Data w vrtan.body.punch.l.script{
 	    $0003
@@ -49,17 +94,36 @@
 	    vrtan.body.punch.l.1 $0004
 	    vrtan.body.punch.l.0 $0400
 	}
+	;#Data w vrtan.body.punch.li.script{
+	    $0003
+	    vrtan.body.punch.li.0 $0004
+	    vrtan.body.punch.li.1 $0004
+	    vrtan.body.punch.li.0 $0400
+	}
+
 	;#Data w vrtan.body.uppercut.r.script{
 	    $0003
 	    vrtan.body.uppercut.r.0 $0004
 	    vrtan.body.uppercut.r.1 $0004
 	    vrtan.body.uppercut.r.2 $0400
 	}
+	;#Data w vrtan.body.uppercut.ri.script{
+	    $0003
+	    vrtan.body.uppercut.ri.0 $0004
+	    vrtan.body.uppercut.ri.1 $0004
+	    vrtan.body.uppercut.ri.2 $0400
+	}
 	;#Data w vrtan.body.uppercut.l.script{
 	    $0003
 	    vrtan.body.uppercut.l.0 $0004
 	    vrtan.body.uppercut.l.1 $0004
 	    vrtan.body.uppercut.l.2 $0400
+	}
+	;#Data w vrtan.body.uppercut.li.script{
+	    $0003
+	    vrtan.body.uppercut.li.0 $0004
+	    vrtan.body.uppercut.li.1 $0004
+	    vrtan.body.uppercut.li.2 $0400
 	}
 	
 	
@@ -70,10 +134,19 @@
 	    $0001
 	    vrtan.legs.idle.r.0 $0004
 	}
+	;#Data w vrtan.legs.idle.ri.script{
+	    $0001
+	    vrtan.legs.idle.ri.0 $0004
+	}
 	;#Data w vrtan.legs.idle.l.script{
 	    $0001
 	    vrtan.legs.idle.l.0 $0004
 	}
+	;#Data w vrtan.legs.idle.li.script{
+	    $0001
+	    vrtan.legs.idle.li.0 $0004
+	}
+
 	;#Data w vrtan.legs.walk.r.script{
 	    $0006
 	    vrtan.legs.walk.r.0 $0004
@@ -82,6 +155,15 @@
 	    vrtan.legs.walk.r.3 $0004
 	    vrtan.legs.walk.r.4 $0004
 	    vrtan.legs.walk.r.5 $0004
+	}
+	;#Data w vrtan.legs.walk.ri.script{
+	    $0006
+	    vrtan.legs.walk.ri.0 $0004
+	    vrtan.legs.walk.ri.1 $0004
+	    vrtan.legs.walk.ri.2 $0004
+	    vrtan.legs.walk.ri.3 $0004
+	    vrtan.legs.walk.ri.4 $0004
+	    vrtan.legs.walk.ri.5 $0004
 	}
 	;#Data w vrtan.legs.walk.l.script{
 	    $0006
@@ -92,25 +174,56 @@
 	    vrtan.legs.walk.l.4 $0004
 	    vrtan.legs.walk.l.5 $0004
 	}
+	;#Data w vrtan.legs.walk.li.script{
+	    $0006
+	    vrtan.legs.walk.li.0 $0004
+	    vrtan.legs.walk.li.1 $0004
+	    vrtan.legs.walk.li.2 $0004
+	    vrtan.legs.walk.li.3 $0004
+	    vrtan.legs.walk.li.4 $0004
+	    vrtan.legs.walk.li.5 $0004
+	}
+
 	;#Data w vrtan.legs.jump.r.script{
 	    $0001
 	    vrtan.legs.jump.r.0 $0004
+	}
+	;#Data w vrtan.legs.jump.ri.script{
+	    $0001
+	    vrtan.legs.jump.ri.0 $0004
 	}
 	;#Data w vrtan.legs.jump.l.script{
 	    $0001
 	    vrtan.legs.jump.l.0 $0004
 	}
+	;#Data w vrtan.legs.jump.li.script{
+	    $0001
+	    vrtan.legs.jump.li.0 $0004
+	}
+
 	;#Data w vrtan.legs.punch.r.script{
 	    $0001
 	    vrtan.legs.walk.r.1 $0004
 	    vrtan.legs.walk.r.1 $0004
 	    vrtan.legs.walk.r.1 $0004
 	}
+	;#Data w vrtan.legs.punch.ri.script{
+	    $0001
+	    vrtan.legs.walk.ri.1 $0004
+	    vrtan.legs.walk.ri.1 $0004
+	    vrtan.legs.walk.ri.1 $0004
+	}
 	;#Data w vrtan.legs.punch.l.script{
 	    $0001
 	    vrtan.legs.walk.l.1 $0004
 	    vrtan.legs.walk.l.1 $0004
 	    vrtan.legs.walk.l.1 $0004
+	}
+	;#Data w vrtan.legs.punch.li.script{
+	    $0001
+	    vrtan.legs.walk.li.1 $0004
+	    vrtan.legs.walk.li.1 $0004
+	    vrtan.legs.walk.li.1 $0004
 	}
 	
 	
@@ -152,6 +265,20 @@
 	    $00 $10 $2012 $00
 	    $08 $10 $2013 $00
 	}
+	;#Data w vrtan.body.idle.ri.0{
+	    $09
+	    $00 $15 $A026 $00
+	    $08 $15 $A027 $00
+	    $00 $0D $A028 $00
+	    $08 $0D $A029 $00
+	    
+	    $00 $1D $A002 $00
+	    $08 $1D $A003 $00
+	    $00 $15 $A00A $00
+	    $08 $15 $A00B $00
+	    $00 $0D $A012 $00
+	    $08 $0D $A013 $00
+	}
 	;#Data w vrtan.body.idle.l.0{
 	    $09
 	    $06 $08 $6026 $00
@@ -165,6 +292,20 @@
 	    $FE $08 $600B $01
 	    $06 $10 $6012 $00
 	    $FE $10 $6013 $01
+	}
+	;#Data w vrtan.body.idle.li.0{
+	    $09
+	    $06 $15 $E026 $00
+	    $FE $15 $E027 $01
+	    $06 $0D $E028 $00
+	    $FE $0D $E029 $01
+	    
+	    $06 $1D $E002 $00
+	    $FE $1D $E003 $01
+	    $06 $15 $E00A $00
+	    $FE $15 $E00B $01
+	    $06 $0D $E012 $00
+	    $FE $0D $E013 $01
 	}
 	;#Data w vrtan.body.idle.r.1{
 	    $09
@@ -180,6 +321,20 @@
 	    $00 $10 $2012 $00
 	    $08 $10 $2013 $00
 	}
+	;#Data w vrtan.body.idle.ri.1{
+	    $09
+	    $00 $14 $A026 $00
+	    $08 $14 $A027 $00
+	    $00 $0C $A028 $00
+	    $08 $0C $A029 $00
+	    
+	    $00 $1D $A002 $00
+	    $08 $1D $A003 $00
+	    $00 $15 $A00A $00
+	    $08 $15 $A00B $00
+	    $00 $0D $A012 $00
+	    $08 $0D $A013 $00
+	}
 	;#Data w vrtan.body.idle.l.1{
 	    $09
 	    $06 $09 $6026 $00
@@ -193,6 +348,20 @@
 	    $FE $08 $600B $01
 	    $06 $10 $6012 $00
 	    $FE $10 $6013 $01
+	}
+	;#Data w vrtan.body.idle.li.1{
+	    $09
+	    $06 $14 $E026 $00
+	    $FE $14 $E027 $01
+	    $06 $0C $E028 $00
+	    $FE $0C $E029 $01
+	    
+	    $06 $1D $E002 $00
+	    $FE $1D $E003 $01
+	    $06 $15 $E00A $00
+	    $FE $15 $E00B $01
+	    $06 $0D $E012 $00
+	    $FE $0D $E013 $01
 	}
 	;#Data w vrtan.body.idle.r.2{
 	    $09
@@ -208,6 +377,20 @@
 	    $00 $10 $2012 $00
 	    $08 $10 $2013 $00
 	}
+	;#Data w vrtan.body.idle.ri.2{
+	    $09
+	    $00 $15 $A02A $00
+	    $08 $15 $A02B $00
+	    $FF $0D $A02C $01
+	    $07 $0D $A02D $00
+	    
+	    $00 $1D $A002 $00
+	    $08 $1D $A003 $00
+	    $00 $15 $A00A $00
+	    $08 $15 $A00B $00
+	    $00 $0D $A012 $00
+	    $08 $0D $A013 $00
+	}
 	;#Data w vrtan.body.idle.l.2{
 	    $09
 	    $06 $08 $602A $00
@@ -222,6 +405,22 @@
 	    $06 $10 $6012 $00
 	    $FE $10 $6013 $01
 	}
+	;#Data w vrtan.body.idle.li.2{
+	    $09
+	    $06 $15 $E02A $00
+	    $FE $15 $E02B $01
+	    $07 $0D $E02C $00
+	    $FF $0D $E02D $01
+	    
+	    $06 $1D $E002 $00
+	    $FE $1D $E003 $01
+	    $06 $15 $E00A $00
+	    $FE $15 $E00B $01
+	    $06 $0D $E012 $00
+	    $FE $0D $E013 $01
+	}
+
+
 	;#Data w vrtan.body.walk.r.0{
 	    $09
 	    $00 $08 $202A $00
@@ -235,6 +434,20 @@
 	    $08 $08 $200B $00
 	    $00 $10 $2012 $00
 	    $08 $10 $2013 $00
+	}
+	;#Data w vrtan.body.walk.ri.0{
+	    $09
+	    $00 $15 $A02A $00
+	    $08 $15 $A02B $00
+	    $FF $0D $A02C $01
+	    $07 $0D $A02D $00
+	    
+	    $00 $1D $A002 $00
+	    $08 $1D $A003 $00
+	    $00 $15 $A00A $00
+	    $08 $15 $A00B $00
+	    $00 $0D $A012 $00
+	    $08 $0D $A013 $00
 	}
 	;#Data w vrtan.body.walk.l.0{
 	    $09
@@ -250,6 +463,20 @@
 	    $06 $10 $6012 $00
 	    $FE $10 $6013 $01
 	}
+	;#Data w vrtan.body.walk.li.0{
+	    $09
+	    $06 $15 $E02A $00
+	    $FE $15 $E02B $01
+	    $07 $0D $E02C $00
+	    $FF $0D $E02D $01
+	    
+	    $06 $1D $E002 $00
+	    $FE $1D $E003 $01
+	    $06 $15 $E00A $00
+	    $FE $15 $E00B $01
+	    $06 $0D $E012 $00
+	    $FE $0D $E013 $01
+	}
 	;#Data w vrtan.body.walk.r.1{
 	    $09
 	    $00 $08 $202A $00
@@ -263,6 +490,20 @@
 	    $08 $08 $2009 $00
 	    $00 $10 $2010 $00
 	    $08 $10 $2011 $00
+	}
+	;#Data w vrtan.body.walk.ri.1{
+	    $09
+	    $00 $15 $A02A $00
+	    $08 $15 $A02B $00
+	    $FF $0D $A02C $01
+	    $07 $0D $A02D $00
+	    
+	    $00 $1D $A002 $00
+	    $08 $1D $A003 $00
+	    $00 $15 $A008 $00
+	    $08 $15 $A009 $00
+	    $00 $0D $A010 $00
+	    $08 $0D $A011 $00
 	}
 	;#Data w vrtan.body.walk.l.1{
 	    $09
@@ -278,6 +519,20 @@
 	    $06 $10 $6010 $00
 	    $FE $10 $6011 $01
 	}
+	;#Data w vrtan.body.walk.li.1{
+	    $09
+	    $06 $15 $E02A $00
+	    $FE $15 $E02B $01
+	    $07 $0D $E02C $00
+	    $FF $0D $E02D $01
+	    
+	    $06 $1D $E002 $00
+	    $FE $1D $E003 $01
+	    $06 $15 $E008 $00
+	    $FE $15 $E009 $01
+	    $06 $0D $E010 $00
+	    $FE $0D $E011 $01
+	}
 	;#Data w vrtan.body.walk.r.2{
 	    $09
 	    $00 $08 $202A $00
@@ -291,6 +546,20 @@
 	    $08 $08 $2007 $00
 	    $00 $10 $200E $00
 	    $08 $10 $200F $00
+	}
+	;#Data w vrtan.body.walk.ri.2{
+	    $09
+	    $00 $15 $A02A $00
+	    $08 $15 $A02B $00
+	    $FF $0D $A02C $01
+	    $07 $0D $A02D $00
+	    
+	    $00 $1D $A000 $00
+	    $08 $1D $A001 $00
+	    $00 $15 $A006 $00
+	    $08 $15 $A007 $00
+	    $00 $0D $A00E $00
+	    $08 $0D $A00F $00
 	}
 	;#Data w vrtan.body.walk.l.2{
 	    $09
@@ -306,6 +575,22 @@
 	    $06 $10 $600E $00
 	    $FE $10 $600F $01
 	}
+	;#Data w vrtan.body.walk.li.2{
+	    $09
+	    $06 $15 $E02A $00
+	    $FE $15 $E02B $01
+	    $07 $0D $E02C $00
+	    $FF $0D $E02D $01
+	    
+	    $06 $1D $E000 $00
+	    $FE $1D $E001 $01
+	    $06 $15 $E006 $00
+	    $FE $15 $E007 $01
+	    $06 $0D $E00E $00
+	    $FE $0D $E00F $01
+	}
+
+
 	;#Data w vrtan.body.jump.r.0{
 	    $09
 	    $01 $07 $202A $00
@@ -319,6 +604,20 @@
 	    $09 $08 $200D $00
 	    $00 $10 $2014 $00
 	    $08 $10 $2015 $00
+	}
+	;#Data w vrtan.body.jump.ri.0{
+	    $09
+	    $01 $16 $A02A $00
+	    $09 $16 $A02B $00
+	    $00 $0E $A02C $00
+	    $08 $0E $A02D $00
+	    
+	    $01 $1D $A004 $00
+	    $09 $1D $A005 $00
+	    $01 $15 $A00C $00
+	    $09 $15 $A00D $00
+	    $00 $0D $A014 $00
+	    $08 $0D $A015 $00
 	}
 	;#Data w vrtan.body.jump.l.0{
 	    $09
@@ -334,6 +633,22 @@
 	    $06 $10 $6014 $00
 	    $FE $10 $6015 $01
 	}
+	;#Data w vrtan.body.jump.li.0{
+	    $09
+	    $05 $16 $E02A $00
+	    $FD $16 $E02B $01
+	    $06 $0E $E02C $00
+	    $FE $0E $E02D $01
+	    
+	    $05 $1D $E004 $00
+	    $FD $1D $E005 $01
+	    $05 $15 $E00C $00
+	    $FD $15 $E00D $01
+	    $06 $0D $E014 $00
+	    $FE $0D $E015 $01
+	}
+
+
 	;#Data w vrtan.body.punch.r.0{
 	    $0A
 	    $00 $08 $202E $00
@@ -348,6 +663,21 @@
 	    $08 $08 $200D $00
 	    $00 $10 $2014 $00
 	    $08 $10 $2015 $00
+	}
+	;#Data w vrtan.body.punch.ri.0{
+	    $0A
+	    $00 $15 $A02E $00
+	    $08 $15 $A02F $00
+	    $10 $15 $A030 $00
+	    $00 $0E $A031 $00
+	    $08 $0D $A032 $00
+	    
+	    $00 $1D $A004 $00
+	    $08 $1D $A005 $00
+	    $00 $15 $A00C $00
+	    $08 $15 $A00D $00
+	    $00 $0D $A014 $00
+	    $08 $0D $A015 $00
 	}
 	;#Data w vrtan.body.punch.l.0{
 	    $0A
@@ -364,6 +694,21 @@
 	    $06 $10 $6014 $00
 	    $FE $10 $6015 $01
 	}
+	;#Data w vrtan.body.punch.li.0{
+	    $0A
+	    $06 $15 $E02E $00
+	    $FE $15 $E02F $01
+	    $F6 $15 $E030 $01
+	    $06 $0E $E031 $00
+	    $FE $0D $E032 $01
+	    
+	    $06 $1D $E004 $00
+	    $FE $1D $E005 $01
+	    $06 $15 $E00C $00
+	    $FE $15 $E00D $01
+	    $06 $0D $E014 $00
+	    $FE $0D $E015 $01
+	}
 	;#Data w vrtan.body.punch.r.1{
 	    $0A
 	    $01 $08 $2033 $00
@@ -378,6 +723,21 @@
 	    $09 $08 $200D $00
 	    $00 $10 $2016 $00
 	    $08 $10 $2017 $00
+	}
+	;#Data w vrtan.body.punch.ri.1{
+	    $0A
+	    $01 $15 $A033 $00
+	    $09 $15 $A034 $00
+	    $11 $15 $A035 $00
+	    $01 $0D $A036 $00
+	    $09 $0D $A037 $00
+	    
+	    $01 $1D $A004 $00
+	    $09 $1D $A005 $00
+	    $01 $15 $A00C $00
+	    $09 $15 $A00D $00
+	    $00 $0D $A016 $00
+	    $08 $0D $A017 $00
 	}
 	;#Data w vrtan.body.punch.l.1{
 	    $0A
@@ -394,6 +754,23 @@
 	    $06 $10 $6016 $00
 	    $FE $10 $6017 $01
 	}
+	;#Data w vrtan.body.punch.li.1{
+	    $0A
+	    $05 $15 $E033 $00
+	    $FD $15 $E034 $01
+	    $F5 $15 $E035 $01
+	    $05 $0D $E036 $00
+	    $FD $0D $E037 $00
+	    
+	    $05 $1D $E004 $00
+	    $FD $1D $E005 $01
+	    $05 $15 $E00C $00
+	    $FD $15 $E00D $01
+	    $06 $0D $E016 $00
+	    $FE $0D $E017 $01
+	}
+
+
 	;#Data w vrtan.body.uppercut.r.0{
 	    $09
 	    $00 $06 $2038 $00
@@ -408,6 +785,20 @@
 	    $00 $10 $2010 $00
 	    $08 $10 $2011 $00
 	}
+	;#Data w vrtan.body.uppercut.ri.0{
+	    $09
+	    $00 $17 $A038 $00
+	    $08 $17 $A039 $00
+	    $00 $0F $A03A $00
+	    $08 $0F $A03B $00
+	    
+	    $00 $1D $A002 $00
+	    $08 $1D $A003 $00
+	    $00 $15 $A008 $00
+	    $08 $15 $A009 $00
+	    $00 $0D $A010 $00
+	    $08 $0D $A011 $00
+	}
 	;#Data w vrtan.body.uppercut.l.0{
 	    $09
 	    $06 $06 $6038 $00
@@ -421,6 +812,20 @@
 	    $FE $08 $6009 $01
 	    $06 $10 $6010 $00
 	    $FE $10 $6011 $01
+	}
+	;#Data w vrtan.body.uppercut.li.0{
+	    $09
+	    $06 $17 $E038 $00
+	    $FE $17 $E039 $01
+	    $06 $0F $E03A $00
+	    $FE $0F $E03B $01
+	    
+	    $06 $1D $E002 $00
+	    $FE $1D $E003 $01
+	    $06 $15 $E008 $00
+	    $FE $15 $E009 $01
+	    $06 $0D $E010 $00
+	    $FE $0D $E011 $01
 	}
 	;#Data w vrtan.body.uppercut.r.1{
 	    $0B
@@ -438,6 +843,22 @@
 	    $00 $10 $200E $00
 	    $08 $10 $200F $00
 	}
+	;#Data w vrtan.body.uppercut.ri.1{
+	    $0B
+	    $00 $1C $A03C $00
+	    $08 $1C $A03D $00
+	    $00 $14 $A03E $00
+	    $08 $14 $A03F $00
+	    $00 $0C $A040 $00
+	    $08 $0C $A041 $00
+	    
+	    $00 $1D $A000 $00
+	    $08 $1D $A001 $00
+	    $00 $15 $A006 $00
+	    $08 $15 $A007 $00
+	    $00 $0D $A00E $00
+	    $08 $0D $A00F $00
+	}
 	;#Data w vrtan.body.uppercut.l.1{
 	    $0B
 	    $06 $01 $603C $00
@@ -453,6 +874,22 @@
 	    $FE $08 $6007 $01
 	    $06 $10 $600E $00
 	    $FE $10 $600F $01
+	}
+	;#Data w vrtan.body.uppercut.li.1{
+	    $0B
+	    $06 $1C $E03C $00
+	    $FE $1C $E03D $01
+	    $06 $14 $E03E $00
+	    $FE $14 $E03F $01
+	    $06 $0C $E040 $00
+	    $FE $0C $E041 $01
+	    
+	    $06 $1D $E000 $00
+	    $FE $1D $E001 $01
+	    $06 $15 $E006 $00
+	    $FE $15 $E007 $01
+	    $06 $0D $E00E $00
+	    $FE $0D $E00F $01
 	}
 	;#Data w vrtan.body.uppercut.r.2{
 	    $0B
@@ -470,6 +907,22 @@
 	    $00 $10 $200E $00
 	    $08 $10 $200F $00
 	}
+	;#Data w vrtan.body.uppercut.ri.2{
+	    $0B
+	    $00 $1D $A03C $00
+	    $08 $1D $A03D $00
+	    $00 $15 $A03E $00
+	    $08 $15 $A03F $00
+	    $00 $0D $A040 $00
+	    $08 $0D $A041 $00
+	    
+	    $00 $1D $A000 $00
+	    $08 $1D $A001 $00
+	    $00 $15 $A006 $00
+	    $08 $15 $A007 $00
+	    $00 $0D $A00E $00
+	    $08 $0D $A00F $00
+	}
 	;#Data w vrtan.body.uppercut.l.2{
 	    $0B
 	    $06 $00 $603C $00
@@ -486,6 +939,22 @@
 	    $06 $10 $600E $00
 	    $FE $10 $600F $01
 	}
+	;#Data w vrtan.body.uppercut.li.2{
+	    $0B
+	    $06 $1D $E03C $00
+	    $FE $1D $E03D $01
+	    $06 $15 $E03E $00
+	    $FE $15 $E03F $01
+	    $06 $0D $E040 $00
+	    $FE $0D $E041 $01
+	    
+	    $06 $1D $E000 $00
+	    $FE $1D $E001 $01
+	    $06 $15 $E006 $00
+	    $FE $15 $E007 $01
+	    $06 $0D $E00E $00
+	    $FE $0D $E00F $01
+	}
 	
 	
 	;# ===============================================================//
@@ -496,76 +965,156 @@
 	    $00 $18 $2018 $00
 	    $08 $18 $2019 $00
 	}
+	;#Data w vrtan.legs.idle.ri.0 {
+	    $01
+	    $00 $05 $A018 $00
+	    $08 $05 $A019 $00
+	}
 	;#Data w vrtan.legs.idle.l.0 {
 	    $01
 	    $06 $18 $6018 $00
 	    $FE $18 $6019 $01
 	}
+	;#Data w vrtan.legs.idle.li.0 {
+	    $01
+	    $06 $05 $E018 $00
+	    $FE $05 $E019 $01
+	}
+
+
 	;#Data w vrtan.legs.walk.r.0 {
 	    $01
 	    $00 $18 $201A $00
 	    $08 $18 $201B $00
+	}
+	;#Data w vrtan.legs.walk.ri.0 {
+	    $01
+	    $00 $05 $A01A $00
+	    $08 $05 $A01B $00
 	}
 	;#Data w vrtan.legs.walk.l.0 {
 	    $01
 	    $06 $18 $601A $00
 	    $FE $18 $601B $01
 	}
+	;#Data w vrtan.legs.walk.li.0 {
+	    $01
+	    $06 $05 $E01A $00
+	    $FE $05 $E01B $01
+	}
 	;#Data w vrtan.legs.walk.r.1 {
 	    $01
 	    $00 $18 $201C $00
 	    $08 $18 $201D $00
+	}
+	;#Data w vrtan.legs.walk.ri.1 {
+	    $01
+	    $00 $05 $A01C $00
+	    $08 $05 $A01D $00
 	}
 	;#Data w vrtan.legs.walk.l.1 {
 	    $01
 	    $06 $18 $601C $00
 	    $FE $18 $601D $01
 	}
+	;#Data w vrtan.legs.walk.li.1 {
+	    $01
+	    $06 $05 $E01C $00
+	    $FE $05 $E01D $01
+	}
 	;#Data w vrtan.legs.walk.r.2 {
 	    $00
 	    $04 $18 $201E $00
 	}
+	;#Data w vrtan.legs.walk.ri.2 {
+	    $00
+	    $04 $05 $A01E $00
+	}
 	;#Data w vrtan.legs.walk.l.2 {
 	    $00
 	    $04 $18 $201E $00
+	}
+	;#Data w vrtan.legs.walk.li.2 {
+	    $00
+	    $04 $05 $A01E $00
 	}
 	;#Data w vrtan.legs.walk.r.3 {
 	    $01
 	    $00 $18 $2020 $00
 	    $08 $18 $2021 $00
 	}
+	;#Data w vrtan.legs.walk.ri.3 {
+	    $01
+	    $00 $05 $A020 $00
+	    $08 $05 $A021 $00
+	}
 	;#Data w vrtan.legs.walk.l.3 {
 	    $01
 	    $06 $18 $6020 $00
 	    $FE $18 $6021 $01
+	}
+	;#Data w vrtan.legs.walk.li.3 {
+	    $01
+	    $06 $05 $E020 $00
+	    $FE $05 $E021 $01
 	}
 	;#Data w vrtan.legs.walk.r.4 {
 	    $01
 	    $00 $18 $2022 $00
 	    $08 $18 $2023 $00
 	}
+	;#Data w vrtan.legs.walk.ri.4 {
+	    $01
+	    $00 $05 $A022 $00
+	    $08 $05 $A023 $00
+	}
 	;#Data w vrtan.legs.walk.l.4 {
 	    $01
 	    $06 $18 $6022 $00
 	    $FE $18 $6023 $01
 	}
+	;#Data w vrtan.legs.walk.li.4 {
+	    $01
+	    $06 $05 $E022 $00
+	    $FE $05 $E023 $01
+	}
 	;#Data w vrtan.legs.walk.r.5 {
 	    $00
 	    $04 $18 $201F $00
 	}
+	;#Data w vrtan.legs.walk.ri.5 {
+	    $00
+	    $04 $05 $A01F $00
+	}
 	;#Data w vrtan.legs.walk.l.5 {
 	    $00
-	    $04 $18 $201F $00
+	    $04 $18 $601F $00
 	}
+	;#Data w vrtan.legs.walk.li.5 {
+	    $00
+	    $04 $05 $A01F $00
+	}
+
+
 	;#Data w vrtan.legs.jump.r.0 {
 	    $01
 	    $00 $18 $2024 $00
 	    $08 $18 $2025 $00
 	}
+	;#Data w vrtan.legs.jump.ri.0 {
+	    $01
+	    $00 $05 $A024 $00
+	    $08 $05 $A025 $00
+	}
 	;#Data w vrtan.legs.jump.l.0 {
 	    $01
 	    $06 $18 $6024 $00
 	    $FE $18 $6025 $01
+	}
+	;#Data w vrtan.legs.jump.li.0 {
+	    $01
+	    $06 $05 $E024 $00
+	    $FE $05 $E025 $01
 	}
 	
 	

@@ -241,6 +241,12 @@
             ;JSR Draw             //   Draw();
             ;JSR Debug            //   Debug();
             ;
+			;# Rotate State =======
+			;REP #$20
+			;LDA gravity1
+			;STA gravity0
+			;SEP #$20
+			;
             ;# Debug ===============
             ;LDA usage            //   if(usage) INIDISP=(inidisp&0x0F)/2;
             ;BEQ {+Hide}          //
