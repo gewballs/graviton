@@ -416,10 +416,10 @@
             ;STA DMAA.h,X
             ;INY
             ;INY
-			;SEP #$20
-			;LDA [Nmi.Hdma.data],Y
-			;STA DMAD.b,X
-			;INY
+            ;SEP #$20
+            ;LDA [Nmi.Hdma.data],Y
+            ;STA DMAD.b,X
+            ;INY
 ;{+}        ;SEP #$20
             ;TXA
             ;CLC

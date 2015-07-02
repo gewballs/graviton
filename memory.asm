@@ -222,10 +222,10 @@
             ;#Name $0630    vrtan.hazard
             ;#Name $0632    vrtan.hit.show
             
-			;#Name $0634    p0.punch.timer
+            ;#Name $0634    p0.punch.timer
 
-			;#Name $0636    p0.run.timer
-			;#Name $0638    p0.run.flag
+            ;#Name $0636    p0.run.timer
+            ;#Name $0638    p0.run.flag
             
             ;#Name $0650    p0.score
             ;#Name $0651    p1.score
@@ -234,15 +234,21 @@
             ;# En.rinment =====================================================
             ;#Name $0700  gravity0
             ;#Name $0702  gravity1
-			
-			;#Name $0710  grass.timer
-			;#Name $0712  grass.frame
             
-			;#Name $0720  gradient.b0    b INPUT
+            ;#Name $0710  grass.timer
+            ;#Name $0712  grass.frame
+            
+            ;#Name $0720  gradient.b0    b INPUT
             ;#Name $0722  gradient.b1    b INPUT
-			;#Name $0724  gradient.db    b
+            ;#Name $0724  gradient.db    b
             ;#Name $0726  gradient       b[0x10]
-			
+            
+            ;#Name $07FE  box.n
+            ;#Name $0800  box.x          box_t[0x?]
+            ;#Name $0820  box.y
+            ;#Name $0840  box.vx
+            ;#Name $0860  box.vy
+
 
             ;# WRAM $7E:2000-$7E:FFFF
             ;#Name $2000  level // w[0x0400]
@@ -287,7 +293,7 @@
 
             ;#Code w Debug
 
-			;#Code w Gravity
+            ;#Code w Gravity
             
             ;#Code w Vrtan
             ;#Code w Vrtan.Idle
@@ -306,6 +312,9 @@
             ;#Code w Vrtan.Sprite
             ;#Code w Vrtan.Move
 
+            ;#Code w Box
+            ;#Code w Box.Move
+
             ;#Code w Move
             ;#Code w Move.X
             ;#Code w Move.Y
@@ -317,8 +326,9 @@
             ;#Code w Draw.Hud
             ;#Code w Draw.Level
             ;#Code w Draw.Players
+            ;#Code w Draw.Box
             ;#Code w Draw.Entity
-			;#Code w Draw.Gradient
+            ;#Code w Draw.Gradient
             ;#Code w Draw.Grass
             
 
@@ -339,7 +349,7 @@
             ;#Data l palette
             ;#Data l level.name
             ;#Data l sea.name
-            ;#Data l vrtan.char
+            ;#Data l obj.char
 
             ;# Sprite Scripts ========================
             ;#Data w vrtan.body.idle.r.script
@@ -381,6 +391,9 @@
             ;#Data w vrtan.legs.punch.li.script
 
             ;# Sprite ================================
+            ;# Bos
+            ;#Data w box.sprite
+            ;
             ;# Hitbox
             ;#Data w hit.tl.sprite
             ;#Data w hit.bl.sprite
@@ -477,7 +490,7 @@
             ;#Data w vrtan.legs.jump.l.0
             ;#Data w vrtan.legs.jump.li.0
 
-			;# Hdma
+            ;# Hdma
             ;#Data w hdma.sea.set
             ;#Data w hdma.sea
 

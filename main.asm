@@ -43,8 +43,9 @@
             
             ;# Game ================
             ;#File draw.asm       // Render code
-			;#File gravity.asm    // Gravity code
+            ;#File gravity.asm    // Gravity code
             ;#File vrtan.asm      // Player code
+            ;#File box.asm
             ;#File debug.asm      // Debug code
             
             ;# ===============================================================//
@@ -96,8 +97,8 @@
             ;#Data {$01 $18 bg.char $0800} // Bg character set, 8x8p, 4-bit
             ;LDA #vram.obj.char   // VMADD=vram.obj.char;
             ;STA VMADD            //
-            ;JSL Dma.Immediate    // Dma.Immediate(0x01,0x18,vrtan.char,0x1000);
-            ;#Data {$01 $18 vrtan.char $1000} // Obj characer set, 8x8p, 4-bit
+            ;JSL Dma.Immediate    // Dma.Immediate(0x01,0x18,obj.char,0x1000);
+            ;#Data {$01 $18 obj.char $1000} // Obj characer set, 8x8p, 4-bit
             ;LDA #$7E03           // WMADD=0x7E0320;
             ;STA WMADD.h          //
             ;LDA #$0320           //
@@ -171,16 +172,61 @@
             ;LDA #$0040           // vrtan.ghost=0x0040;
             ;STA vrtan.ghost      //
             ;
+            ;# Boxes ===============
+            ;LDA #$000E
+            ;STA box.n
+            ;LDX #$0000
+            ;LDA #$00E8
+            ;STA box.x,X
+            ;LDA #$0050
+            ;STA box.y,X
+            ;INX
+            ;INX
+            ;LDA #$0070
+            ;STA box.x,X
+            ;LDA #$0068
+            ;STA box.y,X
+            ;INX
+            ;INX
+            ;LDA #$0080
+            ;STA box.x,X
+            ;LDA #$0068
+            ;STA box.y,X
+            ;INX
+            ;INX
+            ;LDA #$0020
+            ;STA box.x,X
+            ;LDA #$0090
+            ;STA box.y,X
+            ;INX
+            ;INX
+            ;LDA #$00D0
+            ;STA box.x,X
+            ;LDA #$0090
+            ;STA box.y,X
+            ;INX
+            ;INX
+            ;LDA #$0070
+            ;STA box.x,X
+            ;LDA #$00C8
+            ;STA box.y,X
+            ;INX
+            ;INX
+            ;LDA #$0080
+            ;STA box.x,X
+            ;LDA #$00C8
+            ;STA box.y,X
+            ;
             ;# Environment =========
             ;LDA #$001F           // gravity0=0x001F;
             ;STA gravity0         //
             ;STA gravity1         //
-			;SEP #$20
+            ;SEP #$20
             ;LDA #$12
             ;STA gradient.b0
             ;LDA #$03
             ;STA gradient.b1
-			;REP #$20
+            ;REP #$20
             ;
             ;# Program =============
             ;INC Main.program     // Main.program++;
@@ -236,17 +282,18 @@
             ;JSL Rng              //   Rng();
             ;
             ;# Game ================
-			;JSR Gravity          //   Gravity();
+            ;JSR Gravity          //   Gravity();
             ;JSR Vrtan            //   Vrtan();
+            ;JSR Box              //   Box();
             ;JSR Draw             //   Draw();
             ;JSR Debug            //   Debug();
             ;
-			;# Rotate State =======
-			;REP #$20
-			;LDA gravity1
-			;STA gravity0
-			;SEP #$20
-			;
+            ;# Rotate State =======
+            ;REP #$20
+            ;LDA gravity1
+            ;STA gravity0
+            ;SEP #$20
+            ;
             ;# Debug ===============
             ;LDA usage            //   if(usage) INIDISP=(inidisp&0x0F)/2;
             ;BEQ {+Hide}          //
@@ -275,7 +322,7 @@
             ;#File vrtan.spr      // Player sprite and animatin scripts
             
             ;#Data l bg.char    {#bg.chr}       // Background char, 8x8p 4-bit
-            ;#Data l vrtan.char {#vrtan.chr}    // Player obj char, 8x8p 4-bit
+            ;#Data l obj.char   {#obj.chr}      // Object char, 8x8p 4-bit
             ;#Data l palette    {#color.pal}    // Cgram palette
             ;#Data l level.name {#level.map}    // Level tilemap/level data
             ;#Data l sea.name   {#sea.map}      // Sea tilemap

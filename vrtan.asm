@@ -20,8 +20,8 @@
             ;#Name $0027 TILE_mossDown
             ;#Name $0021 TILE_spike
 
-			;#Name $0003 fallSpeed               //  !!! DEBUG !!! Placeholder
-			;#Name $FFFD jumpSpeed               //  !!! DEBUG !!! Placeholder
+            ;#Name $0003 fallSpeed               //  !!! DEBUG !!! Placeholder
+            ;#Name $FFFD jumpSpeed               //  !!! DEBUG !!! Placeholder
 
             ;# ===============================================================//
             ;#Code w {Vrtan}                                                  //
@@ -29,9 +29,9 @@
             ;PHP                  // Php();
             ;REP #$30             // Rep(0x30);
             ;
-			;# Common Tasks ========
-			;
-			;
+            ;# Common Tasks ========
+            ;
+            ;
             ;# Program =============
             ;LDX #$0000           // state0();
             ;JSR (vrtan.state0,X) //
@@ -107,26 +107,26 @@
             ;BIT #JOY_jump        //
             ;BEQ {+Fall}          //
             ;LDA #jumpSpeed       //
-			;LDX gravity1
-			;BPL {+Dy}
-			;EOR #$FFFF
-			;INC A
+            ;LDX gravity1
+            ;BPL {+Dy}
+            ;EOR #$FFFF
+            ;INC A
             ;BRA {+Dy}            //
 ;{+Fall}    ;LDA #fallSpeed       //
             ;LDX gravity1
-			;BPL {+Dy}
-			;EOR #$FFFF
-			;INC A
+            ;BPL {+Dy}
+            ;EOR #$FFFF
+            ;INC A
 ;{+Dy}      ;STA vrtan.vy         //
             ;
             ;# Move ================
             ;JSR Vrtan.Move       // VrtanMove();
-			;LDX gravity1
-			;BMI {+Anti}
+            ;LDX gravity1
+            ;BMI {+Anti}
             ;LDA Move.y1          // if(y1<y0){
             ;CMP Move.y0          //
             ;BCS {+Fall}          //
-			;BRA {+Jump}
+            ;BRA {+Jump}
 ;{+Anti}    ;LDA Move.y0          // if(y1<y0){
             ;CMP Move.y1          //
             ;BCS {+Fall}          //
@@ -189,29 +189,29 @@
             ;BIT #JOY_jump        //
             ;BEQ {+Fall}          //
             ;LDA #jumpSpeed       //
-			;LDX gravity1
-			;BPL {+Dy}
-			;EOR #$FFFF
-			;INC A
+            ;LDX gravity1
+            ;BPL {+Dy}
+            ;EOR #$FFFF
+            ;INC A
             ;BRA {+Dy}            //
 ;{+Fall}    ;LDA #fallSpeed       //
             ;LDX gravity1
-			;BPL {+Dy}
-			;EOR #$FFFF
-			;INC A
+            ;BPL {+Dy}
+            ;EOR #$FFFF
+            ;INC A
 ;{+Dy}      ;STA vrtan.vy         //
             ;
             ;# Move ================
             ;JSR Vrtan.Move       // VrtanMove();
-			;LDX gravity1
-			;BMI {+Anti}
+            ;LDX gravity1
+            ;BMI {+Anti}
             ;LDA Move.y1          // if(y1<y0){
             ;CMP Move.y0          //
             ;BCS {+Fall}          //
-			;BRA {+Jump}
+            ;BRA {+Jump}
 ;{+Anti}    ;LDA Move.y0
             ;CMP Move.y1
-			;BCS {+Fall}
+            ;BCS {+Fall}
 ;{+Jump}    ;LDA #Vrtan.Jump      //   state1=VrtanJump;
             ;STA vrtan.state1     //
             ;LDA joy1             //   jump=joy1&0x40?0x0028:0x0020;
@@ -263,7 +263,7 @@
             ;BNE {+}
             ;STZ p0.run.flag
 ;{+}        ;
-			;# Dy ==================
+            ;# Dy ==================
             ;LDA joy1             // vy=joy1&JOY_jump?-3:2;
             ;BIT #JOY_jump        //
             ;BEQ {+Fall}          //
@@ -271,10 +271,10 @@
             ;BMI {+Fall}          //
             ;DEC vrtan.jump       //   jump--;
             ;LDA #jumpSpeed       //
-			;LDX gravity1
-			;BPL {+Dy}
-			;EOR #$FFFF
-			;INC A
+            ;LDX gravity1
+            ;BPL {+Dy}
+            ;EOR #$FFFF
+            ;INC A
             ;BRA {+Dy}            //
 ;{+Fall}    ;LDA #$0000
 ;{+Dy}      ;STA vrtan.vy         //
@@ -302,12 +302,12 @@
             ;
             ;# Move ================
             ;JSR Vrtan.Move       // VrtanMove();
-			;LDX gravity1
-			;BMI {+Anti}
+            ;LDX gravity1
+            ;BMI {+Anti}
             ;LDA Move.y1          // if(y1>=y0){
             ;CMP Move.y0          //
             ;BCC {+Jump}          //
-			;BRA {+Fall}
+            ;BRA {+Fall}
 ;{+Anti}    ;LDA Move.y0          //
             ;CMP Move.y1          //
             ;BCC {+Jump}          //
@@ -339,10 +339,10 @@
 ;{+}        ;
             ;# Dy ==================
             ;LDA #fallSpeed      // vy=3;
-			;LDX gravity1
-			;BPL {+Dy}
-			;EOR #$FFFF
-			;INC A
+            ;LDX gravity1
+            ;BPL {+Dy}
+            ;EOR #$FFFF
+            ;INC A
 ;{+Dy}      ;STA vrtan.vy         //
             ;
             ;# Dx ==================
@@ -424,29 +424,29 @@
             ;BIT #JOY_jump        //
             ;BEQ {+Fall}          //
             ;LDA #jumpSpeed       //
-			;LDX gravity1
-			;BPL {+Dy}
-			;EOR #$FFFF
-			;INC A
+            ;LDX gravity1
+            ;BPL {+Dy}
+            ;EOR #$FFFF
+            ;INC A
             ;BRA {+Dy}            //
 ;{+Fall}    ;LDA #fallSpeed       //
             ;LDX gravity1
-			;BPL {+Dy}
-			;EOR #$FFFF
-			;INC A
+            ;BPL {+Dy}
+            ;EOR #$FFFF
+            ;INC A
 ;{+Dy}      ;STA vrtan.vy         //
             ;
             ;# Move ================
             ;JSR Vrtan.Move       // VrtanMove();
-			;LDX gravity1
-			;BMI {+Anti}
+            ;LDX gravity1
+            ;BMI {+Anti}
             ;LDA Move.y1          // if(y1<y0){
             ;CMP Move.y0          //
             ;BCS {+Fall}          //
-			;BRA {+Upper}         //
+            ;BRA {+Upper}         //
 ;{+Anti}    ;LDA Move.y0
             ;CMP Move.y1
-			;BCS {+Fall}
+            ;BCS {+Fall}
 ;{+Upper}   ;LDA #Vrtan.Uppercut  //   state1=VrtanUppercut;
             ;STA vrtan.state1     //
             ;LDA joy1             //   jump=joy1&JOY_a?0x0028:0x0020;
@@ -500,10 +500,10 @@
             ;BMI {+Fall}          //
             ;DEC vrtan.jump       //   jump--;
             ;LDA #jumpSpeed       //   vy=-3;
-			;LDX gravity1
-			;BPL {+Dy}
-			;EOR #$FFFF
-			;INC A
+            ;LDX gravity1
+            ;BPL {+Dy}
+            ;EOR #$FFFF
+            ;INC A
             ;BRA {+Dy}            // }else{
 ;{+Fall}    ;LDA #$0000           //   vy=0;
 ;{+Dy}      ;STA vrtan.vy         // }
@@ -531,15 +531,15 @@
             ;
             ;# Move ================
             ;JSR Vrtan.Move       // VrtanMove();
-			;LDX gravity1
-			;BMI {+Anti}
+            ;LDX gravity1
+            ;BMI {+Anti}
             ;LDA Move.y1          // if(y1>=y0){
             ;CMP Move.y0          //
             ;BCC {+Jump}          //
-			;BRA {+Fall}
+            ;BRA {+Fall}
 ;{+Anti}    ;LDA Move.y0
             ;CMP Move.y1
-			;BCC {+Jump}
+            ;BCC {+Jump}
 ;{+Fall}    ;STZ p0.run.flag      //
             ;STZ p0.run.timer
             ;LDA #Vrtan.Fall      //   state1=VrtanFall;
@@ -578,10 +578,10 @@
             ;LDX vrtan.left1      //
             ;CPX vrtan.left0      //
             ;BNE {+Update}        //
-			;LDA gravity1
-			;EOR gravity0
-			;AND #$8000
-			;BNE {+Update}
+            ;LDA gravity1
+            ;EOR gravity0
+            ;AND #$8000
+            ;BNE {+Update}
             ;RTS                  //
 ;{+Update}  ;
             ;# Walk ================
@@ -709,7 +709,7 @@
             ;BMI {+Flip}
             ;LDX #vrtan.body.idle.l.script // X=body.idle.l.script;
             ;LDY #vrtan.legs.idle.l.script // Y=legs.idle.l.script;
-			;BRA {+Break}
+            ;BRA {+Break}
 ;{+Flip}    ;LDX #vrtan.body.idle.li.script // X=body.idle.l.script;
             ;LDY #vrtan.legs.idle.li.script // Y=legs.idle.l.script;
 ;{+Break}   ;
