@@ -277,6 +277,7 @@
             ;
             ;REP #$30
             ;LDA (AnimateSprite.base) // Get script pointer
+			;BEQ {+Done}
             ;STA AnimateSprite.script
             ;LDY #$0002
             ;LDA (AnimateSprite.base),Y // Get frame offset
@@ -312,7 +313,7 @@
             ;
 ;{+Stay}    ;STA (AnimateSprite.base),Y
             ;
-            ;PLP
+;{+Done}    ;PLP
             ;RTS
 
             ;# ===============================================================//

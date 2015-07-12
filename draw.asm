@@ -11,8 +11,8 @@
             ;JSR Draw.Character   // Character();
             ;JSR Draw.Hud         // Hud();
             ;JSR Draw.Level       // Level();
-            ;JSR Draw.Box         // Box();
             ;JSR Draw.Players     // Players();
+            ;JSR Draw.Box         // Box();
             ;JSR Draw.Entity      // Entity();
             ;JSR Draw.Gradient    // Gradient();
             ;JSR Draw.Grass       // Grass();

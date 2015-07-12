@@ -14,12 +14,6 @@
             ;#Name $8000 JOY_jump
             ;#Name $4000 JOY_attack
 
-            ;#Name $0000 TILE_air
-            ;#Name $0020 TILE_solid
-            ;#Name $0026 TILE_mossUp
-            ;#Name $0027 TILE_mossDown
-            ;#Name $0021 TILE_spike
-
             ;#Name $0003 fallSpeed               //  !!! DEBUG !!! Placeholder
             ;#Name $FFFD jumpSpeed               //  !!! DEBUG !!! Placeholder
 
@@ -63,9 +57,22 @@
             ;# ===============================================================//
             ;#Code w {Vrtan.Idle}                                             //
             ;# ===============================================================//
+            ;LDA joy1
+			;BIT #JOY_x
+			;BEQ {+Idle}
+			;LDA #Vrtan.Crush
+			;STA vrtan.state1
+			;LDA vrtan.x0
+			;STA vrtan.x1
+			;LDA vrtan.y0
+			;STA vrtan.y1
+			;LDA #$0018
+			;STA p0.timer
+			;RTS
+			;
             ;# Dx ==================
             ;
-            ;LDA joy1.edge
+;{+Idle}    ;LDA joy1.edge
             ;BIT #$0300
             ;BNE {+Tap}
             ;STZ p0.run.flag
@@ -560,13 +567,35 @@
 ;{+}        ;
             ;RTS                  // return;
             
-            ;#Code w {Vrtan.Crush}
+            ;# ===============================================================//
+            ;#Code w {Vrtan.Crush}                                            //
+            ;# ===============================================================//
+			;STZ p0.run.flag
+			;STZ p0.run.timer
+			;DEC p0.timer
+			;BNE {+Wait}
+			;LDA #Vrtan.Respawn
+			;STA vrtan.state1
+;{+Wait}    ;
             ;RTS                  // return;
             
-            ;#Code w {Vrtan.Spike}
+            ;# ===============================================================//
+            ;#Code w {Vrtan.Spike}                                            //
+            ;# ===============================================================//
             ;RTS                  // return;
             
-            ;#Code w {Vrtan.Respawn}
+            ;# ===============================================================//
+            ;#Code w {Vrtan.Respawn}                                          //
+            ;# ===============================================================//
+			;JSL Rng
+			;AND #$00FF
+			;STA vrtan.x1
+			;JSL Rng
+			;AND #$00FF
+			;STA vrtan.y1
+			;LDA #Vrtan.Idle
+			;STA vrtan.state1
+			;
             ;RTS                  // return;
             
             ;# ===============================================================//
@@ -578,11 +607,16 @@
             ;LDX vrtan.left1      //
             ;CPX vrtan.left0      //
             ;BNE {+Update}        //
+			;LDA vrtan.state1
+			;CMP #Vrtan.Crush
+			;BEQ {+Return}
+			;CMP #Vrtan.Respawn
+			;BEQ {+Return}
             ;LDA gravity1
             ;EOR gravity0
             ;AND #$8000
             ;BNE {+Update}
-            ;RTS                  //
+;{+Return}  ;RTS                  //
 ;{+Update}  ;
             ;# Walk ================
             ;CMP #Vrtan.Walk      //   if(state1==Vrtan.Walk){
@@ -674,7 +708,7 @@
             ;
             ;# Uppercut ============
 ;{+Upper}   ;CMP #Vrtan.Uppercut  //   }else if(state1==Vrtan.Uppercut){
-            ;BNE {+Idle}          //
+            ;BNE {+Crush}         //
             ;LDA vrtan.left1      //     if(!left){
             ;BNE {+Left}          //
             ;LDA gravity1
@@ -682,7 +716,7 @@
             ;LDX #vrtan.body.uppercut.r.script // X=body.uppercut.r.script;
             ;LDY #vrtan.legs.jump.r.script // Y=legs.jump.r.script;
             ;BRL {+Break}         //     }else{
-;{+Flip}    ;LDX #vrtan.body.uppercut.ri.script // X=body.uppercut.r.script;
+;{+Flip}    ;LDX #vrtan.body.uppercut.ri.script // X=body.uppercut.ri.script;
             ;LDY #vrtan.legs.jump.ri.script // Y=legs.jump.r.script;
             ;BRL {+Break}         //     }else{
 ;{+Left}    ;LDA gravity1
@@ -690,10 +724,39 @@
             ;LDX #vrtan.body.uppercut.l.script // X=body.uppercut.l.script;
             ;LDY #vrtan.legs.jump.l.script // Y=legs.jump.l.script;
             ;BRL {+Break}         //     }
-;{+Flip}    ;LDX #vrtan.body.uppercut.li.script // X=body.uppercut.l.script;
+;{+Flip}    ;LDX #vrtan.body.uppercut.li.script // X=body.uppercut.li.script;
             ;LDY #vrtan.legs.jump.li.script // Y=legs.jump.l.script;
             ;BRL {+Break}         //     }
             ;
+            ;# Crush ===============
+;{+Crush}   ;CMP #Vrtan.Crush     //   }else if(state1==Vrtan.Crush){
+            ;BNE {+Respawn}       //
+            ;LDA vrtan.left1      //     if(!left){
+            ;BNE {+Left}          //
+            ;LDA gravity1         //
+            ;BMI {+Flip}          //
+            ;LDX #vrtan.body.crush.r.script // X=body.crush.r.script;
+            ;LDY #$0000           //         Y=0;
+            ;BRL {+Break}         //     }else{
+;{+Flip}    ;LDX #vrtan.body.crush.ri.script // X=body.crush.ri.script;
+            ;LDY #$0000           //         Y=0;
+            ;BRL {+Break}         //     }else{
+;{+Left}    ;LDA gravity1         //
+            ;BMI {+Flip}          //
+            ;LDX #vrtan.body.crush.l.script // X=body.crush.l.script;
+            ;LDY #$0000           //         Y=0;
+            ;BRL {+Break}         //     }
+;{+Flip}    ;LDX #vrtan.body.crush.li.script // X=body.crush.li.script;
+            ;LDY #$0000           //         Y=0;
+            ;BRL {+Break}         //     }
+            ;
+            ;# Respawn =============
+;{+Respawn} ;CMP #Vrtan.Respawn
+			;BNE {+Idle}
+			;LDX #$0000
+			;LDY #$0000
+			;BRA {+Break}
+			;
             ;# Idle ================
 ;{+Idle}    ;LDA vrtan.left1      //   }else{
             ;BNE {+Left}          //     if(!left){
@@ -739,9 +802,11 @@
             ;LDA vrtan.vy         // Move.dy=vy;
             ;STA Move.dy          //
             ;LDA vrtan.hit.width  // Move.hit.width=hit.width;
-            ;STA Move.width       //
+            ;STA Move.xw       //
             ;LDA vrtan.hit.height // Move.hit.height=hit.height;
-            ;STA Move.height      //
+            ;STA Move.yw      //
+            ;STZ Move.stop        // stop=0;
+            ;JSR Move.Mob
             ;JSR Move             // Move();
             ;
             ;LDA Move.x1          // x1=(Move.x1-hit.x)%0x0100;
@@ -757,8 +822,7 @@
             ;
             ;LDA Move.stop        // vrtan.stop=Move.stop;
             ;STA vrtan.stop       //
-            ;LDA Move.hazard      // vrtan.hazard=Move.hazard;
-            ;STA vrtan.hazard     //
+            ;STZ vrtan.hazard     //
             ;
             ;LDA vrtan.x1         // if(x1!=x0){ 
             ;CMP vrtan.x0         //
@@ -770,353 +834,6 @@
 ;{+Left}    ;LDA #$FFFF           //
 ;{+Right}   ;STA vrtan.left1      // }
 ;{+Same}    ;
-            ;RTS                  // return;
-            
-            ;# ===============================================================//
-            ;#Code w {Move}                                                   //
-            ;# ===============================================================//
-            ;PHP                  // Php();
-            ;PHB                  // Phb();
-            ;REP #$30             // B=0x7E;
-            ;PEA $7E00            //
-            ;PLB                  //
-            ;PLB                  //
-            ;
-            ;STZ Move.stop        // stop=0;
-            ;STZ Move.hazard      // hazard=0;
-            ;JSR Move.Y           // Move.Y();
-            ;LDA Move.y0          //
-            ;STA Move.copy        //
-            ;LDA Move.y1          // y0=y1;
-            ;STA Move.y0          //
-            ;JSR Move.X           // Move.X();
-            ;LDA Move.copy        //
-            ;STA Move.y0          //
-            ;
-            ;PLB                  // Plb();
-            ;PLP                  // Plp();
-            ;RTS                  // return;
-            
-            ;# ===============================================================//
-            ;#Code w {Move.X}                                                 //
-            ;# ===============================================================//
-            ;# dxTile ==============
-            ;LDA Move.dx          // if(dx==0){
-            ;BNE {+Delta}         //
-            ;LDA Move.x0          //   x1=x0;
-            ;STA Move.x1          //   return;
-            ;RTS                  // }
-;{+Delta}   ;BMI {+Left}          // x0Pixel=dx<0?x0:x0+width-1;
-            ;LDA Move.x0          //
-            ;CLC                  //
-            ;ADC Move.width       //
-            ;DEC A                //
-            ;BRA {+Right}         //
-;{+Left}    ;LDA Move.x0          //
-;{+Right}   ;TAY                  //
-            ;LSR A                // dxTile=abs((x0Pixel+dx)/8-x0Pixel/8)+1;
-            ;LSR A                //
-            ;LSR A                //
-            ;STA Move.dx.tile     //
-            ;TYA                  //
-            ;CLC                  //
-            ;ADC Move.dx          //
-            ;LSR A                //
-            ;LSR A                //
-            ;LSR A                //
-            ;BIT #$1000           // // Sign extend
-            ;BEQ {+Sign}          //
-            ;ORA #$E000           //
-;{+Sign}    ;SEC                  //
-            ;SBC Move.dx.tile     //
-            ;BPL {+Abs}           // // Absolute value
-            ;EOR #$FFFF           //
-            ;INC A                //
-;{+Abs}     ;INC A                //
-            ;STA Move.dx.tile     //
-            ;
-            ;# dyTile ==============
-            ;LDA Move.y0          // dyTile=abs((y0+height-1)/8-y0/8)+1;
-            ;TAY                  //
-            ;LSR A                //
-            ;LSR A                //
-            ;LSR A                //
-            ;STA Move.dy.tile     //
-            ;TYA                  //
-            ;CLC                  //
-            ;ADC Move.height      //
-            ;DEC A                //
-            ;LSR A                //
-            ;LSR A                //
-            ;LSR A                //
-            ;SEC                  //
-            ;SBC Move.dy.tile     //
-            ;BPL {+Abs}           // // Absolute value
-            ;EOR #$FFFF           //
-            ;INC A                //
-;{+Abs}     ;INC A                //
-            ;STA Move.dy.tile     //
-            ;
-            ;# First Tile ==========
-            ;STZ Move.iteration   // iteration=0;
-            ;LDA Move.x0          // index=(dx<0?x0:x0+width-1)%0x0100/8;
-            ;LDX Move.dx          //
-            ;BMI {+Minus}         //
-            ;CLC                  //
-            ;ADC Move.width       //
-            ;DEC A                //
-;{+Minus}   ;AND #$00FF           //
-            ;LSR A                //
-            ;LSR A                //
-            ;LSR A                //
-            ;STA Move.index       //
-            ;LDA Move.y0          // index+=y0%0x0100/8*0x0020;
-            ;AND #$00F8           //
-            ;ASL A                //
-            ;ASL A                //
-            ;CLC                  //
-            ;ADC Move.index       //
-            ;ASL A                // // Word indexing
-            ;STA Move.index       // index*=2;
-            ;
-            ;# Iterate =============
-;{-Column}  ;LDY Move.dy.tile     // for(:dxTile:dxTile--){ // Column
-;{-Row}     ;TAX                  //   X=index;
-            ;LDA level,X          //   for(Y=dyTile:Y:Y--){ // Row
-            ;AND #$03FF           //     switch(level[X]&0x03FF){
-            ;CMP #TILE_spike      //     case TILE_spike:
-            ;BNE {+Solid}         //
-            ;LDA Move.dx          //       Move.hazard|=dx<0?0x0004:0x0001:
-            ;BMI {+Left}          //
-            ;LDA #$0001           //
-            ;BRA {+Right}         //
-;{+Left}    ;LDA #$0004           //
-;{+Right}   ;ORA Move.hazard      //
-            ;STA Move.hazard      //
-            ;BRA {+Air}           //       break;
-;{+Solid}   ;CMP #TILE_solid      //     case TILE_solid:
-            ;BEQ {+Stop}          //
-            ;CMP #TILE_mossUp
-            ;BEQ {+Stop}
-            ;CMP #TILE_mossDown
-            ;BNE {+Air}
-;{+Stop}    ;LDA Move.iteration   //       if(iteration==0){
-            ;BNE {+Outside}       //
-            ;LDA Move.x0          //         x1=x0;
-            ;BRA {+Inside}        //       }else{
-;{+Outside} ;TXA                  //         A=X*4&0x00F8;
-            ;ASL A                //
-            ;ASL A                //
-            ;AND #$00F8           //
-            ;LDX Move.dx          //         x1=A+(dx<0?0x08:-width)&0x00FF;
-            ;BMI {+Left}          //
-            ;SEC                  //
-            ;SBC Move.width       //
-            ;BRA {+Right}         //
-;{+Left}    ;CLC                  //
-            ;ADC #$0008           //
-;{+Right}   ;AND #$00FF           //
-;{+Inside}  ;STA Move.x1          //       }
-            ;LDA Move.dx          //       Move.stop|=dx<0?0x0004:0x0001;
-            ;BMI {+Left}          //
-            ;LDA #$0001           //
-            ;BRA {+Right}         //
-;{+Left}    ;LDA #$0004           //
-;{+Right}   ;ORA Move.stop        //
-            ;STA Move.stop        //       return;
-            ;RTS                  //     }
-;{+Air}     ;TXA                  //     X=(X+0x0040)%0x0800;
-            ;CLC                  //
-            ;ADC #$0040           //
-            ;AND #$07FF           //
-            ;DEY                  //
-            ;BEQ {+}              //
-            ;BRL {-Row}           //   }
-;{+}        ;LDA Move.index       //   X=index;
-            ;TAX                  //
-            ;LDY Move.dx          //   index=X%0x07C0|(X+(dx<0?-2:2))%0x40;
-            ;BMI {+Dec}           //
-            ;INC A                //
-            ;INC A                //
-            ;BRA {+Inc}           //
-;{+Dec}     ;DEC A                //
-            ;DEC A                //
-;{+Inc}     ;AND #$003F           //
-            ;STA Move.index       //
-            ;TXA                  //
-            ;AND #$07C0           //   
-            ;ORA Move.index       //
-            ;STA Move.index       //
-            ;INC Move.iteration   //   iteration++;
-            ;DEC Move.dx.tile     // }
-            ;BEQ {+}              //
-            ;BRL {-Column}        //
-;{+}        ;LDA Move.x0          // x1=(x0+dx)%0x0100;
-            ;CLC                  //
-            ;ADC Move.dx          //
-            ;AND #$00FF           //
-            ;STA Move.x1          //
-            ;RTS                  // return;
-
-            ;# ===============================================================//
-            ;#Code w {Move.Y}                                                 //
-            ;# ===============================================================//
-            ;# dyTile ==============
-            ;LDA Move.dy          // if(dy==0){
-            ;BNE {+Delta}         //
-            ;LDA Move.y0          //   y1=y0;
-            ;STA Move.y1          //   return;
-            ;RTS                  // }
-;{+Delta}   ;BMI {+Up}            // y0Pixel=dy<0?y0:y0+height-1;
-            ;LDA Move.y0          //
-            ;CLC                  //
-            ;ADC Move.height      //
-            ;DEC A                //
-            ;BRA {+Down}          //
-;{+Up}      ;LDA Move.y0          //
-;{+Down}    ;TAY                  //
-            ;LSR A                // dyTile=abs((y0Pixel+dy)/8-y0Pixel/8)+1;
-            ;LSR A                //
-            ;LSR A                //
-            ;STA Move.dy.tile     //
-            ;TYA                  //
-            ;CLC                  //
-            ;ADC Move.dy          //
-            ;LSR A                //
-            ;LSR A                //
-            ;LSR A                //
-            ;BIT #$1000           // // Sign extend
-            ;BEQ {+Sign}          //
-            ;ORA #$E000           //
-;{+Sign}    ;SEC                  //
-            ;SBC Move.dy.tile     //
-            ;BPL {+Abs}           // // Absolute value
-            ;EOR #$FFFF           //
-            ;INC A                //
-;{+Abs}     ;INC A                //
-            ;STA Move.dy.tile     //
-            ;
-            ;# dxTile ==============
-            ;LDA Move.x0          // dxTile=abs((x0+width-1)/8-x0/8)+1;
-            ;TAY                  //
-            ;LSR A                //
-            ;LSR A                //
-            ;LSR A                //
-            ;STA Move.dx.tile     //
-            ;TYA                  //
-            ;CLC                  //
-            ;ADC Move.width       //
-            ;DEC A                //
-            ;LSR A                //
-            ;LSR A                //
-            ;LSR A                //
-            ;SEC                  //
-            ;SBC Move.dx.tile     //
-            ;BPL {+Abs}           // // Absolute value
-            ;EOR #$FFFF           //
-            ;INC A                //
-;{+Abs}     ;INC A                //
-            ;STA Move.dx.tile     //
-            ;
-            ;# First Tile ==========
-            ;STZ Move.iteration   // iteration=0;
-            ;LDA Move.x0          // index=x0%0x0100/8;
-            ;AND #$00FF           //
-            ;LSR A                //
-            ;LSR A                //
-            ;LSR A                //
-            ;STA Move.index       //
-            ;LDA Move.y0          // index+=(dy<0?y0:y0+height-1)%0x0100/8*0x20;
-            ;LDX Move.dy          //
-            ;BMI {+Minus}         //
-            ;CLC                  //
-            ;ADC Move.height      //
-            ;DEC A                //
-;{+Minus}   ;AND #$00F8           //
-            ;ASL A                //
-            ;ASL A                //
-            ;CLC                  //
-            ;ADC Move.index       //
-            ;ASL A                // // Word indexing
-            ;STA Move.index       // index*=2;
-            ;
-            ;# Iterate =============
-;{-Row}     ;LDY Move.dx.tile     // for(:dyTile:dyTile--){ // Column
-;{-Column}  ;TAX                  //   X=index;
-            ;LDA level,X          //   for(Y=dxTile:Y:Y--){ // Row
-            ;AND #$03FF           //     if((level[X]&0x03FF)==TILE_stone){
-            ;CMP #TILE_spike      //     case TILE_spike:
-            ;BNE {+Solid}         //
-            ;LDA Move.dy          //       Move.hazard|=dy<0?0x0008:0x0002:
-            ;BMI {+Up}            //
-            ;LDA #$0002           //
-            ;BRA {+Down}          //
-;{+Up}      ;LDA #$0008           //
-;{+Down}    ;ORA Move.hazard      //
-            ;STA Move.hazard      //
-            ;BRA {+Air}           //       break;
-;{+Solid}   ;CMP #TILE_solid      //     case TILE_solid:
-            ;BEQ {+Stop}          //
-            ;CMP #TILE_mossUp
-            ;BEQ {+Stop}
-            ;CMP #TILE_mossDown
-            ;BNE {+Air}
-;{+Stop}    ;LDA Move.iteration   //       if(iteration==0){
-            ;BNE {+Outside}       //
-            ;LDA Move.y0          //         y1=y0;
-            ;BRA {+Inside}        //       }else{
-;{+Outside} ;TXA                  //
-            ;LSR A                //         y1=X/8&0x00F8+(dy<0?0x08:-height);
-            ;LSR A                //
-            ;LSR A                //
-            ;AND #$00F8           //
-            ;LDX Move.dy          //
-            ;BMI {+Up}            //
-            ;SEC                  //
-            ;SBC Move.height      //
-            ;BRA {+Down}          //
-;{+Up}      ;CLC                  //
-            ;ADC #$0008           //
-;{+Down}    ;AND #$00FF           //         y1%=0x0100
-;{+Inside}  ;STA Move.y1          //       }
-            ;LDA Move.dy          //       Move.stop|=dy<0?0x0008:0x0002;
-            ;BMI {+Up}            //
-            ;LDA #$0002           //
-            ;BRA {+Down}          //
-;{+Up}      ;LDA #$0008           //
-;{+Down}    ;ORA Move.stop        //
-            ;STA Move.stop        //       return;
-            ;RTS                  //     }
-;{+Air}     ;TXA                  //     X=X&0x07C0|(X+2)%0x40;
-            ;INC A                //
-            ;INC A                //
-            ;AND #$003F           //
-            ;STA Move.temp        //
-            ;TXA                  //
-            ;AND #$07C0           //
-            ;ORA Move.temp        //
-            ;DEY                  //
-            ;BEQ {+}              //
-            ;BRL {-Column}        //   }
-;{+}        ;LDA Move.index       //   index+=dy<0?-0x40:0x40;
-            ;LDY Move.dy          //
-            ;BMI {+Dec}           //
-            ;CLC                  //
-            ;ADC #$0040           //
-            ;BRA {+Inc}           //
-;{+Dec}     ;SEC                  //
-            ;SBC #$0040           //
-;{+Inc}     ;AND #$07FF           //   index%=0x0800;
-            ;STA Move.index       //
-            ;INC Move.iteration   //   iteration++;
-            ;DEC Move.dy.tile     // }
-            ;BEQ {+}              //
-            ;BRL {-Row}           //
-;{+}        ;LDA Move.y0          // y1=(y0+dy)%0x0100;
-            ;CLC                  //
-            ;ADC Move.dy          //
-            ;AND #$00FF           //
-            ;STA Move.y1          //
             ;RTS                  // return;
             
             ;# ===============================================================//

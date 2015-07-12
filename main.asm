@@ -43,9 +43,10 @@
             
             ;# Game ================
             ;#File draw.asm       // Render code
-            ;#File gravity.asm    // Gravity code
+            ;#File move.asm       //
             ;#File vrtan.asm      // Player code
             ;#File box.asm
+            ;#File gravity.asm    // Gravity code
             ;#File debug.asm      // Debug code
             
             ;# ===============================================================//
@@ -176,46 +177,68 @@
             ;LDA #$000E
             ;STA box.n
             ;LDX #$0000
+			;LDY #$0010
             ;LDA #$00E8
             ;STA box.x,X
             ;LDA #$0050
             ;STA box.y,X
+			;TYA
+			;STA box.wx,X
+			;STA box.wy,X
             ;INX
             ;INX
             ;LDA #$0070
             ;STA box.x,X
             ;LDA #$0068
             ;STA box.y,X
+			;TYA
+			;STA box.wx,X
+			;STA box.wy,X
             ;INX
             ;INX
             ;LDA #$0080
             ;STA box.x,X
             ;LDA #$0068
             ;STA box.y,X
+			;TYA
+			;STA box.wx,X
+			;STA box.wy,X
             ;INX
             ;INX
             ;LDA #$0020
             ;STA box.x,X
             ;LDA #$0090
             ;STA box.y,X
+			;TYA
+			;STA box.wx,X
+			;STA box.wy,X
             ;INX
             ;INX
             ;LDA #$00D0
             ;STA box.x,X
             ;LDA #$0090
             ;STA box.y,X
+			;TYA
+			;STA box.wx,X
+			;STA box.wy,X
             ;INX
             ;INX
             ;LDA #$0070
             ;STA box.x,X
             ;LDA #$00C8
             ;STA box.y,X
+			;TYA
+			;STA box.wx,X
+			;STA box.wy,X
             ;INX
             ;INX
             ;LDA #$0080
             ;STA box.x,X
             ;LDA #$00C8
             ;STA box.y,X
+			;TYA
+			;STA box.wx,X
+			;STA box.wy,X
             ;
             ;# Environment =========
             ;LDA #$001F           // gravity0=0x001F;

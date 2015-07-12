@@ -158,18 +158,28 @@
             ;#Name $02      Move.y0
             ;#Name $04      Move.dx
             ;#Name $06      Move.dy
-            ;#Name $08      Move.width
-            ;#Name $0A      Move.height
+            ;#Name $08      Move.xw
+            ;#Name $0A      Move.yw
             ;#Name $0C      Move.x1
             ;#Name $0E      Move.y1
-            ;#Name $10      Move.dx.tile
+            
+			;#Name $10      Move.dx.tile
             ;#Name $12      Move.dy.tile
-            ;#Name $14      Move.index
-            ;#Name $16      Move.temp
-            ;#Name $18      Move.iteration
-            ;#Name $1A      Move.stop
-            ;#Name $1C      Move.hazard
-            ;#Name $1E      Move.copy
+            ;#Name $14      Move.iteration
+            ;#Name $16      Move.index
+            ;#Name $18      Move.temp
+
+            ;#Name $10      Move.abs
+
+			;#Name $10      Move.xa
+			;#Name $12      Move.xb
+            ;#Name $14      Move.ya
+			;#Name $16      Move.yb
+			;#Name $18      Move.ba
+			;#Name $1A      Move.bb
+			;#Name $1C      Move.bw
+			;#Name $1E      Move.stop
+
 
             ;# Graphic Buffer ==================================================
 
@@ -227,11 +237,12 @@
             ;#Name $0636    p0.run.timer
             ;#Name $0638    p0.run.flag
             
+			;#Name $063A    p0.timer
+
             ;#Name $0650    p0.score
             ;#Name $0651    p1.score
-
-
-            ;# En.rinment =====================================================
+            
+            ;# Environment ====================================================
             ;#Name $0700  gravity0
             ;#Name $0702  gravity1
             
@@ -246,8 +257,10 @@
             ;#Name $07FE  box.n
             ;#Name $0800  box.x          box_t[0x?]
             ;#Name $0820  box.y
-            ;#Name $0840  box.vx
-            ;#Name $0860  box.vy
+            ;#Name $0840  box.wx
+            ;#Name $0860  box.wy
+            ;#Name $0880  box.vx
+            ;#Name $08A0  box.vy
 
 
             ;# WRAM $7E:2000-$7E:FFFF
@@ -314,10 +327,17 @@
 
             ;#Code w Box
             ;#Code w Box.Move
-
+			
             ;#Code w Move
             ;#Code w Move.X
             ;#Code w Move.Y
+            ;#Code w Move.Mob
+			;#Code w Move.Mob.X
+			;#Code w Move.Mob.Y
+			;#Code w Move.Intersect.X
+			;#Code w Move.Intersect.Y
+			;#Code w Move.InInterval.X
+			;#Code w Move.InInterval.Y
 
             ;#Code w Draw
             ;#Code w Draw.Debug
@@ -372,6 +392,10 @@
             ;#Data w vrtan.body.uppercut.ri.script
             ;#Data w vrtan.body.uppercut.l.script
             ;#Data w vrtan.body.uppercut.li.script
+            ;#Data w vrtan.body.crush.r.script
+            ;#Data w vrtan.body.crush.ri.script
+            ;#Data w vrtan.body.crush.l.script
+            ;#Data w vrtan.body.crush.li.script
 
             ;#Data w vrtan.legs.idle.r.script
             ;#Data w vrtan.legs.idle.ri.script
@@ -454,7 +478,20 @@
             ;#Data w vrtan.body.uppercut.l.2
             ;#Data w vrtan.body.uppercut.li.2
 
-            ;# Legs Sprite
+            ;#Data w vrtan.body.crush.r.0
+            ;#Data w vrtan.body.crush.ri.0
+            ;#Data w vrtan.body.crush.l.0
+            ;#Data w vrtan.body.crush.li.0
+            ;#Data w vrtan.body.crush.r.1
+            ;#Data w vrtan.body.crush.ri.1
+            ;#Data w vrtan.body.crush.l.1
+            ;#Data w vrtan.body.crush.li.1
+            ;#Data w vrtan.body.crush.r.2
+            ;#Data w vrtan.body.crush.ri.2
+            ;#Data w vrtan.body.crush.l.2
+            ;#Data w vrtan.body.crush.li.2
+            
+			;# Legs Sprite
             ;#Data w vrtan.legs.idle.r.0
             ;#Data w vrtan.legs.idle.ri.0
             ;#Data w vrtan.legs.idle.l.0

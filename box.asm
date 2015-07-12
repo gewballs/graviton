@@ -52,10 +52,10 @@
             ;STA Move.dx          //
             ;LDA box.vy,X         // Move.dy=vy;
             ;STA Move.dy          //
-            ;LDA #box.hit.dx      // Move.hit.width=hit.width;
-            ;STA Move.width       //
-            ;LDA #box.hit.dy      // Move.hit.height=hit.height;
-            ;STA Move.height      //
+            ;LDA #box.hit.dx      // Move.xw=hit.width;
+            ;STA Move.xw          //
+            ;LDA #box.hit.dy      // Move.yw=hit.height;
+            ;STA Move.yw          //
             ;PHX
             ;JSR Move             // Move();
             ;PLX

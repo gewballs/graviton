@@ -1,5 +1,5 @@
 # graviton
-![alt tag](https://raw.githubusercontent.com/gewballs/graviton/master/pictures/graviton_boxes.jpg)
+![alt tag](https://raw.githubusercontent.com/gewballs/graviton/master/pictures/graviton_mob_intersection.jpg)
 
 
 SNES Graviton
