@@ -1,7 +1,7 @@
+	;# ===============================================================//
+    ;# Crate                                                          //
     ;# ===============================================================//
-    ;# Box                                                            //
-    ;# ===============================================================//
-    ;#Data w box.sprite{
+    ;#Data w crate.sprite{
         $03
         $00 $00 $327E $00
         $08 $00 $727E $00
@@ -9,7 +9,300 @@
         $08 $08 $F27E $00
     }
     
+
+	;# ===============================================================//
+    ;# Gibs Scripts                                                   //
+    ;# ===============================================================//
+    ;#Data w gibs.arm0.r.script{
+        $0004
+		gibs.arm0.r.0 $0004
+		gibs.arm0.r.1 $0004
+		gibs.arm0.r.2 $0004
+		gibs.arm0.r.3 $0004
+    }
+    ;#Data w gibs.arm0.l.script{
+        $0004
+		gibs.arm0.l.0 $0004
+		gibs.arm0.l.1 $0004
+		gibs.arm0.l.2 $0004
+		gibs.arm0.l.3 $0004
+    }
+
+    ;#Data w gibs.arm1.r.script{
+        $0004
+		gibs.arm1.r.0 $0004
+		gibs.arm1.r.1 $0004
+		gibs.arm1.r.2 $0004
+		gibs.arm1.r.3 $0004
+    }
+    ;#Data w gibs.arm1.l.script{
+        $0004
+		gibs.arm1.l.0 $0004
+		gibs.arm1.l.1 $0004
+		gibs.arm1.l.2 $0004
+		gibs.arm1.l.3 $0004
+    }
+
+    ;#Data w gibs.foot.r.script{
+        $0004
+		gibs.foot.r.0 $0004
+		gibs.foot.r.1 $0004
+		gibs.foot.r.2 $0004
+		gibs.foot.r.3 $0004
+    }
+    ;#Data w gibs.foot.l.script{
+        $0004
+		gibs.foot.l.0 $0004
+		gibs.foot.l.1 $0004
+		gibs.foot.l.2 $0004
+		gibs.foot.l.3 $0004
+    }
+
+    ;#Data w gibs.head.r.script{
+        $0004
+		gibs.head.r.0 $0004
+		gibs.head.r.1 $0004
+		gibs.head.r.2 $0004
+		gibs.head.r.3 $0004
+    }
+    ;#Data w gibs.head.l.script{
+        $0004
+		gibs.head.l.0 $0004
+		gibs.head.l.1 $0004
+		gibs.head.l.2 $0004
+		gibs.head.l.3 $0004
+    }
     
+    ;#Data w gibs.bone.script{
+        $0002
+		gibs.bone.0 $0004
+		gibs.bone.1 $0004
+    }
+    
+    ;#Data w gibs.gore.r.script{
+        $0002
+		gibs.gore.r.0 $0004
+		gibs.gore.r.1 $0004
+    }
+    ;#Data w gibs.gore.ri.script{
+        $0002
+		gibs.gore.ri.0 $0004
+		gibs.gore.ri.1 $0004
+    }
+    ;#Data w gibs.gore.l.script{
+        $0002
+		gibs.gore.l.0 $0004
+		gibs.gore.l.1 $0004
+    }
+    ;#Data w gibs.gore.li.script{
+        $0002
+		gibs.gore.li.0 $0004
+		gibs.gore.li.1 $0004
+    }
+
+
+    ;# ===============================================================//
+    ;# Gibs Sprites                                                   //
+    ;# ===============================================================//
+    ;#Data w gibs.arm0.r.0{
+	    $00
+		$00 $00 $3055 $00
+	}
+    ;#Data w gibs.arm0.r.1{
+	    $00
+		$00 $00 $3056 $00
+	}
+    ;#Data w gibs.arm0.r.2{
+	    $00
+		$00 $00 $F055 $00
+	}
+    ;#Data w gibs.arm0.r.3{
+	    $00
+		$00 $00 $F056 $00
+	}
+    ;#Data w gibs.arm0.l.0{
+	    $00
+		$00 $00 $7055 $00
+	}
+    ;#Data w gibs.arm0.l.1{
+	    $00
+		$00 $00 $7056 $00
+	}
+    ;#Data w gibs.arm0.l.2{
+	    $00
+		$00 $00 $B055 $00
+	}
+    ;#Data w gibs.arm0.l.3{
+	    $00
+		$00 $00 $B056 $00
+	}
+
+    ;#Data w gibs.arm1.r.0{
+	    $00
+		$00 $00 $3057 $00
+	}
+    ;#Data w gibs.arm1.r.1{
+	    $00
+		$00 $00 $3058 $00
+	}
+    ;#Data w gibs.arm1.r.2{
+	    $00
+		$00 $00 $F057 $00
+	}
+    ;#Data w gibs.arm1.r.3{
+	    $00
+		$00 $00 $F058 $00
+	}
+    ;#Data w gibs.arm1.l.0{
+	    $00
+		$00 $00 $7057 $00
+	}
+    ;#Data w gibs.arm1.l.1{
+	    $00
+		$00 $00 $7058 $00
+	}
+    ;#Data w gibs.arm1.l.2{
+	    $00
+		$00 $00 $B057 $00
+	}
+    ;#Data w gibs.arm1.l.3{
+	    $00
+		$00 $00 $B058 $00
+	}
+
+    ;#Data w gibs.foot.r.0{
+	    $00
+		$00 $00 $3059 $00
+	}
+    ;#Data w gibs.foot.r.1{
+	    $00
+		$00 $00 $305A $00
+	}
+    ;#Data w gibs.foot.r.2{
+	    $00
+		$00 $00 $F059 $00
+	}
+    ;#Data w gibs.foot.r.3{
+	    $00
+		$00 $00 $F05A $00
+	}
+    ;#Data w gibs.foot.l.0{
+	    $00
+		$00 $00 $7059 $00
+	}
+    ;#Data w gibs.foot.l.1{
+	    $00
+		$00 $00 $705A $00
+	}
+    ;#Data w gibs.foot.l.2{
+	    $00
+		$00 $00 $B059 $00
+	}
+    ;#Data w gibs.foot.l.3{
+	    $00
+		$00 $00 $B05A $00
+	}
+
+    ;#Data w gibs.head.r.0{
+	    $03
+		$FC $F9 $305C $01
+		$04 $F9 $305D $00
+		$FC $01 $305E $01
+		$04 $01 $305F $00
+	}
+    ;#Data w gibs.head.r.1{
+	    $03
+		$07 $FC $3060 $00
+		$07 $04 $3061 $00
+		$FF $FC $3062 $01
+		$FF $04 $3063 $01
+	}
+    ;#Data w gibs.head.r.2{
+	    $03
+		$04 $07 $F05C $00
+		$FC $07 $F05D $01
+		$04 $FF $F05E $00
+		$FC $FF $F05F $01
+	}
+    ;#Data w gibs.head.r.3{
+	    $03
+		$F9 $04 $F060 $01
+		$F9 $FC $F061 $01
+		$01 $04 $F062 $00
+		$01 $FC $F063 $00
+	}
+    ;#Data w gibs.head.l.0{
+	    $03
+		$04 $F9 $705C $00
+		$FC $F9 $705D $01
+		$04 $01 $705E $00
+		$FC $01 $705F $01
+	}
+    ;#Data w gibs.head.l.1{
+	    $03
+		$F9 $FC $7060 $01
+		$F9 $04 $7061 $01
+		$01 $FC $7062 $00
+		$01 $04 $7063 $00
+	}
+    ;#Data w gibs.head.l.2{
+	    $03
+		$FC $07 $B05C $01
+		$04 $07 $B05D $00
+		$FC $FF $B05E $01
+		$04 $FF $B05F $00
+	}
+    ;#Data w gibs.head.l.3{
+	    $03
+		$07 $04 $B060 $00
+		$07 $FC $B061 $00
+		$FF $04 $B062 $01
+		$FF $FC $B063 $01
+	}
+
+    ;#Data w gibs.bone.0{
+	    $00
+		$00 $00 $305B $00
+	}
+    ;#Data w gibs.bone.1{
+	    $00
+		$00 $00 $B05B $00
+	}
+
+	;#Data w gibs.gore.r.0{
+	    $00
+		$00 $00 $3065 $00
+	}
+	;#Data w gibs.gore.r.1{
+	    $00
+		$00 $00 $3064 $00
+	}
+	;#Data w gibs.gore.ri.0{
+	    $00
+		$00 $00 $B065 $00
+	}
+	;#Data w gibs.gore.ri.1{
+	    $00
+		$00 $00 $B064 $00
+	}
+	;#Data w gibs.gore.l.0{
+	    $00
+		$00 $00 $7065 $00
+	}
+	;#Data w gibs.gore.l.1{
+	    $00
+		$00 $00 $7064 $00
+	}
+	;#Data w gibs.gore.li.0{
+	    $00
+		$00 $00 $F065 $00
+	}
+	;#Data w gibs.gore.li.1{
+	    $00
+		$00 $00 $F064 $00
+	}
+
+
     ;# ===============================================================//
     ;# Body Scripts                                                   //
     ;# ===============================================================//

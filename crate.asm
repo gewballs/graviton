@@ -1,75 +1,71 @@
-            ;#Name $0003 boxFallSpeed          //  !!! DEBUG !!! Placeholder
-            ;#Name $0000 box.hit.x
-            ;#Name $0000 box.hit.y
-            ;#Name $0010 box.hit.dx
-            ;#Name $0010 box.hit.dy
+            ;#Name $0300 crateFallSpeed          //  !!! DEBUG !!! Placeholder
+            ;#Name $0000 crate.hit.x
+            ;#Name $0000 crate.hit.y
+            ;#Name $1000 crate.hit.dx
+            ;#Name $1000 crate.hit.dy
 
             ;# ===============================================================//
-            ;#Code w {Box}                                                    //
+            ;#Code w {Crate}                                                  //
             ;# ===============================================================//
             ;PHP                  // Php();
             ;REP #$30             // Rep(0x30);
-            ;
+			;
             ;LDX #$0000
             ;
             ;# Dx ==================
 ;{-Loop}    ;LDA #$0000           //
-            ;STA box.vx,X         //
+            ;STA crate.vx,X       //
             ;
             ;# Dy ==================
-            ;LDA #boxFallSpeed    //
+            ;LDA #crateFallSpeed  //
             ;LDY gravity1         //
             ;BPL {+Dy}            //
             ;EOR #$FFFF           //
             ;INC A                //
-;{+Dy}      ;STA box.vy,X         //
+;{+Dy}      ;STA crate.vy,X       //
             ;
             ;# Move ================
-            ;JSR Box.Move         // Box.Move();
+            ;JSR Crate.Move       // Crate.Move();
             ;
             ;INX
             ;INX
-            ;CPX box.n
+            ;CPX crate.n
             ;BNE {-Loop}
             ;
             ;PLP                  // Plp();
             ;RTS                  // return;
             
             ;# ===============================================================//
-            ;#Code w {Box.Move}                                               //
+            ;#Code w {Crate.Move}                                             //
             ;# ===============================================================//
-            ;LDA box.x,X          // Move.x0=(x0+hit.x)%0x0100;
+            ;LDA crate.x,X        // Move.x0=x0+hit.x;
             ;CLC                  //
-            ;ADC #box.hit.x       //
-            ;AND #$00FF           //
+            ;ADC #crate.hit.x     //
             ;STA Move.x0          //
-            ;LDA box.y,X          // Move.y0=(y0+hit.y)%0x0100;
+            ;LDA crate.y,X        // Move.y0=y0+hit.y;
             ;CLC                  //
-            ;ADC #box.hit.y       //
-            ;AND #$00FF           //
+            ;ADC #crate.hit.y     //
             ;STA Move.y0          //
-            ;LDA box.vx,X         // Move.dx=vx;
+            ;LDA crate.vx,X       // Move.dx=vx;
             ;STA Move.dx          //
-            ;LDA box.vy,X         // Move.dy=vy;
+            ;LDA crate.vy,X       // Move.dy=vy;
             ;STA Move.dy          //
-            ;LDA #box.hit.dx      // Move.xw=hit.width;
+            ;LDA #crate.hit.dx    // Move.xw=hit.width;
             ;STA Move.xw          //
-            ;LDA #box.hit.dy      // Move.yw=hit.height;
+            ;LDA #crate.hit.dy    // Move.yw=hit.height;
             ;STA Move.yw          //
             ;PHX
-            ;JSR Move             // Move();
+            ;JSR Move.Level       // Move();
             ;PLX
             ;
-            ;LDA Move.x1          // x1=(Move.x1-hit.x)%0x0100;
+            ;LDA Move.x1          // x1=Move.x1-hit.x;
             ;SEC                  //
-            ;SBC #box.hit.x       //
-            ;AND #$00FF           //
-            ;STA box.x,X          //
-            ;LDA Move.y1          // y1=(Move.y1-hit.y)%0x0100;
+            ;SBC #crate.hit.x     //
+            ;STA crate.x,X        //
+            ;LDA Move.y1          // y1=Move.y1-hit.y;
             ;SEC                  //
-            ;SBC #box.hit.y       //
-            ;AND #$00FF           //
-            ;STA box.y,X          //
+            ;SBC #crate.hit.y     //
+            ;STA crate.y,X        //
             ;
             ;RTS                  // return;
             

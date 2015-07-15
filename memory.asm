@@ -147,13 +147,6 @@
             ;#Name $0C      AnimateSprite.script w
             ;#Name $0E      AnimateSprite.timer  w
 
-            ;#Name $00      Grounded.x
-            ;#Name $02      Grounded.y
-            ;#Name $04      Grounded.width
-            ;#Name $06      Grounded.height
-            ;#Name $08      Grounded.dx
-            ;#Name $0A      Grounded.row
-
             ;#Name $00      Move.x0
             ;#Name $02      Move.y0
             ;#Name $04      Move.dx
@@ -165,7 +158,7 @@
             
 			;#Name $10      Move.dx.tile
             ;#Name $12      Move.dy.tile
-            ;#Name $14      Move.iteration
+            ;#Name $14      Move.lock
             ;#Name $16      Move.index
             ;#Name $18      Move.temp
 
@@ -179,6 +172,11 @@
 			;#Name $1A      Move.bb
 			;#Name $1C      Move.bw
 			;#Name $1E      Move.stop
+
+			;#Name $00      Spawn.type
+			;#Name $02      Spawn.x
+			;#Name $04      Spawn.y
+
 
 
             ;# Graphic Buffer ==================================================
@@ -254,13 +252,29 @@
             ;#Name $0724  gradient.db    b
             ;#Name $0726  gradient       b[0x10]
             
-            ;#Name $07FE  box.n
-            ;#Name $0800  box.x          box_t[0x?]
-            ;#Name $0820  box.y
-            ;#Name $0840  box.wx
-            ;#Name $0860  box.wy
-            ;#Name $0880  box.vx
-            ;#Name $08A0  box.vy
+            ;#Name $07FE  crate.n
+            ;#Name $0800  crate.x        crate_t[0x?]
+            ;#Name $0820  crate.y
+            ;#Name $0840  crate.wx
+            ;#Name $0860  crate.wy
+            ;#Name $0880  crate.vx
+            ;#Name $08A0  crate.vy
+            
+			;#Name $08FC  particle.last
+			;#Name $08FE  particle.n
+            ;#Name $0900  particle.on
+            ;#Name $0920  particle.x
+            ;#Name $0940  particle.y
+            ;#Name $0960  particle.xv
+            ;#Name $0980  particle.yv
+            ;#Name $09A0  particle.xw
+            ;#Name $09C0  particle.yw
+			;#Name $09E0  particle.code
+			;#Name $0A00  particle.script
+			;#Name $0A20  particle.frame
+			;#Name $0A40  particle.delay
+            ;#Name $0A60  particle.draw
+            ;#Name $0A80  particle.timer
 
 
             ;# WRAM $7E:2000-$7E:FFFF
@@ -308,6 +322,12 @@
 
             ;#Code w Gravity
             
+			;#Code w Particle
+			;#Code w Particle.Next
+			;#Code w Particle.Dust
+			;#Code w Particle.Gibs
+			;#Code w Spawn.Gibs
+
             ;#Code w Vrtan
             ;#Code w Vrtan.Idle
             ;#Code w Vrtan.Walk
@@ -318,6 +338,7 @@
             ;#Code w Vrtan.FallPunch
             ;#Code w Vrtan.Uppercut
             ;#Code w Vrtan.Crush
+            ;#Code w Vrtan.Crushing
             ;#Code w Vrtan.JumpSpike
             ;#Code w Vrtan.FallSpike
             ;#Code w Vrtan.Respawn
@@ -325,19 +346,19 @@
             ;#Code w Vrtan.Sprite
             ;#Code w Vrtan.Move
 
-            ;#Code w Box
-            ;#Code w Box.Move
-			
-            ;#Code w Move
-            ;#Code w Move.X
-            ;#Code w Move.Y
+            ;#Code w Crate
+            ;#Code w Crate.Move
+
+            ;#Code w Move.Level
+            ;#Code w Move.Level.X
+            ;#Code w Move.Level.Y
             ;#Code w Move.Mob
 			;#Code w Move.Mob.X
 			;#Code w Move.Mob.Y
-			;#Code w Move.Intersect.X
-			;#Code w Move.Intersect.Y
 			;#Code w Move.InInterval.X
 			;#Code w Move.InInterval.Y
+			;#Code w Move.Intersect.X
+			;#Code w Move.Intersect.Y
 
             ;#Code w Draw
             ;#Code w Draw.Debug
@@ -346,8 +367,8 @@
             ;#Code w Draw.Hud
             ;#Code w Draw.Level
             ;#Code w Draw.Players
-            ;#Code w Draw.Box
-            ;#Code w Draw.Entity
+            ;#Code w Draw.Crate
+            ;#Code w Draw.Particle
             ;#Code w Draw.Gradient
             ;#Code w Draw.Grass
             
@@ -372,6 +393,21 @@
             ;#Data l obj.char
 
             ;# Sprite Scripts ========================
+
+            ;#Data w gibs.arm0.r.script
+            ;#Data w gibs.arm0.l.script
+            ;#Data w gibs.arm1.r.script
+            ;#Data w gibs.arm1.l.script
+            ;#Data w gibs.foot.r.script
+            ;#Data w gibs.foot.l.script
+            ;#Data w gibs.head.r.script
+            ;#Data w gibs.head.l.script
+            ;#Data w gibs.bone.script
+            ;#Data w gibs.gore.r.script
+            ;#Data w gibs.gore.ri.script
+            ;#Data w gibs.gore.l.script
+            ;#Data w gibs.gore.li.script
+
             ;#Data w vrtan.body.idle.r.script
             ;#Data w vrtan.body.idle.ri.script
             ;#Data w vrtan.body.idle.l.script
@@ -415,14 +451,63 @@
             ;#Data w vrtan.legs.punch.li.script
 
             ;# Sprite ================================
-            ;# Bos
-            ;#Data w box.sprite
-            ;
+            ;# Crate
+            ;#Data w crate.sprite
+
             ;# Hitbox
             ;#Data w hit.tl.sprite
             ;#Data w hit.bl.sprite
             ;#Data w hit.br.sprite
             ;#Data w hit.tr.sprite
+
+			;# Gibs
+			;#Data w gibs.arm0.r.0
+			;#Data w gibs.arm0.r.1
+			;#Data w gibs.arm0.r.2
+			;#Data w gibs.arm0.r.3
+			;#Data w gibs.arm0.l.0
+			;#Data w gibs.arm0.l.1
+			;#Data w gibs.arm0.l.2
+			;#Data w gibs.arm0.l.3
+			
+			;#Data w gibs.arm1.r.0
+			;#Data w gibs.arm1.r.1
+			;#Data w gibs.arm1.r.2
+			;#Data w gibs.arm1.r.3
+			;#Data w gibs.arm1.l.0
+			;#Data w gibs.arm1.l.1
+			;#Data w gibs.arm1.l.2
+			;#Data w gibs.arm1.l.3
+			
+			;#Data w gibs.foot.r.0
+			;#Data w gibs.foot.r.1
+			;#Data w gibs.foot.r.2
+			;#Data w gibs.foot.r.3
+			;#Data w gibs.foot.l.0
+			;#Data w gibs.foot.l.1
+			;#Data w gibs.foot.l.2
+			;#Data w gibs.foot.l.3
+			
+			;#Data w gibs.head.r.0
+			;#Data w gibs.head.r.1
+			;#Data w gibs.head.r.2
+			;#Data w gibs.head.r.3
+			;#Data w gibs.head.l.0
+			;#Data w gibs.head.l.1
+			;#Data w gibs.head.l.2
+			;#Data w gibs.head.l.3
+
+			;#Data w gibs.bone.0
+			;#Data w gibs.bone.1
+
+			;#Data w gibs.gore.r.0
+			;#Data w gibs.gore.r.1
+			;#Data w gibs.gore.ri.0
+			;#Data w gibs.gore.ri.1
+			;#Data w gibs.gore.l.0
+			;#Data w gibs.gore.l.1
+			;#Data w gibs.gore.li.0
+			;#Data w gibs.gore.li.1
 
             ;# Body Sprite
             ;#Data w vrtan.body.idle.r.0

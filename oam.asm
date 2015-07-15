@@ -274,7 +274,6 @@
             ;#Code w {AnimateSprite}                                          //
             ;# ===============================================================//
             ;PHP
-            ;
             ;REP #$30
             ;LDA (AnimateSprite.base) // Get script pointer
 			;BEQ {+Done}

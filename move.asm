@@ -1,5 +1,5 @@
             
-			;#Name $0000 TILE_air
+            ;#Name $0000 TILE_air
             ;#Name $0020 TILE_solid
             ;#Name $0026 TILE_mossUp
             ;#Name $0027 TILE_mossDown
@@ -55,73 +55,65 @@
             ;STA Move.x1          //     return;
             ;RTS                  // }
             ;
-;{+Move}    ;LDA Move.x0          // x1=(x0+dx)&0x00FF;
+;{+Move}    ;LDA Move.x0          // x1=x0+dx;
             ;CLC                  //
             ;ADC Move.dx          //
-            ;AND #$00FF           //
             ;STA Move.x1          //
             ;
             ;LDA Move.dx          // if(dx>=0){
             ;BMI {+Minus}         //
-            ;LDA Move.x0          //     xa=(x0+xw)&0x00FF;
+            ;LDA Move.x0          //     xa=x0+xw;
             ;CLC                  //
             ;ADC Move.xw          //
-            ;AND #$00FF           //
             ;STA Move.xa          //
-            ;CLC                  //     xb=(xa+xy-1)&0x00FF;
+            ;CLC                  //     xb=xa+xy-1;
             ;ADC Move.dx          //
             ;DEC A                //
-            ;AND #$00FF           //
             ;STA Move.xb          //
             ;BRA {+Plus}          // }else{
-;{+Minus}   ;LDA Move.x0          //     xb=(x0-1)&0x00FF;
+;{+Minus}   ;LDA Move.x0          //     xb=x0-1;
             ;DEC A                //
-            ;AND #$00FF           //
             ;STA Move.xb          //
-            ;CLC                  //     xa=(xb+dx+1)&0x00FF;
+            ;CLC                  //     xa=xb+dx+1;
             ;ADC Move.dx          //
             ;INC A                //
-            ;AND #$00FF           //
             ;STA Move.xa          // }
 ;{+Plus}    ;
             ;LDA Move.y0          // ya=y0;
             ;STA Move.ya          //
-            ;CLC                  // yb=(ya+yw-1)&0x00FF;
+            ;CLC                  // yb=ya+yw-1;
             ;ADC Move.yw          //
             ;DEC A                //
-            ;AND #$00FF           //
             ;STA Move.yb          //
             ;
-            ;LDX #$0000           // for(X=0:X<box.n:X++){
+            ;LDX #$0000           // for(X=0:X<crate.n:X++){
 ;{-Loop}    ;
-            ;LDA box.wy,X         //     bw=box.wy[X];
+            ;LDA crate.wy,X       //     bw=crate.wy[X];
             ;STA Move.bw          //
-            ;LDA box.y,X          //     ba=box.y[X];
+            ;LDA crate.y,X        //     ba=crate.y[X];
             ;STA Move.ba          //
-            ;CLC                  //     bb=(ba+bw-1)&0x00FF;
+            ;CLC                  //     bb=ba+bw-1;
             ;ADC Move.bw          //
             ;DEC A                //
-            ;AND #$00FF           //
             ;STA Move.bb          //
             ;LDA Move.yw          //     if(!MoveIntersectY(yw)) continue;
             ;JSR Move.Intersect.Y //
             ;BCS {+}              //
             ;BRL {+Next}          //
 ;{+}        ;
-            ;LDA box.wx,X         //     bw=box.wx[X];
+            ;LDA crate.wx,X       //     bw=crate.wx[X];
             ;STA Move.bw          //
-            ;LDA box.x,X          //     ba=box.x[X];
+            ;LDA crate.x,X        //     ba=crate.x[X];
             ;STA Move.ba          //
-            ;CLC                  //     bb=(ba+bw-1)&0x00FF;
+            ;CLC                  //     bb=ba+bw-1;
             ;ADC Move.bw          //
             ;DEC A                //
-            ;AND #$00FF           //
             ;STA Move.bb          //
             ;LDA Move.dx          //     if(!MoveIntersectX(dx)) continue;
             ;JSR Move.Intersect.X //
             ;BCC {+Next}          //
             ;
-            ;LDA Move.dx          //     x1=(dx>=0?ba-xw:ba+bw)&0x00FF;
+            ;LDA Move.dx          //     x1=(dx>=0)?(ba-xw):(ba+bw);
             ;BMI {+Minus}         //
             ;LDA Move.ba          //
             ;SEC                  //
@@ -130,14 +122,12 @@
 ;{+Minus}   ;LDA Move.ba          //
             ;CLC                  //
             ;ADC Move.bw          //
-;{+Plus}    ;AND #$00FF           //
-            ;STA Move.x1          //
+;{+Plus}    ;STA Move.x1          //
             ;
             ;LDA Move.x0          //     xa=x0;
             ;STA Move.xa          //
-            ;CLC                  //     xb=(xa+dx)&0x00FF;
+            ;CLC                  //     xb=xa+dx;
             ;ADC Move.dx          //
-            ;AND #$00FF           //
             ;STA Move.xb          //
             ;LDA Move.dx          //     if(dx<0){
             ;BPL {+NoSwap}        //         A=xa;
@@ -158,26 +148,23 @@
             ;BEQ {+Set}           //     if(A){
             ;LDY Move.dx          //         if(dx>=0){
             ;BMI {+Minus}         //
-            ;BCS {+Set}           //             if(A<0) A+=0x0100;
-            ;CLC                  //
-            ;ADC #$0100           //
-            ;BRA {+Set}           //         }else{
-;{+Minus}   ;BCC {+Set}           //             if(A>=0) A-=0x0100;
-            ;SEC                  //         }
-            ;SBC #$0100           //     }
+            ;BCS {+Set}           //             if(A<0) A=-A;
+            ;BRA {+Negate}        //         }else{
+;{+Minus}   ;BCC {+Set}           //             if(A>=0) A=-A;
+;{+Negate}  ;EOR #$FFFF           //         }
+            ;INC A                //     }
 ;{+Set}     ;STA Move.dx          //     dx=A;
             ;
-            ;LDA Move.xa          //     xb=(xa+xw+dx-1)&0x00FF;
+            ;LDA Move.xa          //     xb=xa+xw+dx-1;
             ;CLC                  //
             ;ADC Move.xw          //
             ;ADC Move.dx          //
             ;DEC A                //
-            ;AND #$00FF           //
             ;STA Move.xb          //
             ;
 ;{+Next}    ;INX                  // }
             ;INX                  //
-            ;CPX box.n            //
+            ;CPX crate.n          //
             ;BCS {+Return}        //
             ;BRL {-Loop}          //
             ;
@@ -192,73 +179,65 @@
             ;STA Move.y1          //     return;
             ;RTS                  // }
             ;
-;{+Move}    ;LDA Move.y0          // y1=(y0+dy)&0x00FF;
+;{+Move}    ;LDA Move.y0          // y1=y0+dy;
             ;CLC                  //
             ;ADC Move.dy          //
-            ;AND #$00FF           //
             ;STA Move.y1          //
             ;
             ;LDA Move.dy          // if(dy>=0){
             ;BMI {+Minus}         //
-            ;LDA Move.y0          //     ya=(y0+yw)&0x00FF;
+            ;LDA Move.y0          //     ya=y0+yw;
             ;CLC                  //
             ;ADC Move.yw          //
-            ;AND #$00FF           //
             ;STA Move.ya          //
-            ;CLC                  //     yb=(ya+yy-1)&0x00FF;
+            ;CLC                  //     yb=ya+yy-1;
             ;ADC Move.dy          //
             ;DEC A                //
-            ;AND #$00FF           //
             ;STA Move.yb          //
             ;BRA {+Plus}          // }else{
-;{+Minus}   ;LDA Move.y0          //     yb=(y0-1)&0x00FF;
+;{+Minus}   ;LDA Move.y0          //     yb=y0-1;
             ;DEC A                //
-            ;AND #$00FF           //
             ;STA Move.yb          //
-            ;CLC                  //     ya=(yb+dy+1)&0x00FF;
+            ;CLC                  //     ya=yb+dy+1;
             ;ADC Move.dy          //
             ;INC A                //
-            ;AND #$00FF           //
             ;STA Move.ya          // }
 ;{+Plus}    ;
             ;LDA Move.x0          // xa=x0;
             ;STA Move.xa          //
-            ;CLC                  // xb=(xa+xw-1)&0x00FF;
+            ;CLC                  // xb=xa+xw-1;
             ;ADC Move.xw          //
             ;DEC A                //
-            ;AND #$00FF           //
             ;STA Move.xb          //
             ;
-            ;LDX #$0000           // for(X=0:X<box.n:X++){
+            ;LDX #$0000           // for(X=0:X<crate.n:X++){
 ;{-Loop}    ;
-            ;LDA box.wx,X         //     bw=box.wx[X];
+            ;LDA crate.wx,X       //     bw=crate.wx[X];
             ;STA Move.bw          //
-            ;LDA box.x,X          //     ba=box.x[X];
+            ;LDA crate.x,X        //     ba=crate.x[X];
             ;STA Move.ba          //
-            ;CLC                  //     bb=(ba+bw-1)&0x00FF;
+            ;CLC                  //     bb=ba+bw-1;
             ;ADC Move.bw          //
             ;DEC A                //
-            ;AND #$00FF           //
             ;STA Move.bb          //
             ;LDA Move.xw          //     if(!MoveIntersectX(xw)) continue;
             ;JSR Move.Intersect.X //
             ;BCS {+}              //
             ;BRL {+Next}          //
 ;{+}        ;
-            ;LDA box.wy,X         //     bw=box.wy[X];
+            ;LDA crate.wy,X       //     bw=crate.wy[X];
             ;STA Move.bw          //
-            ;LDA box.y,X          //     ba=box.y[X];
+            ;LDA crate.y,X        //     ba=crate.y[X];
             ;STA Move.ba          //
-            ;CLC                  //     bb=(ba+bw-1)&0x00FF;
+            ;CLC                  //     bb=ba+bw-1;
             ;ADC Move.bw          //
             ;DEC A                //
-            ;AND #$00FF           //
             ;STA Move.bb          //
             ;LDA Move.dy          //     if(!MoveIntersectY(dy)) continue;
             ;JSR Move.Intersect.Y //
             ;BCC {+Next}          //
             ;
-            ;LDA Move.dy          //     y1=(dy>=0?ba-yw:ba+bw)&0x00FF;
+            ;LDA Move.dy          //     y1=(dy>=0)?(ba-yw):(ba+bw);
             ;BMI {+Minus}         //
             ;LDA Move.ba          //
             ;SEC                  //
@@ -267,14 +246,12 @@
 ;{+Minus}   ;LDA Move.ba          //
             ;CLC                  //
             ;ADC Move.bw          //
-;{+Plus}    ;AND #$00FF           //
-            ;STA Move.y1          //
+;{+Plus}    ;STA Move.y1          //
             ;
             ;LDA Move.y0          //     ya=y0;
             ;STA Move.ya          //
-            ;CLC                  //     yb=(ya+dy)&0x00FF;
+            ;CLC                  //     yb=ya+dy;
             ;ADC Move.dy          //
-            ;AND #$00FF           //
             ;STA Move.yb          //
             ;LDA Move.dy          //     if(dy<0){
             ;BPL {+NoSwap}        //         A=ya;
@@ -295,26 +272,23 @@
             ;BEQ {+Set}           //     if(A){
             ;LDY Move.dy          //         if(dy>=0){
             ;BMI {+Minus}         //
-            ;BCS {+Set}           //             if(A<0) A+=0x0100;
-            ;CLC                  //
-            ;ADC #$0100           //
-            ;BRA {+Set}           //         }else{
-;{+Minus}   ;BCC {+Set}           //             if(A>=) A-=0x0100;
-            ;SEC                  //         }
-            ;SBC #$0100           //     }
+            ;BCS {+Set}           //             if(A<0) A=-A;
+            ;BRA {+Negate}        //         }else{
+;{+Minus}   ;BCC {+Set}           //             if(A>=0) A=-A;
+;{+Negate}  ;EOR #$FFFF           //         }
+            ;INC A                //     }
 ;{+Set}     ;STA Move.dy          //     dy=A;
             ;
-            ;LDA Move.ya          //     yb=(ya+yw+dy-1)&0x00FF;
+            ;LDA Move.ya          //     yb=ya+yw+dy-1;
             ;CLC                  //
             ;ADC Move.yw          //
             ;ADC Move.dy          //
-            ;AND #$00FF           //
             ;DEC A                //
             ;STA Move.yb          //
             ;
 ;{+Next}    ;INX                  // }
             ;INX                  //
-            ;CPX box.n            //
+            ;CPX crate.n          //
             ;BCS {+Return}        //
             ;BRL {-Loop}          //
             ;
@@ -531,10 +505,8 @@
             ;RTS                  // }
 
 
-
-
             ;# ===============================================================//
-            ;#Code w {Move}                                                   //
+            ;#Code w {Move.Level}                                             //
             ;# ===============================================================//
             ;PHP                  // Php();
             ;PHB                  // Phb();
@@ -543,95 +515,125 @@
             ;PLB                  //
             ;PLB                  //
             ;
-            ;STZ Move.stop        // stop=0;
-            ;JSR Move.Y           // Move.Y();
-            ;LDA Move.y0          //
-            ;PHA                  //
-            ;LDA Move.y1          // y0=y1;
-            ;STA Move.y0          //
-            ;JSR Move.X           // Move.X();
-            ;PLA                  //
-            ;STA Move.y0          //
-            ;
-            ;PLB                  // Plb();
-            ;PLP                  // Plp();
-            ;RTS                  // return;
-            
-            ;# ===============================================================//
-            ;#Code w {Move.X}                                                 //
-            ;# ===============================================================//
-            ;# dxTile ==============
-            ;LDA Move.dx          // if(dx==0){
-            ;BNE {+Delta}         //
-            ;LDA Move.x0          //   x1=x0;
-            ;STA Move.x1          //   return;
-            ;RTS                  // }
-;{+Delta}   ;BMI {+Left}          // x0Pixel=dx<0?x0:x0+width-1;
-            ;LDA Move.x0          //
-            ;CLC                  //
-            ;ADC Move.xw       //
-            ;DEC A                //
-            ;BRA {+Right}         //
-;{+Left}    ;LDA Move.x0          //
-;{+Right}   ;TAY                  //
-            ;LSR A                // dxTile=abs((x0Pixel+dx)/8-x0Pixel/8)+1;
-            ;LSR A                //
-            ;LSR A                //
-            ;STA Move.dx.tile     //
-            ;TYA                  //
-            ;CLC                  //
-            ;ADC Move.dx          //
-            ;LSR A                //
-            ;LSR A                //
-            ;LSR A                //
-            ;BIT #$1000           // // Sign extend
-            ;BEQ {+Sign}          //
-            ;ORA #$E000           //
-;{+Sign}    ;SEC                  //
-            ;SBC Move.dx.tile     //
-            ;BPL {+Abs}           // // Absolute value
+            ;LDA Move.dx          // if(abs(dx)>=abs(dy)){
+            ;BPL {+Abs}           //
             ;EOR #$FFFF           //
             ;INC A                //
-;{+Abs}     ;INC A                //
+;{+Abs}     ;STA Move.abs         //
+            ;LDA Move.dy          //
+            ;BPL{+Abs}            //
+            ;EOR #$FFFF           //
+            ;INC A                //
+;{+Abs}     ;CMP Move.abs         //
+            ;BCC {+Y}             //
+            ;
+            ;LDA Move.x0          //     Push(x0);
+            ;PHA                  //
+            ;JSR Move.Level.X     //     Move.Level.X();
+            ;LDA Move.x1          //     x0=x1;
+            ;STA Move.x0          //
+            ;JSR Move.Level.Y     //     Move.Level.Y();
+            ;PLA                  //     x0=Pull();
+            ;STA Move.x0          //
+            ;BRA {+X}             // }else{
+            ;
+;{+Y}       ;LDA Move.y0          //     Push(y0);
+            ;PHA                  //
+            ;JSR Move.Level.Y     //     Move.Level.Y();
+            ;LDA Move.y1          //     y0=y1;
+            ;STA Move.y0          //
+            ;JSR Move.Level.X     //     Move.Level.X();
+            ;PLA                  //     y0=Pull();
+            ;STA Move.y0          // }
+            ;
+;{+X}       ;PLB                  // Plb();
+            ;PLP                  // Plp();
+            ;RTS                  // return;
+
+
+            ;# ===============================================================//
+            ;#Code w {Move.Level.X}                                           //
+            ;# ===============================================================//
+            ;# Still ===============
+            ;LDA Move.dx          // if(dx==0){
+            ;BNE {+Move}          //
+            ;LDA Move.x0          //     x1=x0;
+            ;STA Move.x1          //
+            ;STZ Move.dx          //     dx=0;
+            ;RTS                  //     return;
+;{+Move}    ;
+            ;# dxTile ==============
+            ;BMI {+Minus}         // }else if(dx>=0){
+            ;LDA Move.x0          //     xa=(x0+xw)&0xF800;
+            ;CLC                  //
+            ;ADC Move.xw          //
+            ;TAY                  //
+            ;AND #$F800           //
+            ;STA Move.dx.tile     //
+            ;TYA                  //     xb=(x0+xw+dx-1)&0xF800;
+            ;CLC                  //
+            ;ADC Move.dx          //
+            ;DEC A                //
+            ;BRA {+Sub}           // }else if(dx<0){
+;{+Minus}   ;LDA Move.x0          //     xa=(x0-1+dx+1)&0xF800;
+            ;DEC A                //
+            ;TAY                  //
+            ;CLC                  //
+            ;ADC Move.dx          //
+            ;INC A                //
+            ;AND #$F800           //
+            ;STA Move.dx.tile     //
+            ;TYA                  //     xb=(x0-1)&0xF800;
+;{+Sub}     ;AND #$F800           // }
+            ;SEC                  // dxTile=(((xb-xa)>>11)+1)&0x001F;
+            ;SBC Move.dx.tile     //
+            ;LSR A                //
+            ;LSR A                //
+            ;LSR A                //
+            ;XBA                  //
+            ;INC A                //
+            ;AND #$001F           //
             ;STA Move.dx.tile     //
             ;
             ;# dyTile ==============
-            ;LDA Move.y0          // dyTile=abs((y0+height-1)/8-y0/8)+1;
+            ;LDA Move.y0          // ya=(y0)&0xF800;
             ;TAY                  //
-            ;LSR A                //
-            ;LSR A                //
-            ;LSR A                //
+            ;AND #$F800           //
             ;STA Move.dy.tile     //
-            ;TYA                  //
+            ;TYA                  // yb=(y0+yw-1)&0xF800;
             ;CLC                  //
-            ;ADC Move.yw      //
+            ;ADC Move.yw          //
             ;DEC A                //
-            ;LSR A                //
-            ;LSR A                //
-            ;LSR A                //
-            ;SEC                  //
+            ;AND #$F800           //
+            ;SEC                  // dyTile=(((yb-ya)>>11)+1)&0x001F;
             ;SBC Move.dy.tile     //
-            ;BPL {+Abs}           // // Absolute value
-            ;EOR #$FFFF           //
+            ;LSR A                //
+            ;LSR A                //
+            ;LSR A                //
+            ;XBA                  //
             ;INC A                //
-;{+Abs}     ;INC A                //
+            ;AND #$001F           //
             ;STA Move.dy.tile     //
             ;
             ;# First Tile ==========
-            ;STZ Move.iteration   // iteration=0;
-            ;LDA Move.x0          // index=(dx<0?x0:x0+width-1)%0x0100/8;
+            ;LDA #$FFFF           // lock=0xFFFF;
+            ;STA Move.lock        //
+            ;LDA Move.x0          // index=((dx>=?x0+xw:x0-1)&0xF800)>>11;
             ;LDX Move.dx          //
             ;BMI {+Minus}         //
             ;CLC                  //
-            ;ADC Move.xw       //
-            ;DEC A                //
-;{+Minus}   ;AND #$00FF           //
+            ;ADC Move.xw          //
+            ;BRA {+Plus}          //
+;{+Minus}   ;DEC A                //
+;{+Plus}    ;AND #$F800           //
             ;LSR A                //
             ;LSR A                //
             ;LSR A                //
+            ;XBA                  //
             ;STA Move.index       //
-            ;LDA Move.y0          // index+=y0%0x0100/8*0x0020;
-            ;AND #$00F8           //
+            ;LDA Move.y0          // index+=(((y0)&0xF800)>>11)*0x0020;
+            ;AND #$F800           //
+            ;XBA                  //
             ;ASL A                //
             ;ASL A                //
             ;CLC                  //
@@ -641,50 +643,54 @@
             ;
             ;# Iterate =============
 ;{-Column}  ;LDY Move.dy.tile     // for(:dxTile:dxTile--){ // Column
-;{-Row}     ;TAX                  //   X=index;
-            ;LDA level,X          //   for(Y=dyTile:Y:Y--){ // Row
-            ;AND #$03FF           //     switch(level[X]&0x03FF){
-            ;CMP #TILE_solid      //     case TILE_solid:
-            ;BEQ {+Stop}          //
-            ;CMP #TILE_mossUp
-            ;BEQ {+Stop}
-            ;CMP #TILE_mossDown
-            ;BNE {+Air}
-;{+Stop}    ;LDA Move.iteration   //       if(iteration==0){
-            ;BNE {+Outside}       //
-            ;LDA Move.x0          //         x1=x0;
-            ;BRA {+Inside}        //       }else{
-;{+Outside} ;TXA                  //         A=X*4&0x00F8;
+;{-Row}     ;TAX                  //     X=index;
+            ;LDA level,X          //     for(Y=dyTile:Y:Y--){ // Row
+            ;AND #$03FF           //         A=level[X]&0x03FF;
+            ;CMP #TILE_solid      //         if(   A==TILE_solid
+            ;BEQ {+Solid}         //
+            ;CMP #TILE_mossUp     //             ||A==TILE_mossUp
+            ;BEQ {+Solid}         //
+            ;CMP #TILE_mossDown   //             ||A==TILE_mossDown
+            ;BNE {+Air}           //         ){
+;{+Solid}   ;LDA Move.lock        //             if(lock){
+            ;BEQ {+Unlock}        //
+            ;LDA Move.x0          //                 x1=x0;
+            ;STA Move.x1          //                 dx=0;
+            ;STZ Move.dx          //                 return;
+            ;RTS                  //             }
+;{+Unlock}  ;TXA                  //             A=(X*4&0x00F8)<<8;
             ;ASL A                //
             ;ASL A                //
             ;AND #$00F8           //
-            ;LDX Move.dx          //         x1=A+(dx<0?0x08:-width)&0x00FF;
+            ;XBA                  //
+            ;LDX Move.dx          //             x1=A+(dx>=0?-xw:0x0800);
             ;BMI {+Left}          //
             ;SEC                  //
-            ;SBC Move.xw       //
+            ;SBC Move.xw          //
             ;BRA {+Right}         //
 ;{+Left}    ;CLC                  //
-            ;ADC #$0008           //
-;{+Right}   ;AND #$00FF           //
-;{+Inside}  ;STA Move.x1          //       }
-            ;LDA Move.dx          //       Move.stop|=dx<0?0x0004:0x0001;
+            ;ADC #$0800           //
+;{+Right}   ;STA Move.x1          //
+            ;LDA Move.dx          //             Move.stop|=dx<0?0x0004:0x0001;
             ;BMI {+Left}          //
             ;LDA #$0001           //
             ;BRA {+Right}         //
 ;{+Left}    ;LDA #$0004           //
 ;{+Right}   ;ORA Move.stop        //
-            ;STA Move.stop        //       return;
-            ;RTS                  //     }
-;{+Air}     ;TXA                  //     X=(X+0x0040)%0x0800;
+            ;STA Move.stop        //             return;
+            ;RTS                  //         }
+;{+Air}     ;DEY                  //
+            ;BEQ {+Break}         //
+            ;TXA                  //         X=(X+0x0040)&0x07FF;
             ;CLC                  //
             ;ADC #$0040           //
             ;AND #$07FF           //
-            ;DEY                  //
-            ;BEQ {+}              //
-            ;BRL {-Row}           //   }
-;{+}        ;LDA Move.index       //   X=index;
-            ;TAX                  //
-            ;LDY Move.dx          //   index=X%0x07C0|(X+(dx<0?-2:2))%0x40;
+            ;BRL {-Row}           //     }
+;{+Break}   ;DEC Move.dx.tile     //
+            ;BEQ {+Break}         //
+            ;LDA Move.index       //
+            ;TAX                  //     X=index;
+            ;LDY Move.dx          //     index=X&0x07C0|(X+(dx<0?-2:2))&0x003F;
             ;BMI {+Dec}           //
             ;INC A                //
             ;INC A                //
@@ -697,92 +703,98 @@
             ;AND #$07C0           //   
             ;ORA Move.index       //
             ;STA Move.index       //
-            ;INC Move.iteration   //   iteration++;
-            ;DEC Move.dx.tile     // }
-            ;BEQ {+}              //
-            ;BRL {-Column}        //
-;{+}        ;LDA Move.x0          // x1=(x0+dx)%0x0100;
+            ;STZ Move.lock        //     lock=0x0000;
+            ;BRL {-Column}        // }
+;{+Break}   ;LDA Move.x0          // x1=x0+dx;
             ;CLC                  //
             ;ADC Move.dx          //
-            ;AND #$00FF           //
             ;STA Move.x1          //
             ;RTS                  // return;
 
+
             ;# ===============================================================//
-            ;#Code w {Move.Y}                                                 //
+            ;#Code w {Move.Level.Y}                                           //
             ;# ===============================================================//
-            ;# dyTile ==============
+            ;# Still ===============
             ;LDA Move.dy          // if(dy==0){
-            ;BNE {+Delta}         //
-            ;LDA Move.y0          //   y1=y0;
-            ;STA Move.y1          //   return;
-            ;RTS                  // }
-;{+Delta}   ;BMI {+Up}            // y0Pixel=dy<0?y0:y0+height-1;
-            ;LDA Move.y0          //
+            ;BNE {+Move}          //
+            ;LDA Move.y0          //     y1=y0;
+            ;STA Move.y1          //
+            ;STZ Move.dy          //     dy=0;
+            ;RTS                  //     return;
+;{+Move}    ;
+            ;# dyTile ==============
+            ;BMI {+Minus}         // }else if(dy>=0){
+            ;LDA Move.y0          //     ya=(y0+yw)&0xF800;
             ;CLC                  //
-            ;ADC Move.yw      //
-            ;DEC A                //
-            ;BRA {+Down}          //
-;{+Up}      ;LDA Move.y0          //
-;{+Down}    ;TAY                  //
-            ;LSR A                // dyTile=abs((y0Pixel+dy)/8-y0Pixel/8)+1;
-            ;LSR A                //
-            ;LSR A                //
+            ;ADC Move.yw          //
+            ;TAY                  //
+            ;AND #$F800           //
             ;STA Move.dy.tile     //
-            ;TYA                  //
+            ;TYA                  //     yb=(y0+yw+dy-1)&0xF800;
             ;CLC                  //
             ;ADC Move.dy          //
-            ;LSR A                //
-            ;LSR A                //
-            ;LSR A                //
-            ;BIT #$1000           // // Sign extend
-            ;BEQ {+Sign}          //
-            ;ORA #$E000           //
-;{+Sign}    ;SEC                  //
-            ;SBC Move.dy.tile     //
-            ;BPL {+Abs}           // // Absolute value
-            ;EOR #$FFFF           //
+            ;DEC A                //
+            ;BRA {+Sub}           // }else if(dy<0){
+;{+Minus}   ;LDA Move.y0          //     ya=(y0-1+dy+1)&0xF800;
+            ;DEC A                //
+            ;TAY                  //
+            ;CLC                  //
+            ;ADC Move.dy          //
             ;INC A                //
-;{+Abs}     ;INC A                //
+            ;AND #$F800           //
+            ;STA Move.dy.tile     //
+            ;TYA                  //     yb=(y0-1)&0xF800;
+;{+Sub}     ;AND #$F800           // }
+            ;SEC                  // dxTile=(((yb-ya)>>11)+1)&0x001F;
+            ;SBC Move.dy.tile     //
+            ;LSR A                //
+            ;LSR A                //
+            ;LSR A                //
+            ;XBA                  //
+            ;INC A                //
+            ;AND #$001F           //
             ;STA Move.dy.tile     //
             ;
             ;# dxTile ==============
-            ;LDA Move.x0          // dxTile=abs((x0+width-1)/8-x0/8)+1;
+            ;LDA Move.x0          // xa=(x0)&0xF800;
             ;TAY                  //
-            ;LSR A                //
-            ;LSR A                //
-            ;LSR A                //
+            ;AND #$F800           //
             ;STA Move.dx.tile     //
-            ;TYA                  //
+            ;TYA                  // xb=(x0+xw-1)&0xF800;
             ;CLC                  //
-            ;ADC Move.xw       //
+            ;ADC Move.xw          //
             ;DEC A                //
-            ;LSR A                //
-            ;LSR A                //
-            ;LSR A                //
-            ;SEC                  //
+            ;AND #$F800           //
+            ;SEC                  // dxTile=(((xb-xa)>>11)+1)&0x001F;
             ;SBC Move.dx.tile     //
-            ;BPL {+Abs}           // // Absolute value
-            ;EOR #$FFFF           //
+            ;LSR A                //
+            ;LSR A                //
+            ;LSR A                //
+            ;XBA                  //
             ;INC A                //
-;{+Abs}     ;INC A                //
+            ;AND #$001F           //
             ;STA Move.dx.tile     //
             ;
             ;# First Tile ==========
-            ;STZ Move.iteration   // iteration=0;
-            ;LDA Move.x0          // index=x0%0x0100/8;
-            ;AND #$00FF           //
+            ;LDA #$FFFF           // lock=0xFFFF;
+            ;STA Move.lock        //
+            ;LDA Move.x0          // index=(x0&0xF800)>>11;
+            ;AND #$F800           //
             ;LSR A                //
             ;LSR A                //
             ;LSR A                //
+            ;XBA                  //
             ;STA Move.index       //
-            ;LDA Move.y0          // index+=(dy<0?y0:y0+height-1)%0x0100/8*0x20;
+            ;LDA Move.y0          // index+=((dy>=0?y0+yw:y0-1)&0xF800)>>6;
             ;LDX Move.dy          //
             ;BMI {+Minus}         //
             ;CLC                  //
-            ;ADC Move.yw      //
-            ;DEC A                //
-;{+Minus}   ;AND #$00F8           //
+            ;ADC Move.yw          //
+            ;BRA {+Plus}          //
+;{+Minus}   ;DEC A                //
+;{+Plus}    ;AND #$F800           //
+            ;XBA                  //
             ;ASL A                //
             ;ASL A                //
             ;CLC                  //
@@ -792,42 +804,47 @@
             ;
             ;# Iterate =============
 ;{-Row}     ;LDY Move.dx.tile     // for(:dyTile:dyTile--){ // Column
-;{-Column}  ;TAX                  //   X=index;
-            ;LDA level,X          //   for(Y=dxTile:Y:Y--){ // Row
-            ;AND #$03FF           //     if((level[X]&0x03FF)==TILE_stone){
-            ;CMP #TILE_solid      //     case TILE_solid:
-            ;BEQ {+Stop}          //
-            ;CMP #TILE_mossUp
-            ;BEQ {+Stop}
-            ;CMP #TILE_mossDown
-            ;BNE {+Air}
-;{+Stop}    ;LDA Move.iteration   //       if(iteration==0){
-            ;BNE {+Outside}       //
-            ;LDA Move.y0          //         y1=y0;
-            ;BRA {+Inside}        //       }else{
-;{+Outside} ;TXA                  //
-            ;LSR A                //         y1=X/8&0x00F8+(dy<0?0x08:-height);
+;{-Column}  ;TAX                  //     X=index;
+            ;LDA level,X          //     for(Y=dxTile:Y:Y--){ // Row
+            ;AND #$03FF           //         A=level[X]&0x03FF;
+            ;CMP #TILE_solid      //         if(   A==TILE_solid
+            ;BEQ {+Solid}         //
+            ;CMP #TILE_mossUp     //             ||A==TILE_mossUp
+            ;BEQ {+Solid}         //
+            ;CMP #TILE_mossDown   //             ||A==TILE_mossDown
+            ;BNE {+Air}           //         ){
+;{+Solid}   ;LDA Move.lock        //             if(lock){
+            ;BEQ {+Unlock}        //
+            ;LDA Move.y0          //                 y1=y0;
+            ;STA Move.y1          //                 yx=0;
+            ;STZ Move.dy          //                 return;
+            ;RTS                  //             }
+;{+Unlock}  ;TXA                  //             A=(X&0x07C0)<<5;
+            ;AND #$07C0           //
             ;LSR A                //
             ;LSR A                //
-            ;AND #$00F8           //
-            ;LDX Move.dy          //
+            ;LSR A                //
+            ;XBA                  //
+            ;LDX Move.dy          //             y1=A+(dy>=0?-yw:0x0800);
             ;BMI {+Up}            //
             ;SEC                  //
-            ;SBC Move.yw      //
+            ;SBC Move.yw          //
             ;BRA {+Down}          //
 ;{+Up}      ;CLC                  //
-            ;ADC #$0008           //
-;{+Down}    ;AND #$00FF           //         y1%=0x0100
-;{+Inside}  ;STA Move.y1          //       }
-            ;LDA Move.dy          //       Move.stop|=dy<0?0x0008:0x0002;
+            ;ADC #$0800           //
+;{+Down}    ;STA Move.y1          //
+            ;LDA Move.dy          //             Move.stop|=dy>=0?0x0002:0x0008;
             ;BMI {+Up}            //
             ;LDA #$0002           //
             ;BRA {+Down}          //
 ;{+Up}      ;LDA #$0008           //
 ;{+Down}    ;ORA Move.stop        //
-            ;STA Move.stop        //       return;
-            ;RTS                  //     }
-;{+Air}     ;TXA                  //     X=X&0x07C0|(X+2)%0x40;
+            ;STA Move.stop        //             return;
+            ;RTS                  //         }
+;{+Air}     ;DEY                  //
+            ;BEQ {+Break}         //
+            ;TXA                  //         X=X&0x07C0|(X+0x0002)&0x003F;
+            ;CLC                  //
             ;INC A                //
             ;INC A                //
             ;AND #$003F           //
@@ -835,30 +852,27 @@
             ;TXA                  //
             ;AND #$07C0           //
             ;ORA Move.temp        //
-            ;DEY                  //
-            ;BEQ {+}              //
-            ;BRL {-Column}        //   }
-;{+}        ;LDA Move.index       //   index+=dy<0?-0x40:0x40;
+            ;BRL {-Column}        //     }
+;{+Break}   ;DEC Move.dy.tile     //
+            ;BEQ {+Break}         //
+            ;LDA Move.index       //     index=(index+(dy>=0?0x40:-0x40))&0x7FF;
             ;LDY Move.dy          //
             ;BMI {+Dec}           //
             ;CLC                  //
             ;ADC #$0040           //
             ;BRA {+Inc}           //
-;{+Dec}     ;SEC                  //
+;{+Dec}     ;SEC A                //
             ;SBC #$0040           //
-;{+Inc}     ;AND #$07FF           //   index%=0x0800;
-            ;STA Move.index       //
-            ;INC Move.iteration   //   iteration++;
-            ;DEC Move.dy.tile     // }
-            ;BEQ {+}              //
-            ;BRL {-Row}           //
-;{+}        ;LDA Move.y0          // y1=(y0+dy)%0x0100;
+;{+Inc}     ;STA Move.index       //
+            ;STZ Move.lock        //     lock=0x0000;
+            ;BRL {-Row}           // }
+;{+Break}   ;LDA Move.y0          // y1=y0+dy;
             ;CLC                  //
             ;ADC Move.dy          //
-            ;AND #$00FF           //
             ;STA Move.y1          //
             ;RTS                  // return;
-            
+
+
             ;# ===============================================================//
             ;#                                                                //
             ;# ===============================================================//

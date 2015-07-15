@@ -43,9 +43,10 @@
             
             ;# Game ================
             ;#File draw.asm       // Render code
-            ;#File move.asm       //
+            ;#File move.asm       // Movement code
             ;#File vrtan.asm      // Player code
-            ;#File box.asm
+            ;#File crate.asm      // Crate code
+			;#File particle.asm   // Particle code
             ;#File gravity.asm    // Gravity code
             ;#File debug.asm      // Debug code
             
@@ -154,92 +155,96 @@
             ;STA vrtan.legs.script// vrtan.legs.script=vrtan.legs.idle.r.script;
             ;STZ vrtan.legs.frame // vrtan.legs.frame=0;
             ;STZ vrtan.legs.timer // vrtan.legs.timer=0;
-            ;LDA #$0078           // vrtan.x0=0x0078;
+            ;LDA #$7800           // vrtan.x0=0x7800;
             ;STA vrtan.x0         //
-            ;LDA #$00A8           // vrtan.y0=0x00A8;
+            ;LDA #$A800           // vrtan.y0=0xA800;
             ;STA vrtan.y0         // 
             ;STZ vrtan.vx         // vrtan.vx=0;
             ;STZ vrtan.vy         // vrtan.vy=0;
             ;STZ vrtan.left0      // vrtan.left0=0;
             ;STZ vrtan.flip       // vrtan.flip=0;
-            ;LDA #$0003           // vrtan.hit.x=0x0003;
+            ;LDA #$0300           // vrtan.hit.x=0x0300;
             ;STA vrtan.hit.x      //
-            ;LDA #$0006           // vrtan.hit.y=0x0006;
+            ;LDA #$0600           // vrtan.hit.y=0x0600;
             ;STA vrtan.hit.y      //
-            ;LDA #$0008           // vrtan.hit.width=0x0008;
+            ;LDA #$0800           // vrtan.hit.width=0x0800;
             ;STA vrtan.hit.width  //
-            ;LDA #$0019           // vrtan.hit.height=0x0019;
+            ;LDA #$1900           // vrtan.hit.height=0x1900;
             ;STA vrtan.hit.height //
             ;LDA #$0040           // vrtan.ghost=0x0040;
             ;STA vrtan.ghost      //
             ;
-            ;# Boxes ===============
+            ;# Crates ==============
             ;LDA #$000E
-            ;STA box.n
+            ;STA crate.n
             ;LDX #$0000
-			;LDY #$0010
-            ;LDA #$00E8
-            ;STA box.x,X
-            ;LDA #$0050
-            ;STA box.y,X
+			;LDY #$1000
+            ;LDA #$E800
+            ;STA crate.x,X
+            ;LDA #$5000
+            ;STA crate.y,X
 			;TYA
-			;STA box.wx,X
-			;STA box.wy,X
+			;STA crate.wx,X
+			;STA crate.wy,X
             ;INX
             ;INX
-            ;LDA #$0070
-            ;STA box.x,X
-            ;LDA #$0068
-            ;STA box.y,X
+            ;LDA #$7000
+            ;STA crate.x,X
+            ;LDA #$6800
+            ;STA crate.y,X
 			;TYA
-			;STA box.wx,X
-			;STA box.wy,X
+			;STA crate.wx,X
+			;STA crate.wy,X
             ;INX
             ;INX
-            ;LDA #$0080
-            ;STA box.x,X
-            ;LDA #$0068
-            ;STA box.y,X
+            ;LDA #$8000
+            ;STA crate.x,X
+            ;LDA #$6800
+            ;STA crate.y,X
 			;TYA
-			;STA box.wx,X
-			;STA box.wy,X
+			;STA crate.wx,X
+			;STA crate.wy,X
             ;INX
             ;INX
-            ;LDA #$0020
-            ;STA box.x,X
-            ;LDA #$0090
-            ;STA box.y,X
+            ;LDA #$2000
+            ;STA crate.x,X
+            ;LDA #$9000
+            ;STA crate.y,X
 			;TYA
-			;STA box.wx,X
-			;STA box.wy,X
+			;STA crate.wx,X
+			;STA crate.wy,X
             ;INX
             ;INX
-            ;LDA #$00D0
-            ;STA box.x,X
-            ;LDA #$0090
-            ;STA box.y,X
+            ;LDA #$D000
+            ;STA crate.x,X
+            ;LDA #$9000
+            ;STA crate.y,X
 			;TYA
-			;STA box.wx,X
-			;STA box.wy,X
+			;STA crate.wx,X
+			;STA crate.wy,X
             ;INX
             ;INX
-            ;LDA #$0070
-            ;STA box.x,X
-            ;LDA #$00C8
-            ;STA box.y,X
+            ;LDA #$7000
+            ;STA crate.x,X
+            ;LDA #$C800
+            ;STA crate.y,X
 			;TYA
-			;STA box.wx,X
-			;STA box.wy,X
+			;STA crate.wx,X
+			;STA crate.wy,X
             ;INX
             ;INX
-            ;LDA #$0080
-            ;STA box.x,X
-            ;LDA #$00C8
-            ;STA box.y,X
+            ;LDA #$8000
+            ;STA crate.x,X
+            ;LDA #$C800
+            ;STA crate.y,X
 			;TYA
-			;STA box.wx,X
-			;STA box.wy,X
+			;STA crate.wx,X
+			;STA crate.wy,X
             ;
+            ;# Particle ============
+			;LDA #$0020
+			;STA particle.n
+			;
             ;# Environment =========
             ;LDA #$001F           // gravity0=0x001F;
             ;STA gravity0         //
@@ -306,8 +311,9 @@
             ;
             ;# Game ================
             ;JSR Gravity          //   Gravity();
+			;JSR Particle         //   Particle();
             ;JSR Vrtan            //   Vrtan();
-            ;JSR Box              //   Box();
+            ;JSR Crate            //   Crate();
             ;JSR Draw             //   Draw();
             ;JSR Debug            //   Debug();
             ;
@@ -342,7 +348,7 @@
             ;# ===============================================================//
             ;# Data                                                           //
             ;# ===============================================================//
-            ;#File vrtan.spr      // Player sprite and animatin scripts
+            ;#File sprite.asm   // Player sprite and animatin scripts
             
             ;#Data l bg.char    {#bg.chr}       // Background char, 8x8p 4-bit
             ;#Data l obj.char   {#obj.chr}      // Object char, 8x8p 4-bit

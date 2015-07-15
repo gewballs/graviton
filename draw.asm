@@ -11,9 +11,9 @@
             ;JSR Draw.Character   // Character();
             ;JSR Draw.Hud         // Hud();
             ;JSR Draw.Level       // Level();
+            ;JSR Draw.Particle    // Particle();
             ;JSR Draw.Players     // Players();
-            ;JSR Draw.Box         // Box();
-            ;JSR Draw.Entity      // Entity();
+            ;JSR Draw.Crate       // Crate();
             ;JSR Draw.Gradient    // Gradient();
             ;JSR Draw.Grass       // Grass();
             ;
@@ -37,13 +37,19 @@
             ;BRA {+Fine}
 ;{+Hurt}    ;LDA #$3E
 ;{+Fine}    ;STA Draw_Sprite.obj_p_override
+            ;REP #$20
             ;LDA vrtan.x0
             ;CLC
             ;ADC vrtan.hit.x
+			;XBA
+			;SEP #$20
             ;STA Draw_Sprite.x
+			;REP #$20
             ;LDA vrtan.y0
             ;CLC
             ;ADC vrtan.hit.y
+			;XBA
+			;SEP #$20
             ;STA Draw_Sprite.y
             ;STZ Draw_Sprite.data_bank
             ;REP #$20
@@ -60,10 +66,13 @@
             ;BRA {+Fine}
 ;{+Hurt}    ;LDA #$3E
 ;{+Fine}    ;STA Draw_Sprite.obj_p_override
+            ;REP #$20
             ;LDA vrtan.y0
             ;CLC
             ;ADC vrtan.hit.y
             ;ADC vrtan.hit.height
+			;XBA
+			;SEP #$20
             ;STA Draw_Sprite.y
             ;STZ Draw_Sprite.data_bank
             ;REP #$20
@@ -80,10 +89,13 @@
             ;BRA {+Fine}
 ;{+Hurt}    ;LDA #$3E
 ;{+Fine}    ;STA Draw_Sprite.obj_p_override
-            ;LDA vrtan.x0
+            ;REP #$30
+			;LDA vrtan.x0
             ;CLC
             ;ADC vrtan.hit.x
             ;ADC vrtan.hit.width
+			;XBA
+			;SEP #$20
             ;STA Draw_Sprite.x
             ;STZ Draw_Sprite.data_bank
             ;REP #$20
@@ -100,9 +112,12 @@
             ;BRA {+Fine}
 ;{+Hurt}    ;LDA #$3E
 ;{+Fine}    ;STA Draw_Sprite.obj_p_override
+            ;REP #$20
             ;LDA vrtan.y0
             ;CLC
             ;ADC vrtan.hit.y
+			;XBA
+			;SEP #$20
             ;STA Draw_Sprite.y
             ;STZ Draw_Sprite.data_bank
             ;REP #$20
@@ -316,9 +331,15 @@
             ;SEP #$20
             ;STZ Draw_Sprite.data_bank
             ;STZ Draw_Sprite.obj_p_override
+			;REP #$20
             ;LDA vrtan.x0
+			;XBA
+			;SEP #$20
             ;STA Draw_Sprite.x
+			;REP #$20
             ;LDA vrtan.y0
+			;XBA
+			;SEP #$20
             ;STA Draw_Sprite.y
             ;REP #$20
             ;STZ Draw_Sprite.char_i
@@ -331,32 +352,81 @@
             ;RTS
             
             ;# ===============================================================//
-            ;#Code w {Draw.Box}                                               //
+            ;#Code w {Draw.Crate}                                             //
             ;# ===============================================================//
             ;LDX #$0000
 ;{-Loop}    ;SEP #$20
             ;STZ Draw_Sprite.data_bank
             ;STZ Draw_Sprite.obj_p_override
-            ;LDA box.x,X
+			;REP #$20
+            ;LDA crate.x,X
+			;XBA
+			;SEP #$20
             ;STA Draw_Sprite.x
-            ;LDA box.y,X
+			;REP #$20
+            ;LDA crate.y,X
+			;XBA
+			;SEP #$20
             ;STA Draw_Sprite.y
             ;REP #$20
             ;STZ Draw_Sprite.char_i
-            ;LDA #box.sprite
+            ;LDA #crate.sprite
             ;STA Draw_Sprite.data_i
             ;PHX
             ;JSR Draw_Sprite
             ;PLX
             ;INX
             ;INX
-            ;CPX box.n
+            ;CPX crate.n
             ;BNE {-Loop}
             ;RTS
             
             ;# ===============================================================//
-            ;#Code w {Draw.Entity}                                            //
+            ;#Code w {Draw.Particle}                                          //
             ;# ===============================================================//
+            ;SEP #$20
+            ;STZ Draw_Sprite.data_bank
+            ;STZ Draw_Sprite.obj_p_override
+			;REP #$20
+            ;
+			;LDX #$0000
+			;
+;{-Loop}    ;LDA particle.on,X
+			;BEQ {+Next}
+			;LDA particle.draw,X
+			;BEQ {+Next}
+            ;LDA particle.x,X
+			;XBA
+            ;SEP #$20
+            ;STA Draw_Sprite.x
+			;REP #$20
+            ;LDA particle.y,X
+			;XBA
+			;SEP #$20
+            ;STA Draw_Sprite.y
+            ;REP #$20
+            ;STZ Draw_Sprite.char_i
+            ;LDA particle.script,X
+			;STA $10
+            ;LDA particle.frame,X
+			;STA $12
+            ;LDA particle.delay,X
+			;STA $14
+			;LDA #$0010
+            ;STA AnimateSprite.base
+			;PHX
+            ;JSR AnimateSprite
+			;PLX
+			;LDA $12
+            ;STA particle.frame,X
+			;LDA $14
+            ;STA particle.delay,X
+			;
+;{+Next}    ;INX
+            ;INX
+			;CPX particle.n
+			;BCC {-Loop}
+			;
             ;RTS
            
             ;#Data w hdma.sea{
