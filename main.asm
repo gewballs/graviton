@@ -16,8 +16,8 @@
             ;# ===============================================================//
             ;#Code w {Vector.Reset}                                           //
             ;# ===============================================================//
-            ;SEI                  // SetE(EMULATION_off);
-            ;CLC                  //
+            ;SEI                  // I=1;
+            ;CLC                  // E=0;
             ;XCE                  //
             ;JML Reset            // Reset();
             
@@ -44,6 +44,7 @@
             ;# Game ================
             ;#File draw.asm       // Render code
             ;#File move.asm       // Movement code
+			;#File edit.asm
             ;#File vrtan.asm      // Player code
             ;#File crate.asm      // Crate code
 			;#File particle.asm   // Particle code
@@ -66,6 +67,38 @@
                 Engine.Run
             }
             
+
+
+            ;#Data w crate.xInitial{
+                $E800
+                $7000
+                $8000
+                $2000
+                $D000
+                $7000
+                $8000
+            }
+            ;#Data w crate.yInitial{
+                $5000
+                $6800
+                $6800
+                $9000
+                $9000
+                $C800
+                $C800
+			}
+
+            ;# Particle ============
+			;LDA #$0020
+			;STA particle.n
+			;
+            ;# Environment =========
+            ;LDA #$001F           // gravity0=0x001F;
+            ;STA gravity0         //
+            ;STA gravity1         //
+            ;SEP #$20
+			}
+
             ;# ===============================================================//
             ;#Code w {Engine.Initiate}                                        //
             ;# ===============================================================//
@@ -74,7 +107,10 @@
             ;PHK                  // B=K;
             ;PLB                  //
             ;
-            ;# Vram ================
+			;# Processor ===========
+            ;CLI                  // Cli();
+            ;
+			;# Vram ================
             ;SEP #$20             // Sep(P_m);
             ;LDA #$80             // VMAINC=0x80;
             ;STA VMAINC           //
@@ -113,20 +149,20 @@
             ;STA bg1vofs          //
             ;STA bg2vofs          // bg2vofs=0x03FF;
             ;SEP #$20             // Sep(P_m);
-            ;LDA #03              // // OBJ=8x8,NameSelect=+0x2000,Base=0xC000
+            ;LDA #01              // // OBJ=8x8,NameSelect=+0x1000w,Base=0x2000w
             ;STA objsel           // objsel=0x03;
             ;LDA #$01             // // BG(4,3,2,1)=8x8,BG3Priority=0,Mode 1
             ;STA bgmode           // bgmode=0x01;
-            ;LDA #$00             // // BG1 VRAM Base=0x0000,SC=1x1
+            ;LDA #$00             // // BG1 VRAM Base=0x0000w,SC=1x1
             ;STA bg1sc            // bg1sc=0x00;
-            ;LDA #$04             // // BG2 VRAM Base=0x0800,SC=1x1
+            ;LDA #$04             // // BG2 VRAM Base=0x0400w,SC=1x1
             ;STA bg2sc            // bg2sc=0x04;
-            ;LDA #$08             // // BG3 VRAM Base=0x1000,SC=1x1
+            ;LDA #$08             // // BG3 VRAM Base=0x0800w,SC=1x1
             ;STA bg3sc            // bg3sc=0x08;
-            ;LDA #$11             // // BG2 Name=0x2000,BG1 Name=0x2000
+            ;LDA #$33             // // BG2 Name=0x3000w,BG1 Name=0x3000w
             ;STA bg12nba          // bg12nba=0x11;
-            ;LDA #$02             // // BG4 Name=0x0000,BG3 Name=0x2000
-            ;STA bg34nba          // bg34nba=0x02;
+            ;LDA #$03             // // BG4 Name=0x0000w,BG3 Name=0x3000w
+            ;STA bg34nba          // bg34nba=0x01;
             ;LDA #$17             // // OBJ=On, BG4=Off, BG3=On, BG2=On, BG1=On
             ;STA tm               // tm=0x17;
             ;LDA #$04             // // Overscan=On;
@@ -137,7 +173,6 @@
             ;LDA #$00             // // Display=On, Brightness=0;
             ;STA inidisp          // inidisp=0x00;
             ;STA INIDISP          // INIDISP=0x00;
-            ;CLI                  // Cli();
             ;
             ;# Utility =============
             ;REP #$30             // // Seed rng
@@ -179,67 +214,17 @@
             ;STA crate.n
             ;LDX #$0000
 			;LDY #$1000
-            ;LDA #$E800
+;{-Loop}    ;LDA crate.xInitial,X
             ;STA crate.x,X
-            ;LDA #$5000
+            ;LDA crate.yInitial,X
             ;STA crate.y,X
 			;TYA
 			;STA crate.wx,X
 			;STA crate.wy,X
             ;INX
             ;INX
-            ;LDA #$7000
-            ;STA crate.x,X
-            ;LDA #$6800
-            ;STA crate.y,X
-			;TYA
-			;STA crate.wx,X
-			;STA crate.wy,X
-            ;INX
-            ;INX
-            ;LDA #$8000
-            ;STA crate.x,X
-            ;LDA #$6800
-            ;STA crate.y,X
-			;TYA
-			;STA crate.wx,X
-			;STA crate.wy,X
-            ;INX
-            ;INX
-            ;LDA #$2000
-            ;STA crate.x,X
-            ;LDA #$9000
-            ;STA crate.y,X
-			;TYA
-			;STA crate.wx,X
-			;STA crate.wy,X
-            ;INX
-            ;INX
-            ;LDA #$D000
-            ;STA crate.x,X
-            ;LDA #$9000
-            ;STA crate.y,X
-			;TYA
-			;STA crate.wx,X
-			;STA crate.wy,X
-            ;INX
-            ;INX
-            ;LDA #$7000
-            ;STA crate.x,X
-            ;LDA #$C800
-            ;STA crate.y,X
-			;TYA
-			;STA crate.wx,X
-			;STA crate.wy,X
-            ;INX
-            ;INX
-            ;LDA #$8000
-            ;STA crate.x,X
-            ;LDA #$C800
-            ;STA crate.y,X
-			;TYA
-			;STA crate.wx,X
-			;STA crate.wy,X
+			;CPX crate.n
+			;BMI {-Loop}
             ;
             ;# Particle ============
 			;LDA #$0020
@@ -310,6 +295,7 @@
             ;JSL Rng              //   Rng();
             ;
             ;# Game ================
+			;JSR Edit             //   Edit();
             ;JSR Gravity          //   Gravity();
 			;JSR Particle         //   Particle();
             ;JSR Vrtan            //   Vrtan();

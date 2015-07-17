@@ -240,6 +240,15 @@
             ;#Name $0650    p0.score
             ;#Name $0651    p1.score
             
+            ;#Name $0680    Edit.mode
+			;#Name $0682    Edit.x
+			;#Name $0684    Edit.y
+			;#Name $0686    Edit.n
+			;#Name $0688    Edit.c
+			;#Name $068A    Edit.p
+			;#Name $068C    Edit.f
+			;#Name $068E    Edit.tile
+
             ;# Environment ====================================================
             ;#Name $0700  gravity0
             ;#Name $0702  gravity1
@@ -286,8 +295,9 @@
             ;# VRAM
             ;#Name $0000  vram.bg1.name
             ;#Name $0400  vram.bg2.name
-            ;#Name $1000  vram.bg.char
-            ;#Name $6000  vram.obj.char
+            ;#Name $0800  vram.bg3.name
+            ;#Name $2000  vram.obj.char
+            ;#Name $3000  vram.bg.char
             
             
             ;# ROM =============================================================
@@ -319,6 +329,7 @@
             ;#Code w Pause
 
             ;#Code w Debug
+			;#Code w Edit
 
             ;#Code w Gravity
             
@@ -362,6 +373,7 @@
 
             ;#Code w Draw
             ;#Code w Draw.Debug
+            ;#Code w Draw.Edit
             ;#Code w Draw.Palette
             ;#Code w Draw.Character
             ;#Code w Draw.Hud
@@ -453,6 +465,9 @@
             ;# Sprite ================================
             ;# Crate
             ;#Data w crate.sprite
+
+            ;# Edit
+            ;#Data w edit.sprite
 
             ;# Hitbox
             ;#Data w hit.tl.sprite

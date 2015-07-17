@@ -7,6 +7,7 @@
             ;
             ;# Draw ================
             ;JSR Draw.Debug       // Debug();
+            ;JSR Draw.Edit        // Edit();
             ;JSR Draw.Palette     // Palette();
             ;JSR Draw.Character   // Character();
             ;JSR Draw.Hud         // Hud();
@@ -127,6 +128,29 @@
             ;JSR Draw_Sprite
 ;{+Hide}    ;
             ;PLP
+            ;RTS
+            
+            ;# ===============================================================//
+            ;#Code w {Draw.Edit}                                              //
+            ;# ===============================================================//
+            ;SEP #$20
+            ;STZ Draw_Sprite.data_bank
+            ;STZ Draw_Sprite.obj_p_override
+            ;LDA Edit.x
+			;ASL A
+			;ASL A
+			;ASL A
+            ;STA Draw_Sprite.x
+            ;LDA Edit.y
+			;ASL A
+			;ASL A
+			;ASL A
+            ;STA Draw_Sprite.y
+            ;REP #$20
+            ;STZ Draw_Sprite.char_i
+            ;LDA #edit.sprite
+            ;STA Draw_Sprite.data_i
+            ;JSR Draw_Sprite
             ;RTS
             
             ;# ===============================================================//
@@ -254,7 +278,7 @@
             ;BRA {+Break}
             ;
 ;{+Clear}   ;LDA #$002F           // Vram address
-              ;STA Nmi.Write.base,X
+            ;STA Nmi.Write.base,X
             ;LDA #$6408
             ;STA Nmi.Write.data,X
             ;INX
@@ -262,7 +286,7 @@
             ;INX
             ;INX
             ;LDA #$0030           // Vram address
-              ;STA Nmi.Write.base,X
+            ;STA Nmi.Write.base,X
             ;LDA #$2408
             ;STA Nmi.Write.data,X
             ;INX

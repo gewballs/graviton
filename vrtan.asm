@@ -1,16 +1,3 @@
-            ;#Name $0010 JOY_r
-            ;#Name $0020 JOY_l
-            ;#Name $0040 JOY_x
-            ;#Name $0080 JOY_a
-            ;#Name $0100 JOY_right
-            ;#Name $0200 JOY_left
-            ;#Name $0400 JOY_down
-            ;#Name $0800 JOY_up
-            ;#Name $1000 JOY_start
-            ;#Name $2000 JOY_select
-            ;#Name $4000 JOY_y
-            ;#Name $8000 JOY_b
-            
             ;#Name $8000 JOY_jump
             ;#Name $4000 JOY_attack
 
