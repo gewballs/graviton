@@ -467,7 +467,8 @@
             ;#Data w crate.sprite
 
             ;# Edit
-            ;#Data w edit.sprite
+            ;#Data w edit.reticle.sprite
+            ;#Data w edit.info.sprite
 
             ;# Hitbox
             ;#Data w hit.tl.sprite

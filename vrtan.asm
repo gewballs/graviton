@@ -12,9 +12,6 @@
             ;PHP                  // Php();
             ;REP #$30             // Rep(0x30);
             ;
-            ;# Common Tasks ========
-            ;
-            ;
             ;# Program =============
             ;LDX #$0000           // state0();
             ;JSR (vrtan.state0,X) //
@@ -40,7 +37,7 @@
             ;EOR #$FFFF           //
             ;STA vrtan.hit.show   // }
 ;{+Same}    ;
-            ;PLP                  // Plp();
+;{+Return}  ;PLP                  // Plp();
             ;RTS                  // return;
             
             ;# ===============================================================//

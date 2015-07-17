@@ -36,9 +36,9 @@
             ;BEQ {+}
             ;LDA #$0000
             ;BRA {Trigger}
-;{++}       ;LDA #$000F
+;{++}       ;LDA #$000C
             ;STA joy.hold,X
-;{+}        ;LDA #$000F
+;{+}        ;LDA #$0004
             ;STA joy.cool,X
             ;LDA joy,X
             ;BCS {Trigger}

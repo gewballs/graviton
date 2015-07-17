@@ -129,11 +129,16 @@
 ;{+Hide}    ;
             ;PLP
             ;RTS
-            
+           
+
             ;# ===============================================================//
             ;#Code w {Draw.Edit}                                              //
             ;# ===============================================================//
-            ;SEP #$20
+			;# Reticule ================
+			;LDA Edit.mode
+			;BNE {+Enabled}
+            ;RTS
+;{+Enabled} ;SEP #$20
             ;STZ Draw_Sprite.data_bank
             ;STZ Draw_Sprite.obj_p_override
             ;LDA Edit.x
@@ -148,9 +153,90 @@
             ;STA Draw_Sprite.y
             ;REP #$20
             ;STZ Draw_Sprite.char_i
-            ;LDA #edit.sprite
+            ;LDA #edit.reticle.sprite
             ;STA Draw_Sprite.data_i
             ;JSR Draw_Sprite
+			;
+			;# Tile ===================
+			;SEP #$20
+			;STZ $10
+			;STZ $11
+			;STZ $12
+			;REP #$20
+			;LDA Edit.n
+			;STA $13
+			;LDA Edit.c
+			;CLC
+			;ADC #$0002
+			;AND #$0007
+			;XBA
+			;ASL A
+			;ORA $13
+			;STA $13
+			;LDA #$3000
+			;ORA $13
+			;STA $13
+			;LDA Edit.f
+			;CLC
+			;ROR A
+			;ROR A
+			;ROR A
+			;ORA $13
+			;STA $13
+			;STZ $15
+			;
+            ;SEP #$20
+            ;STZ Draw_Sprite.data_bank
+            ;STZ Draw_Sprite.obj_p_override
+			;LDA Edit.x
+			;ASL A
+			;ASL A
+			;ASL A
+            ;STA Draw_Sprite.x
+			;LDA Edit.y
+			;ASL A
+			;ASL A
+			;ASL A
+            ;STA Draw_Sprite.y
+			;REP #$20
+			;LDA #$0100
+            ;STA Draw_Sprite.char_i
+            ;LDA #$0010
+            ;STA Draw_Sprite.data_i
+            ;JSR Draw_Sprite
+			;
+			;# Info ===================
+			;
+            ;SEP #$20
+            ;STZ Draw_Sprite.data_bank
+            ;STZ Draw_Sprite.obj_p_override
+			;LDA #$08
+            ;STA Draw_Sprite.x
+			;LDA #$B0
+            ;STA Draw_Sprite.y
+            ;REP #$20
+			;LDA #$0100
+            ;STA Draw_Sprite.char_i
+            ;LDA #edit.info.sprite
+            ;STA Draw_Sprite.data_i
+            ;# JSR Draw_Sprite
+			;
+			;
+			;
+			;
+			;
+			;
+			;
+			;
+			;
+			;
+			;
+			;
+			;
+			;
+			;
+			;
+			;
             ;RTS
             
             ;# ===============================================================//
@@ -169,12 +255,7 @@
             ;
             ;# !!! DEBUG !!! =======
             ;INC p0.score    // Essentially a frame counter
-            ;LDA vrtan.hazard     // Hurt/stop directions
-            ;ASL A                //
-            ;ASL A                //
-            ;ASL A                //
-            ;ASL A                //
-            ;ORA vrtan.stop       //
+			;LDA Edit.n
             ;STA p1.score    //
             ;
             ;# Score 0 =============

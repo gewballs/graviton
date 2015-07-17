@@ -241,6 +241,15 @@
             ;STA gradient.b1
             ;REP #$20
             ;
+            ;# Debug ===============
+			;LDA #$0020
+			;STA Edit.n
+			;LDA #$0002
+			;STA Edit.c
+			;LDA #$0001
+			;STA Edit.p
+			;STZ Edit.f
+			;
             ;# Program =============
             ;INC Main.program     // Main.program++;
             ;
@@ -296,6 +305,16 @@
             ;
             ;# Game ================
 			;JSR Edit             //   Edit();
+			;REP #$30
+			;LDA Edit.mode
+			;BEQ {+Off}
+			;LDA joy1
+			;PHA
+			;STZ joy1
+			;LDA joy1.edge
+			;PHA
+			;STZ joy1.edge
+;{+Off}     ;
             ;JSR Gravity          //   Gravity();
 			;JSR Particle         //   Particle();
             ;JSR Vrtan            //   Vrtan();
@@ -303,6 +322,14 @@
             ;JSR Draw             //   Draw();
             ;JSR Debug            //   Debug();
             ;
+			;LDA Edit.mode
+			;BEQ {+Off}
+			;PLA
+			;STA joy1.edge
+			;PLA
+			;STA joy1
+;{+Off}
+			;
             ;# Rotate State =======
             ;REP #$20
             ;LDA gravity1
