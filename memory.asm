@@ -339,6 +339,7 @@
 			;#Code w Particle.Gibs
 			;#Code w Spawn.Gibs
 
+;#Code w Vrtan.SpikeTestDebug
             ;#Code w Vrtan
             ;#Code w Vrtan.Idle
             ;#Code w Vrtan.Walk

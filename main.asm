@@ -319,6 +319,7 @@
 			;JSR Particle         //   Particle();
             ;JSR Vrtan            //   Vrtan();
             ;JSR Crate            //   Crate();
+;JSR Vrtan.SpikeTestDebug
             ;JSR Draw             //   Draw();
             ;JSR Debug            //   Debug();
             ;

@@ -6,6 +6,151 @@
 			;#Name $0100 walkSpeed
 			;#Name $0200 runSpeed
 
+
+
+;#Code w {Vrtan.SpikeTestDebug}
+;PHP
+;REP #$30
+;
+;LDA vrtan.state0
+;CMP #Vrtan.Crush
+;BEQ {+Done}
+;CMP #Vrtan.Crushing
+;BEQ {+Done}
+;CMP #Vrtan.Respawn
+;BNE {+}
+;{+Done}
+;PLP
+;RTS
+;{+}
+;
+;PHB
+;PEA $7E00
+;PLB
+;PLB
+;
+;# x position ============
+;LDA vrtan.x0
+;CLC
+;ADC vrtan.hit.x
+;XBA
+;AND #$00FF
+;LSR A
+;LSR A
+;LSR A
+;STA $00 // X0 TILE
+;
+;# dx position ===========
+;LDA vrtan.x0
+;CLC
+;ADC vrtan.hit.x
+;XBA
+;AND #$00FF
+;STA $02
+;LDA vrtan.hit.width
+;XBA
+;AND #$00FF
+;CLC
+;ADC $02
+;DEC A
+;LSR A
+;LSR A
+;LSR A
+;SEC
+;SBC $00
+;INC A
+;STA $02 // DX TILE
+;
+;# y position ============
+;LDA vrtan.y0
+;CLC
+;ADC vrtan.hit.y
+;XBA
+;AND #$00FF
+;LSR A
+;LSR A
+;LSR A
+;STA $04 // Y0 TILE
+;
+;# dy position ===========
+;LDA vrtan.y0
+;CLC
+;ADC vrtan.hit.y
+;XBA
+;AND #$00FF
+;STA $06
+;LDA vrtan.hit.height
+;XBA
+;AND #$00FF
+;CLC
+;ADC $06
+;DEC A
+;LSR A
+;LSR A
+;LSR A
+;SEC
+;SBC $04
+;INC A
+;STA $06
+;
+;# Initial Tile ===========
+;LDA $04
+;ASL A
+;ASL A
+;ASL A
+;ASL A
+;ASL A
+;CLC
+;ADC $00
+;ASL A
+;STA $08
+;TAX
+;
+;
+;{-YLoop}
+;LDY $02
+;{-XLoop}
+;LDA level,X
+;AND #$00FF
+;CMP #$0021 // Spike
+;BNE {+Next}
+;LDA #Vrtan.Crush
+;STA vrtan.state0
+;STA vrtan.state1
+;BRA {+Done}
+;{+Next}
+;TXA
+;AND #$07C0
+;STA $14
+;TXA
+;INC A
+;INC A
+;AND #$003F
+;ORA $14
+;TAX
+;DEY
+;BNE {-XLoop}
+;LDA $08
+;CLC
+;ADC #$0040
+;AND #$07FF
+;STA $08
+;TAX
+;DEC $06
+;BNE {-YLoop}
+;
+;
+;{+Done}
+;PLB
+;PLP
+;RTS
+
+
+
+
+
+
+
             ;# ===============================================================//
             ;#Code w {Vrtan}                                                  //
             ;# ===============================================================//
@@ -640,9 +785,9 @@
             ;#Code w {Vrtan.Respawn}                                          //
             ;# ===============================================================//
 			;JSL Rng
-			;# STA vrtan.x1
+			;STA vrtan.x1
 			;JSL Rng
-			;# STA vrtan.y1
+			;STA vrtan.y1
 			;LDA #Vrtan.Idle
 			;STA vrtan.state1
 			;
