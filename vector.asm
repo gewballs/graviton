@@ -7,6 +7,9 @@
             ;# ===============================================================//
             ;#Code l {Reset}                                                  //
             ;# ===============================================================//
+            ;SEI
+            ;CLC
+            ;XCE
             ;REP #$38
             ;PHK
             ;PLB
@@ -19,7 +22,7 @@
             ;JSR Reset.Oam
             ;JSR Reset.Cgram
             ;JSR Reset.Apu
-            ;LDA #$0000// Clear.WRAM
+            ;LDA #$0000 // Clear.WRAM
             ;LDX #$4000
 ;{-}        ;DEX
             ;DEX
@@ -145,12 +148,9 @@
             ;# ===============================================================//
             ;#Code w {Reset.Oam}                                              //
             ;# ===============================================================//
-            ;PHP
-            ;REP#$20
             ;STZ OAMADD
             ;JSL Dma.Immediate
             ;#Data {$0A $04 $80:FFF0 $0220}
-            ;PLP
             ;RTS
             
             ;# ===============================================================//
@@ -167,9 +167,44 @@
             ;# ===============================================================//
             ;#Code w {Reset.Apu}                                              //
             ;# ===============================================================//
-            ;RTS
-            
-            
+            ;PHP                  //
+            ;SEP #$20             //
+            ;
+            ;# Initiate ============
+            ;LDX #$0200           // cpu.apuio2=0x0200;
+            ;STX APUIO2           //
+            ;LDA #$CC             // cpu.apuio1=0xCC;
+            ;STA APUIO1           //
+            ;STA APUIO0           // cpu.apuio0=0xCC;
+;{-Sync}    ;CMP APUIO0           // while(cpu.apuio0!=0xCC);
+            ;BNE {-Sync}          //
+            ;
+            ;# Transfer ============
+            ;LDX #$0000           // for(X=0x0000:X<audecSize:X++){
+;{-Loop}    ;LDA audio,X          //   cpu.apuio1=audec[X];
+            ;STA APUIO1           //
+            ;TXA                  //   cpu.apuio0=(byte)X;
+            ;STA APUIO0           //
+;{-Sync}    ;CMP APUIO0           //   while(cpu.apuio0!=(byte)X);
+            ;BNE {-Sync}          //
+            ;INX                  //
+            ;CPX #audioSize       //
+            ;BCC {-Loop}          // }
+            ;
+            ;# End =================
+            ;STZ APUIO1           // cpu.apuio1=0x00;
+            ;INX                  // A=X+1;
+            ;TXA                  //
+            ;BNE {+}              // A=A?A:1;
+            ;INC A                //
+;{+}        ;STA APUIO0           // cpu.apuio0=A;
+            ;
+            ;PLP                  //
+            ;RTS                  // return;
+
+
+
+
             ;# ===============================================================//
             ;#                                                                //
             ;# Nmi                                                            //

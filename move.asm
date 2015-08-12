@@ -12,12 +12,13 @@
             ;PHP                  // Php();
             ;REP #$30             // Rep(0x30);
             ;
-            ;LDA Move.dx          // if(abs(dx)>=abs(dy)){
+;LDA $DB0000
+            ;LDA Move.dy          // if(abs(dx)>=abs(dy)){
             ;BPL {+Abs}           //
             ;EOR #$FFFF           //
             ;INC A                //
 ;{+Abs}     ;STA Move.abs         //
-            ;LDA Move.dy          //
+            ;LDA Move.dx          //
             ;BPL{+Abs}            //
             ;EOR #$FFFF           //
             ;INC A                //
@@ -27,6 +28,7 @@
             ;LDA Move.x0          //     Push(x0);
             ;PHA                  //
             ;JSR Move.Mob.X       //     Move.Mob.X();
+;LDA $DB0001
             ;LDA Move.x1          //     x0=x1;
             ;STA Move.x0          //
             ;JSR Move.Mob.Y       //     Move.Mob.Y();
@@ -37,6 +39,7 @@
 ;{+Y}       ;LDA Move.y0          //     Push(y0);
             ;PHA                  //
             ;JSR Move.Mob.Y       //     Move.Mob.Y();
+;LDA $DB0001
             ;LDA Move.y1          //     y0=y1;
             ;STA Move.y0          //
             ;JSR Move.Mob.X       //     Move.Mob.X();
@@ -44,6 +47,7 @@
             ;STA Move.y0          // }
             ;
 ;{+X}       ;PLP                  // Plp();
+;LDA $DB0002
             ;RTS                  // return;
 
             ;# ===============================================================//
@@ -515,12 +519,12 @@
             ;PLB                  //
             ;PLB                  //
             ;
-            ;LDA Move.dx          // if(abs(dx)>=abs(dy)){
+            ;LDA Move.dy          // if(abs(dx)>=abs(dy)){
             ;BPL {+Abs}           //
             ;EOR #$FFFF           //
             ;INC A                //
 ;{+Abs}     ;STA Move.abs         //
-            ;LDA Move.dy          //
+            ;LDA Move.dx          //
             ;BPL{+Abs}            //
             ;EOR #$FFFF           //
             ;INC A                //

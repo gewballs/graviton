@@ -397,6 +397,9 @@
             ;#Code l Rng
             ;#Data l sinusoid
 
+			;#Name w audioSize
+            ;#Data l audio
+
             ;# Backgrounds
             ;#Data l bg.char
             ;#Data l palette

@@ -16,9 +16,6 @@
             ;# ===============================================================//
             ;#Code w {Vector.Reset}                                           //
             ;# ===============================================================//
-            ;SEI                  // I=1;
-            ;CLC                  // E=0;
-            ;XCE                  //
             ;JML Reset            // Reset();
             
             ;# ===============================================================//
@@ -40,11 +37,12 @@
             ;#File math.asm       // Math code
             ;#File oam.asm        // Oam (Object Attribute Memory) code
             ;#File joy.asm        // Controller code
+			;#File audio.asm      // Audio code
             
             ;# Game ================
             ;#File draw.asm       // Render code
             ;#File move.asm       // Movement code
-			;#File edit.asm
+			;#File edit.asm       // Editor code
             ;#File vrtan.asm      // Player code
             ;#File crate.asm      // Crate code
 			;#File particle.asm   // Particle code

@@ -131,7 +131,6 @@
             ;BIT #JOY_a
             ;BEQ {+Return}
 			;
-			;LDA $DB0000
             ;PHB
             ;PEA $7E00
             ;PLB
