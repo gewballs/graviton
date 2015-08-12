@@ -1,7 +1,6 @@
 # graviton
 ![alt tag](https://raw.githubusercontent.com/gewballs/graviton/master/pictures/graviton_sound_i_swear.jpg)
 
-
 SNES Graviton
 
 This is a small project to demonstrate how a SNES game works.
