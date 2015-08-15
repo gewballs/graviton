@@ -152,3 +152,107 @@
             ;#                                                                //
             ;# ===============================================================//
 
+;#Name $00 DSP_voll0
+;#Name $01 DSP_volr0
+;#Name $02 DSP_pitchl0
+;#Name $03 DSP_pitchh0
+;#Name $04 DSP_srcn0
+;#Name $05 DSP_adsrl0
+;#Name $06 DSP_adsrh0
+;#Name $07 DSP_gain0
+;#Name $08 DSP_envx0
+;#Name $09 DSP_outx0
+
+;#Name $10 DSP_voll1
+;#Name $11 DSP_volr1
+;#Name $12 DSP_pitchl1
+;#Name $13 DSP_pitchh1
+;#Name $14 DSP_srcn1
+;#Name $15 DSP_adsrl1
+;#Name $16 DSP_adsrh1
+;#Name $17 DSP_gain1
+;#Name $18 DSP_envx1
+;#Name $19 DSP_outx1
+
+;#Name $20 DSP_voll2
+;#Name $21 DSP_volr2
+;#Name $22 DSP_pitchl2
+;#Name $23 DSP_pitchh2
+;#Name $24 DSP_srcn2
+;#Name $25 DSP_adsrl2
+;#Name $26 DSP_adsrh2
+;#Name $27 DSP_gain2
+;#Name $28 DSP_envx2
+;#Name $29 DSP_outx2
+
+;#Name $30 DSP_voll3
+;#Name $31 DSP_volr3
+;#Name $32 DSP_pitchl3
+;#Name $33 DSP_pitchh3
+;#Name $34 DSP_srcn3
+;#Name $35 DSP_adsrl3
+;#Name $36 DSP_adsrh3
+;#Name $37 DSP_gain3
+;#Name $38 DSP_envx3
+;#Name $39 DSP_outx3
+
+;#Name $40 DSP_voll4
+;#Name $41 DSP_volr4
+;#Name $42 DSP_pitchl4
+;#Name $43 DSP_pitchh4
+;#Name $44 DSP_srcn4
+;#Name $45 DSP_adsrl4
+;#Name $46 DSP_adsrh4
+;#Name $47 DSP_gain4
+;#Name $48 DSP_envx4
+;#Name $49 DSP_outx4
+
+;#Name $50 DSP_voll5
+;#Name $51 DSP_volr5
+;#Name $52 DSP_pitchl5
+;#Name $53 DSP_pitchh5
+;#Name $54 DSP_srcn5
+;#Name $55 DSP_adsrl5
+;#Name $56 DSP_adsrh5
+;#Name $57 DSP_gain5
+;#Name $58 DSP_envx5
+;#Name $59 DSP_outx5
+
+;#Name $60 DSP_voll6
+;#Name $61 DSP_volr6
+;#Name $62 DSP_pitchl6
+;#Name $63 DSP_pitchh6
+;#Name $64 DSP_srcn6
+;#Name $65 DSP_adsrl6
+;#Name $66 DSP_adsrh6
+;#Name $67 DSP_gain6
+;#Name $68 DSP_envx6
+;#Name $69 DSP_outx6
+
+;#Name $70 DSP_voll7
+;#Name $71 DSP_volr7
+;#Name $72 DSP_pitchl7
+;#Name $73 DSP_pitchh7
+;#Name $74 DSP_srcn7
+;#Name $75 DSP_adsrl7
+;#Name $76 DSP_adsrh7
+;#Name $77 DSP_gain7
+;#Name $78 DSP_envx7
+;#Name $79 DSP_outx7
+
+;#Name $0C DSP_mvoll
+;#Name $1C DSP_mvolr
+;#Name $2C DSP_evoll
+;#Name $3C DSP_evolr
+;#Name $4C DSP_kon
+;#Name $5C DSP_kof
+;#Name $6C DSP_flg
+;#Name $7C DSP_endx
+;#Name $0D DSP_efb
+;#Name $2D DSP_pmon
+;#Name $3D DSP_non
+;#Name $4D DSP_eon
+;#Name $5D DSP_dir
+;#Name $6D DSP_esa
+;#Name $7D DSP_edl
+
