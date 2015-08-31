@@ -37,7 +37,6 @@
             ;#File math.asm       // Math code
             ;#File oam.asm        // Oam (Object Attribute Memory) code
             ;#File joy.asm        // Controller code
-			;#File audio.asm      // Audio code
             
             ;# Game ================
             ;#File draw.asm       // Render code
@@ -385,6 +384,8 @@
                 Vector.Trap  Vector.Trap  Vector.Reset Vector.Trap
             }
             
+			;#File audio.asm      // Audio code
+
             ;# ===============================================================//
             ;#                                                                //
             ;# ===============================================================//
