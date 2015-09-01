@@ -34,7 +34,7 @@
 
 ;# $0500 Tracks
 ;#Data l bgm.tracks {
-  $0516 $0510 $0510 $0510 $0510 $0510 $0510 $0510
+  $0516 $0510 $0510 $5600 $5637 $5658 $0510 $0510
 }
 
 ;# $0510 Track,Null
@@ -60,55 +60,22 @@
   BGM_byte DSP_srcn0   $05
   BGM_word DSP_adsrl0  $D9 $E8, BGM_byte DSP_gain0 $00
   BGM_word DSP_voll0   $3F $3F, BGM_word DSP_pitchl0 $0800
-  BGM_kon $01
-
-
-  BGM_byte DSP_srcn0   $06
-  BGM_word DSP_adsrl0  $CA $EF, BGM_byte DSP_gain0 $00
-  BGM_word DSP_voll0   $3F $3F, BGM_word DSP_pitchl0 $1000
-  BGM_kon $01
-
-
-  BGM_byte DSP_srcn0   $07
-  BGM_word DSP_adsrl0  $00 $00, BGM_byte DSP_gain0 $7F
-  BGM_word DSP_voll0   $3F $3F, BGM_word DSP_pitchl0 $0800
-  BGM_kon $01
-
-
-  BGM_byte DSP_srcn0   $08
-  BGM_word DSP_adsrl0  $00 $00, BGM_byte DSP_gain0 $7F
-  BGM_word DSP_voll0   $3F $3F, BGM_word DSP_pitchl0 $0800
-  BGM_kon $01
-
-
-  BGM_byte DSP_srcn0   $09
-  BGM_word DSP_adsrl0  $00 $00, BGM_byte DSP_gain0 $7F
-  BGM_word DSP_voll0   $3F $3F, BGM_word DSP_pitchl0 $1000
-  BGM_kon $01
-
-
-  BGM_byte DSP_srcn0   $0A
-  BGM_word DSP_adsrl0  $00 $00, BGM_byte DSP_gain0 $7F
-  BGM_word DSP_voll0   $3F $3F, BGM_word DSP_pitchl0 $1000
-  BGM_kon $01
-
-
-  BGM_byte DSP_srcn0   $0B
-  BGM_word DSP_adsrl0  $00 $00, BGM_byte DSP_gain0 $7F
-  BGM_word DSP_voll0   $3F $3F, BGM_word DSP_pitchl0 $0BFC
-  BGM_kon $01
-
-
-  BGM_byte DSP_srcn0   $0C
-  BGM_word DSP_adsrl0  $00 $00, BGM_byte DSP_gain0 $7F
-  BGM_word DSP_voll0   $3F $3F, BGM_word DSP_pitchl0 $1000
-  BGM_kon $01
+  BGM_pass BGM_pass
 
   BGM_jump $052E
 }
 
 ;#Data l dummy {
-  $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+  $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+  $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+  $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+  $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+  $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+  $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+  $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+  $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+  $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+  $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
   $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
   $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
 }
@@ -129,7 +96,7 @@
             ;#Data l dir0B { $3121 $3121 } // C4 Yo
             ;#Data l dir0C { $4024 $4024 } // C4 Stab
 
-			;# $0634 BRR Silence
+            ;# $0634 BRR Silence
             ;#Data l brr.silence { 
               $01 $00 $00 $00 $00 $00 $00 $00 $00
             }
@@ -196,12 +163,68 @@
             ;#Data l brr.yo    { #yo.brr    } // 0x0F03 B
             ;#Data l brr.stab  { #stab.brr  } // 0x158D B
             
+            ;#Data l dummy2 {
+                  $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+              $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+              $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+              $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+              $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
+            }
 
+;# $5600 Track 3: Snare
+;#Data l bgm.track3 {
+    BGM_byte DSP_srcn3   $0A
+    BGM_word DSP_adsrl3  $00 $00, BGM_byte DSP_gain3 $7F
 
+    BGM_word DSP_voll3   $1F $1F
+    BGM_wait $10, BGM_pass
+    BGM_word DSP_pitchl3 $1000
+    BGM_wait $20, BGM_kon  $08
+    BGM_kon  $08
+    BGM_kon  $08
+    BGM_wait $08, BGM_kon  $08
+    BGM_wait $04, BGM_kon  $08
+    BGM_kon  $08
 
+    BGM_loop $0B $560E
+
+    BGM_wait $10, BGM_pass
+    BGM_kon  $08
+
+    BGM_loop $0F $562B
+
+    BGM_jump $560E
+}
+
+;# $5637 $Track 4: Kick
+;#Data l bgm.track4 {
+    BGM_byte DSP_srcn4    $08
+    BGM_word DSP_adsrl4   $00 $00, BGM_byte DSP_gain4 $7F
+
+    BGM_word DSP_voll4    $1F $1F
+    BGM_word DSP_pitchl4  $0800
+	BGM_wait $20, BGM_kon $10
+    BGM_wait $08, BGM_kon $10
+    BGM_wait $18, BGM_kon $10
+
+    BGM_jump $5649
+}
+
+;# $5658 Track 5: Hat
+;#Data l bgm.track5 {
+    BGM_byte DSP_srcn5    $09
+    BGM_word DSP_adsrl5   $00 $00, BGM_byte DSP_gain5 $7F
+
+    BGM_word DSP_voll5    $1F $1F
+    BGM_word DSP_pitchl5  $1000
+    
+	BGM_wait $08, BGM_pass
+    BGM_wait $10, BGM_kon $20
+
+    BGM_jump $566B
+}
 
 ;#{
-
 THESE TRACKS NEED TO BE UPDATED
 
 ;# $xxxx Track0,Bass
@@ -676,61 +699,6 @@ THESE TRACKS NEED TO BE UPDATED
 
     BGM_jump $0C5D
 
-}
-
-;# $0E03 Track 3: Snare
-;# Size 0x4A bytes
-;#Data l bgm.track3 {
-    BGM_data DSP_srcn3   $0A
-    BGM_data DSP_adsrl3  $D8, BGM_data DSP_adsrh3  $B8, BGM_data DSP_gain3 $00
-
-    BGM_data DSP_voll3   $1F, BGM_data DSP_volr3   $1F
-    BGM_wait $10
-    BGM_data DSP_pitchh3 $03, BGM_data DSP_pitchl3 $83
-   BGM_data DSP_kon $08, BGM_wait $20
-   BGM_data DSP_kon $08, BGM_wait $20
-   BGM_data DSP_kon $08, BGM_wait $20
-   BGM_data DSP_kon $08, BGM_wait $08
-   BGM_data DSP_kon $08, BGM_wait $04
-   BGM_data DSP_kon $08, BGM_wait $04
-
-    BGM_loop $0B $0E15
-
-    BGM_wait $10
-   BGM_data DSP_kon $08,  BGM_wait $10
-
-    BGM_loop $0F $0E3F
-
-    BGM_jump $0E15
-}
-
-;# $0E4D $Track 4: Kick
-;# Size 0x2A bytes
-;#Data l bgm.track4 {
-    BGM_data DSP_srcn4   $08
-    BGM_data DSP_adsrl4  $D8, BGM_data DSP_adsrh4  $B8, BGM_data DSP_gain4 $00
-
-    BGM_data DSP_voll4   $1F, BGM_data DSP_volr4   $1F
-    BGM_data DSP_pitchh4 $04, BGM_data DSP_pitchl4 $C1
-    BGM_data DSP_kon     $10, BGM_wait $20
-   BGM_data DSP_kon     $10, BGM_wait $08
-   BGM_data DSP_kon     $10, BGM_wait $18
-
-    BGM_jump $0E59
-}
-
-;# $0E77 Track 5: Hat
-;# Size 0x22 bytes
-;#Data l bgm.track5 {
-    BGM_data DSP_srcn5   $09
-    BGM_data DSP_adsrl5  $00, BGM_data DSP_adsrh5  $00, BGM_data DSP_gain5 $7F
-
-    BGM_wait $08
-   BGM_data DSP_voll5   $1F, BGM_data DSP_volr5   $1F
-   BGM_data DSP_pitchh5 $09, BGM_data DSP_pitchl5 $83
-   BGM_data DSP_kon     $20, BGM_wait $08
-
-    BGM_jump $0E83
 }
 ;#}
 
