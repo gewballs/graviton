@@ -172,24 +172,6 @@
               $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00
             }
 
-
-;#{ PITCH for A440Hz instruments sampled at 32kHz
-  C-5  C#5  D-5  D#5  E-5  F-5  F#5  G-5  G#5  A-5  A#5  B-5
-  1306 1428 155B 16A0 17F9 1965 1AE8 1C82 1E34 2000 21E7 23EB
-
-  C-4  C#4  D-4  D#4  E-4  F-4  F#4  G-4  G#4  A-4  A#4  B-4
-  0983 0A14 0AAD 0B50 0BFC 0CB2 0D74 0E41 0F1A 1000 10F3 11F5
-
-  C-3  C#3  D-3  D#3  E-3  F-3  F#3  G-3  G#3  A-3  A#3  B-3
-  04C1 050A 0556 05A8 05FE 0659 06BA 0720 078D 0800 0879 08FA
-
-  C-2  C#2  D-2  D#2  E-2  F-2  F#2  G-2  G#2  A-2  A#2  B-2
-  0260 0285 02AB 02D4 02FF 032C 035D 0390 03C6 0400 043C 047D
-
-  C-1  C#1  D-1  D#1  E-1  F-1  F#1  G-1  G#1  A-1  A#1  B-1
-  0130 0142 0155 016A 017F 0196 01AE 01C8 01E3 0200 021E 023E
-;#}
-
 ;# $5600 Track0,Bass
 ;#Data l bgm.track0 {
     BGM_time $42 $00
@@ -317,87 +299,104 @@
 
     BGM_loop $03 $57B1
 
-    BGM_word DSP_pitchh0 $0260
-    BGM_wait $10 BGM_kon $01
-    BGM_kon  $01
-    BGM_kon  $01
-    BGM_wait $08 BGM_kon $01
-    BGM_word DSP_pitchh0 $0390
-    BGM_kon  $01
-    BGM_word DSP_pitchh0 $032C
-    BGM_wait $10 BGM_kon $01
-    BGM_kon  $01
-    BGM_kon  $01
-    BGM_wait $08 BGM_kon $01
-    BGM_word DSP_pitchh0 $04C1
-    BGM_kon  $01
+    BGM_word DSP_pitchl0 $0879
+    BGM_wait $20 BGM_kon $01 BGM_kof $01
+    BGM_kon  $01 BGM_kof $01
+    BGM_kon  $01 BGM_kof $01
+    BGM_wait $1E BGM_kon $01 BGM_wait $02 BGM_kof $01
+    BGM_word DSP_pitchl0 $0CB2
+    BGM_wait $1E BGM_kon $01 BGM_wait $02 BGM_kof $01
+    BGM_word DSP_pitchl0 $0B50
+    BGM_wait $20 BGM_kon $01 BGM_kof $01
+    BGM_kon  $01 BGM_kof $01
+    BGM_kon  $01 BGM_kof $01
+    BGM_wait $1E BGM_kon $01 BGM_wait $02 BGM_kof $01
+    BGM_word DSP_pitchl0 $10F3
+    BGM_wait $1E BGM_kon $01 BGM_wait $02 BGM_kof $01
 
-    BGM_word DSP_pitchh0 $032C
-    BGM_wait $10 BGM_kon $01
-    BGM_kon  $01
-    BGM_kon  $01
-    BGM_wait $08 BGM_kon $01
-    BGM_word DSP_pitchh0 $02FF
-    BGM_kon  $01
-    BGM_word DSP_pitchh0 $0260
-    BGM_wait $10 BGM_kon $01
-    BGM_kon  $01
-    BGM_wait $08 BGM_kon $01
-    BGM_word DSP_pitchh0 $0390
-    BGM_kon  $01
-    BGM_word DSP_pitchh0 $043C
-    BGM_kon  $01
-    BGM_word DSP_pitchh0 $05A8
-    BGM_kon  $01
+    BGM_word DSP_pitchl0 $0B50
+    BGM_wait $20 BGM_kon $01 BGM_kof $01
+    BGM_kon  $01 BGM_kof $01
+    BGM_kon  $01 BGM_kof $01
+    BGM_wait $1E BGM_kon $01 BGM_wait $02 BGM_kof $01
+    BGM_word DSP_pitchl0 $0AAD
+    BGM_wait $1E BGM_kon $01 BGM_wait $02 BGM_kof $01
+    BGM_word DSP_pitchl0 $0879
+    BGM_wait $20 BGM_kon $01 BGM_kof $01
+    BGM_kon  $01 BGM_kof $01
+    BGM_wait $1E BGM_kon $01 BGM_wait $02 BGM_kof $01
+    BGM_word DSP_pitchl0 $0CB2
+    BGM_wait $1E BGM_kon $01 BGM_wait $02 BGM_kof $01
+    BGM_word DSP_pitchl0 $0F1A
+    BGM_wait $1E BGM_kon $01 BGM_wait $02 BGM_kof $01
+    BGM_word DSP_pitchl0 $1428
+    BGM_wait $1E BGM_kon $01 BGM_wait $02 BGM_kof $01
    
-    BGM_loop $01 $07F0
-
-    BGM_word DSP_voll0   $7F $7F
-    BGM_word DSP_pitchh0 $0260
-    BGM_wait $08 BGM_kon $01
+    BGM_loop $01 $587B
+    
+	BGM_word DSP_voll0   $7F $7F
+    BGM_word DSP_pitchl0 $0879
+    BGM_wait $10 BGM_kon $01 BGM_kof $01
     BGM_word DSP_voll0   $5F $5F
-    BGM_kon  $01
-    BGM_word DSP_pitchh0 $0400
-    BGM_wait $04 BGM_kon $01
-    BGM_word DSP_pitchh0 $043C
-    BGM_kon  $01
-    BGM_word DSP_pitchh0 $0390
-    BGM_kon  $01
+    BGM_kon  $01 BGM_kof $01
+    BGM_word DSP_pitchl0 $0E41
+    BGM_wait $0E BGM_kon $01 BGM_wait $02 BGM_kof $01
+    BGM_word DSP_pitchl0 $0F1A
+    BGM_wait $0E BGM_kon $01 BGM_wait $02 BGM_kof $01
+    BGM_word DSP_pitchl0 $0CB2
+    BGM_wait $0E BGM_kon $01 BGM_wait $02 BGM_kof $01
     BGM_word DSP_voll0   $7F $7F
-    BGM_word DSP_pitchh0 $02D4
-    BGM_wait $0C BGM_kon $01
-    BGM_wait $08 BGM_kon $01
+    BGM_word DSP_pitchl0 $0A14
+    BGM_wait $10 BGM_kon $01 BGM_wait $20 BGM_kof $01
+    BGM_wait $1E BGM_kon $01 BGM_wait $02 BGM_kof $01
     BGM_word DSP_voll0   $5F $5F
-    BGM_word DSP_pitchh0 $032C
-    BGM_wait $04 BGM_kon $01
-    BGM_word DSP_pitchh0 $02D4
-    BGM_kon  $01
-    BGM_word DSP_voll0   $3F $3F
-    BGM_word DSP_pitchh0 $032C
-    BGM_wait $08 BGM_kon $01
+    BGM_word DSP_pitchl0 $0B50
+    BGM_wait $0E BGM_kon $01 BGM_wait $02 BGM_kof $01
+    BGM_word DSP_pitchl0 $0A14
+    BGM_wait $0E BGM_kon $01 BGM_wait $02 BGM_kof $01
+    
+	BGM_word DSP_voll0   $3F $3F
+    BGM_word DSP_pitchl0 $0B50
+    BGM_wait $1E BGM_kon $01 BGM_wait $02 BGM_kof $01
     BGM_word DSP_voll0   $7F $7F
-    BGM_kon  $01
-    BGM_kon  $01
+    BGM_wait $10 BGM_kon $01 BGM_kof $01
+    BGM_kon  $01 BGM_kof $01
     BGM_word DSP_voll0   $5F $5F
-    BGM_word DSP_pitchh0 $0400
-    BGM_kon  $01
+    BGM_word DSP_pitchl0 $0E41
+    BGM_wait $1E BGM_kon $01 BGM_wait $02 BGM_kof $01
     BGM_word DSP_voll0   $7F $7F
-    BGM_word DSP_pitchh0 $043C
-    BGM_kon  $01
+    BGM_word DSP_pitchl0 $0F1A
+    BGM_wait $1E BGM_kon $01 BGM_wait $02 BGM_kof $01
     BGM_word DSP_voll0   $5F $5F
-    BGM_word DSP_pitchh0 $02D4
-    BGM_kon  $01
+    BGM_word DSP_pitchl0 $0A14
+    BGM_wait $10 BGM_kon $01 BGM_kof $01
     BGM_word DSP_voll0   $7F $7F
-    BGM_kon  $01
-    BGM_word DSP_pitchh0 $0400
-    BGM_kon  $01
-    BGM_word DSP_pitchh0 $032C
-    BGM_kon  $01
+    BGM_kon  $01 BGM_kof $01
+    BGM_word DSP_pitchl0 $0E41
+    BGM_wait $1E BGM_kon $01 BGM_wait $02 BGM_kof $01
+    BGM_word DSP_pitchl0 $0B50
+    BGM_wait $1E BGM_kon $01 BGM_wait $02 BGM_kof $01
    
-    BGM_loop $03 $088C
+    BGM_loop $03 $592B
    
-    BGM_jump $05C0
+    BGM_jump $5622
 }
+;#{ PITCH for A440Hz instruments sampled at 32kHz
+  C-5  C#5  D-5  D#5  E-5  F-5  F#5  G-5  G#5  A-5  A#5  B-5
+  1306 1428 155B 16A0 17F9 1965 1AE8 1C82 1E34 2000 21E7 23EB
+
+  C-4  C#4  D-4  D#4  E-4  F-4  F#4  G-4  G#4  A-4  A#4  B-4
+  0983 0A14 0AAD 0B50 0BFC 0CB2 0D74 0E41 0F1A 1000 10F3 11F5
+
+  C-3  C#3  D-3  D#3  E-3  F-3  F#3  G-3  G#3  A-3  A#3  B-3
+  04C1 050A 0556 05A8 05FE 0659 06BA 0720 078D 0800 0879 08FA
+
+  C-2  C#2  D-2  D#2  E-2  F-2  F#2  G-2  G#2  A-2  A#2  B-2
+  0260 0285 02AB 02D4 02FF 032C 035D 0390 03C6 0400 043C 047D
+
+  C-1  C#1  D-1  D#1  E-1  F-1  F#1  G-1  G#1  A-1  A#1  B-1
+  0130 0142 0155 016A 017F 0196 01AE 01C8 01E3 0200 021E 023E
+;#}
 ;#{
 
 ;# 096B BGM Track 1, Pluck and Horn
